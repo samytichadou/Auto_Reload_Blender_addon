@@ -25,7 +25,8 @@ bl_info = {
     "version": (1, 0, 0),
     "blender": (2, 79, 0),
     "location": "Info Header",
-    "wiki_url": "",
+    "wiki_url": "https://github.com/samytichadou/Auto_Reload_Images-Blender_addon",
+    "tracker_url": "https://github.com/samytichadou/Auto_Reload_Images-Blender_addon/issues/new",
     "category": "Material" }
 
 
