@@ -11,3 +11,6 @@ Both of these operations will update viewport and screen accordingly to new imag
 Setup the timer in the user prefs addon, it will compare modification time of each image files every "n" seconds. If one has changed, it will be reload !
 
 Enjoy !
+
+Here's the release link :
+https://github.com/samytichadou/Auto_Reload_Images-Blender_addon/releases
