@@ -10,8 +10,7 @@ class Reload_AddonPrefs(bpy.types.AddonPreferences):
 
     def draw(self, context):
         layout = self.layout
-        row=layout.row()
-        row.prop(self, "check_frequency", text='Checking Frequency in seconds')
+        layout.prop(self, "check_frequency", text='Checking Frequency in seconds')
         
 
 

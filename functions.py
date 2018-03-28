@@ -13,15 +13,14 @@ def reload_images():
     #update viewers
     wman=bpy.data.window_managers['WinMan']
     for win in wman.windows:
+        scr = win.screen
         for area in win.screen.areas:
             area.tag_redraw()
             #redraw if viewport in rendered mode
+            region = [region for region in area.regions if region.type == 'WINDOW']
             if area.type=='VIEW_3D':
                 for space in area.spaces: # iterate through spaces in current VIEW_3D area
                     if space.type == 'VIEW_3D' and space.viewport_shade == 'RENDERED': # check if space is a 3D view
-                        win = win
-                        scr = win.screen
-                        region = [region for region in area.regions if region.type == 'WINDOW']
                         override = {'window':win,
                         'screen':scr,
                         'area'  :area,
@@ -31,6 +30,27 @@ def reload_images():
                         }
                         bpy.ops.view3d.toggle_render(override)
                         bpy.ops.view3d.toggle_render(override)
+            elif area.type=='IMAGE_EDITOR':
+                for space in area.spaces:
+                    if space.type == 'IMAGE_EDITOR':
+                        s=space
+                override = {'window':win,
+                'screen':scr,
+                'area'  :area,
+                'region':region,
+                'scene' :bpy.context.scene,
+                'blend_data' :bpy.context.blend_data,
+                'edit_image' :s.image
+                }
+                bpy.ops.image.reload(override)
+            elif area.type=='NODE_EDITOR':
+                for space in area.spaces:
+                    if space.type == 'NODE_EDITOR':
+                        if space.show_backdrop == True:
+                            space.show_backdrop = True
+
+                
+                
     return{"FINISHED"}
 
 def get_modification_times():
