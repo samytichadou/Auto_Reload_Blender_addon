@@ -14,3 +14,6 @@ Enjoy !
 
 Here's the release link :
 https://github.com/samytichadou/Auto_Reload_Images-Blender_addon/releases
+
+And a little demo video :
+https://www.youtube.com/watch?v=N3FvLNb_2w0
