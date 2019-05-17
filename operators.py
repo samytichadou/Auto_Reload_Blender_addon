@@ -23,7 +23,7 @@ class Reload_reload_timer(bpy.types.Operator):
     bl_label = "Reload Images timer"
 
     _timer = None
-    oldtimer = bpy.props.FloatProperty()
+    oldtimer : bpy.props.FloatProperty()
     
     def __init__(self):
         
@@ -58,7 +58,7 @@ class Reload_reload_timer(bpy.types.Operator):
         addon_preferences = get_addon_preferences()
         freq=addon_preferences.check_frequency
         wm = context.window_manager
-        self._timer = wm.event_timer_add(freq, context.window)
+        self._timer = wm.event_timer_add(freq, window=context.window)
         wm.modal_handler_add(self)
         return {'RUNNING_MODAL'}
 

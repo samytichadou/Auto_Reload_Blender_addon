@@ -20,7 +20,8 @@ def reload_images():
             region = [region for region in area.regions if region.type == 'WINDOW']
             if area.type=='VIEW_3D':
                 for space in area.spaces: # iterate through spaces in current VIEW_3D area
-                    if space.type == 'VIEW_3D' and space.viewport_shade == 'RENDERED': # check if space is a 3D view
+                    #print(space.shading.type)
+                    if False and space.type == 'VIEW_3D' and space.shading.type in ['MATERIAL','RENDERED']: # check if space is a 3D view
                         override = {'window':win,
                         'screen':scr,
                         'area'  :area,
