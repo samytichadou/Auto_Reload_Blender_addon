@@ -21,8 +21,8 @@ Created by Samy Tichadou
 bl_info = {
     "name": "Auto Reload Images",
     "description": "Handy reload for Image Textures",
-    "author": "Samy TIchadou (tonton)",
-    "version": (1, 0, 0),
+    "author": "Samy TIchadou (tonton), RenFinkle",
+    "version": (1, 1, 0),
     "blender": (2, 80, 0),
     "location": "View3D > Material",
     "wiki_url": "https://github.com/samytichadou/Auto_Reload_Images-Blender_addon",
