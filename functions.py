@@ -71,4 +71,4 @@ def reload_startup(scene):
             i.modification_time=str(os.path.getmtime(path))
         except FileNotFoundError:
             i.modification_time="missing"
-    print("All images modification time updated")
+    print("Auto Reload Images --- All images modification time updated")

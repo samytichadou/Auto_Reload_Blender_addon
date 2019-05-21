@@ -14,7 +14,7 @@ class Reload_reload_all(bpy.types.Operator):
     def execute(self, context):
         reload_images()
         get_modification_times()
-        print("All images reloaded")
+        print("Auto Reload Images --- All images reloaded")
         return {"FINISHED"}
         
 
@@ -31,7 +31,7 @@ class Reload_reload_timer(bpy.types.Operator):
     
     def __init__(self):
         
-        print("Reload Images timer started")
+        print("Auto Reload Images --- Reload Images timer started")
         bpy.data.window_managers['WinMan'].reload_modal=True
 
     def modal(self, context, event):
@@ -53,7 +53,7 @@ class Reload_reload_timer(bpy.types.Operator):
                 if chk==1:
                     reload_images()
                     get_modification_times()
-                    print("Modified images reloaded")
+                    print("Auto Reload Images --- Modified images reloaded")
                 self.oldtimer=self._timer.time_duration
 
         return {'PASS_THROUGH'}
@@ -69,4 +69,4 @@ class Reload_reload_timer(bpy.types.Operator):
     def cancel(self, context):
         wm = context.window_manager
         wm.event_timer_remove(self._timer)
-        print("Reload Images timer ended")
+        print("Auto Reload Images --- Reload Images timer ended")
