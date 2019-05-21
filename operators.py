@@ -24,6 +24,10 @@ class Reload_reload_timer(bpy.types.Operator):
 
     _timer = None
     oldtimer : bpy.props.FloatProperty()
+
+    @classmethod
+    def poll(cls, context):
+        return not bpy.data.window_managers['WinMan'].reload_modal
     
     def __init__(self):
         
