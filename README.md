@@ -1,8 +1,8 @@
-# Auto Reload Images - Blender addon
+# Auto Reload Images - Blender (2.80) addon
 
 Handy automatic reload for Image Textures
 
-Just a little handy addon, adding two button in the info header :
+Just a little handy addon, adding two button in the ~~info header~~ properties panel :
 - refresh all images of the blend file
 - use a timer to fetch modified image file and reload them if needed
 

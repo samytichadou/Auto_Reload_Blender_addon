@@ -23,12 +23,11 @@ bl_info = {
     "description": "Handy reload for Image Textures",
     "author": "Samy TIchadou (tonton)",
     "version": (1, 0, 0),
-    "blender": (2, 79, 0),
-    "location": "Info Header",
+    "blender": (2, 80, 0),
+    "location": "View3D > Material",
     "wiki_url": "https://github.com/samytichadou/Auto_Reload_Images-Blender_addon",
     "tracker_url": "https://github.com/samytichadou/Auto_Reload_Images-Blender_addon/issues/new",
     "category": "Material" }
-
 
 import bpy
 
@@ -36,13 +35,17 @@ import bpy
 # load and reload submodules
 ##################################
 
-import importlib
+import importlib, inspect
 from . import developer_utils
 importlib.reload(developer_utils)
 modules = developer_utils.setup_addon_modules(__path__, __name__, "bpy" in locals())
-
+classes = []
+for module in modules:
+    for name, obj in inspect.getmembers(module):
+        if inspect.isclass(obj) and name != "persistent":
+            classes.append(obj)
 from .functions import reload_startup
-from .gui import reload_menu_draw
+#from .gui import reload_menu_draw
 
 # register
 ##################################
@@ -50,8 +53,8 @@ from .gui import reload_menu_draw
 import traceback
 
 def register():
-    try: bpy.utils.register_module(__name__)
-    except: traceback.print_exc()
+    #try: bpy.utils.register_module(__name__)
+    #except: traceback.print_exc()
     
     bpy.types.Image.modification_time = \
         bpy.props.StringProperty(name='File Modification Date', default='')
@@ -60,21 +63,27 @@ def register():
     bpy.types.WindowManager.reload_frames = \
         bpy.props.BoolProperty(name='Reload Images on Frame changes', default=False)
         
-    bpy.types.INFO_HT_header.append(reload_menu_draw)
+    #bpy.context.window.scene.PROPERTIES.append(reload_menu_draw)
+    for cls in classes:
+        #print(cls)
+        bpy.utils.register_class(cls)
         
     bpy.app.handlers.load_post.append(reload_startup)
 
-    print("Registered {} with {} modules".format(bl_info["name"], len(modules)))
+    #print("Registered {} with {} modules".format(bl_info["name"], len(modules)))
 
 def unregister():
-    try: bpy.utils.unregister_module(__name__)
-    except: traceback.print_exc()
+    for cls in classes:
+        bpy.utils.unregister_class(cls)
+        del cls
+    #try: bpy.utils.unregister_module(__name__)
+    #except: traceback.print_exc()
     
     del bpy.types.Image.modification_time
     del bpy.types.WindowManager.reload_modal
     del bpy.types.WindowManager.reload_frames
     
-    bpy.types.INFO_HT_header.remove(reload_menu_draw)
+    #bpy.types.INFO_HT_header.remove(reload_menu_draw)
     
     bpy.app.handlers.load_post.remove(reload_startup)
 
