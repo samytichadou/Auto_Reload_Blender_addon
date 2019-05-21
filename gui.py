@@ -11,11 +11,16 @@ class MenuPanel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
-        row = layout.row(align=True)
-        row.operator('reload.reload_all', text='',
+        layout.use_property_split = True # Active single-column layout
+        flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=False)
+
+        row = flow.row(align=True)
+        row.operator('reload.reload_all',
                      icon='FILE_REFRESH')
-        if bpy.data.window_managers['WinMan'].reload_modal == True:
+        row = flow.row(align=True)
+        row.operator('reload.reload_timer', icon='TIME')
+        if bpy.data.window_managers['WinMan'].reload_modal :
             row.prop(bpy.data.window_managers['WinMan'],
-                     'reload_modal', text='', icon='CANCEL')
-        else:
-            row.operator('reload.reload_timer', text='', icon='TIME')
+                     'reload_modal', text = "", icon='CANCEL')
+
+            
