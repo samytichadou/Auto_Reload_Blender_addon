@@ -22,7 +22,7 @@ bl_info = {
     "name": "Auto Reload Images",
     "description": "Handy reload for Image Textures",
     "author": "Samy TIchadou (tonton), RenFinkle",
-    "version": (1, 1, 1),
+    "version": (1, 2, 0),
     "blender": (2, 80, 0),
     "location": "View3D > Material",
     "wiki_url": "https://github.com/samytichadou/Auto_Reload_Images-Blender_addon",
@@ -45,7 +45,7 @@ for module in modules:
         if inspect.isclass(obj) and name != "persistent":
             classes.append(obj)
 from .functions import reload_startup
-#from .gui import reload_menu_draw
+
 
 # register
 ##################################
@@ -53,38 +53,23 @@ from .functions import reload_startup
 import traceback
 
 def register():
-    #try: bpy.utils.register_module(__name__)
-    #except: traceback.print_exc()
-    
     bpy.types.Image.modification_time = \
         bpy.props.StringProperty(name='File Modification Date', default='')
     bpy.types.WindowManager.reload_modal = \
         bpy.props.BoolProperty(name='Reload Images Timer', default=False)
-    bpy.types.WindowManager.reload_frames = \
-        bpy.props.BoolProperty(name='Reload Images on Frame changes', default=False)
         
-    #bpy.context.window.scene.PROPERTIES.append(reload_menu_draw)
     for cls in classes:
-        #print(cls)
         bpy.utils.register_class(cls)
         
     bpy.app.handlers.load_post.append(reload_startup)
 
-    #print("Registered {} with {} modules".format(bl_info["name"], len(modules)))
 
 def unregister():
+    del bpy.types.Image.modification_time
+    del bpy.types.WindowManager.reload_modal
+
     for cls in classes:
         bpy.utils.unregister_class(cls)
         del cls
-    #try: bpy.utils.unregister_module(__name__)
-    #except: traceback.print_exc()
-    
-    del bpy.types.Image.modification_time
-    del bpy.types.WindowManager.reload_modal
-    del bpy.types.WindowManager.reload_frames
-    
-    #bpy.types.INFO_HT_header.remove(reload_menu_draw)
-    
+   
     bpy.app.handlers.load_post.remove(reload_startup)
-
-    print("Unregistered {}".format(bl_info["name"]))
