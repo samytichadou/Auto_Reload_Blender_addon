@@ -14,9 +14,10 @@ class AUTORELOAD_PT_scenepanel(bpy.types.Panel):
         flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=False)
 
         row = flow.row(align=True)
-        row.operator('autoreload.reload_images', icon='FILE_REFRESH', text='Reload')
+        row.operator('autoreload.reload_images', icon='FILE_REFRESH', text='Reload Images')
 
         row = flow.row(align=True)
-        row.operator('autoreload.reload_timer', icon='TIME', text='Timer')
+        row.operator('autoreload.reload_timer', icon='TIME', text='Start Timer')
+        
         if bpy.data.window_managers['WinMan'].reload_modal :
             row.prop(bpy.data.window_managers['WinMan'], 'reload_modal', text = "", icon='CANCEL')

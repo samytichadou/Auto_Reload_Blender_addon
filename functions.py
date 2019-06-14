@@ -9,6 +9,12 @@ from .global_messages import handler
 def absolute_path(relpath):
     return os.path.abspath(bpy.path.abspath(relpath))
 
+# get addon path
+def get_my_dir():
+    """ get current file parent directory absolute path """
+    script = os.path.realpath(__file__)
+    return os.path.dirname(script)
+
 # reload image if needed
 def reload_images():
     modified = []
