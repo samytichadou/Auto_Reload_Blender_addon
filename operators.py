@@ -8,7 +8,7 @@ from gpu_extras.batch import batch_for_shader
 
 from .functions import reload_images, update_viewers, get_my_dir
 from .addon_prefs import get_addon_preferences
-from .global_messages import timer_start, timer_end, sign, reloaded, no_modif
+from .global_variables import timer_start, timer_end, sign, reloaded, no_modif
 
 class AUTORELOAD_OT_reload_images(bpy.types.Operator):
     bl_idname = "autoreload.reload_images"

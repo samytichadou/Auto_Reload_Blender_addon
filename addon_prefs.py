@@ -46,9 +46,18 @@ class Reload_AddonPrefs(bpy.types.AddonPreferences):
             subtype = 'COLOR'
             )
 
+    image_executable : bpy.props.StringProperty(
+            name = "External Image Program",
+            description = "External Program to modify your Images",
+            subtype = "FILE_PATH",
+            )
+
     def draw(self, context):
         layout = self.layout
         layout.prop(self, "check_frequency")
+        box = layout.box()
+        box.label(text="Executables")
+        box.prop(self, "image_executable", text="Images")
         box = layout.box()
         box.prop(self, "icon_toggle")
         if self.icon_toggle:

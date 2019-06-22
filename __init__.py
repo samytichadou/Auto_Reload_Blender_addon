@@ -42,6 +42,7 @@ modules = developer_utils.setup_addon_modules(__path__, __name__, "bpy" in local
 classes = []
 for module in modules:
     for name, obj in inspect.getmembers(module):
+        #print("registered --- " + name)
         if inspect.isclass(obj) and name != "persistent":
             classes.append(obj)
 from .functions import reload_startup
@@ -57,6 +58,8 @@ def register():
         bpy.props.StringProperty(name='File Modification Date', default='')
     bpy.types.WindowManager.reload_modal = \
         bpy.props.BoolProperty(name='Reload Images Timer', default=False)
+    bpy.types.WindowManager.autoreload_index = \
+        bpy.props.IntProperty(name='AutoReload Index')
         
     for cls in classes:
         bpy.utils.register_class(cls)
@@ -67,6 +70,7 @@ def register():
 def unregister():
     del bpy.types.Image.modification_time
     del bpy.types.WindowManager.reload_modal
+    del bpy.types.WindowManager.autoreload_index
 
     for cls in classes:
         bpy.utils.unregister_class(cls)
