@@ -1,6 +1,6 @@
 import bpy
 
-from .global_variables import avoid_images
+from .global_variables import avoid_images, image_texture
 
 class AUTORELOAD_PT_scenepanel(bpy.types.Panel):
     """Creates a Panel in the scene context of the scene editor"""
@@ -40,3 +40,16 @@ class AUTORELOAD_PT_scenepanel_inspector(bpy.types.Panel):
         layout.template_list("AUTORELOAD_UL_uilist", "", bpy.data, "images", wm, "autoreload_index", rows = 3)
         if bpy.data.images[wm.autoreload_index].name not in avoid_images:
             layout.prop(bpy.data.images[wm.autoreload_index], 'filepath', text='')
+
+class AUTORELOAD_PT_scenepanel_inspector_preview(bpy.types.Panel):
+    """Creates a Panel in the scene context of the scene editor"""
+    bl_label = "Image Preview"
+    bl_parent_id = "AUTORELOAD_PT_scenepanel_inspector"
+    bl_space_type = 'PROPERTIES'
+    bl_region_type = 'WINDOW'
+    bl_context = "scene"
+    bl_options = {'DEFAULT_CLOSED'}
+
+    def draw(self, context):
+        layout = self.layout
+        layout.template_preview(bpy.data.textures[image_texture], show_buttons=True)

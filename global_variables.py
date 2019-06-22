@@ -7,3 +7,4 @@ no_modif = sign + "No Modified Images found"
 missing_image = sign + "Missing Image"
 
 avoid_images = {"Render Result", "Viewer Node"}
+image_texture = "autoreload_preview"

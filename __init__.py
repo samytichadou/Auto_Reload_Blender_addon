@@ -45,7 +45,7 @@ for module in modules:
         #print("registered --- " + name)
         if inspect.isclass(obj) and name != "persistent":
             classes.append(obj)
-from .functions import reload_startup
+from .functions import reload_startup, update_texture
 
 
 # register
@@ -59,7 +59,7 @@ def register():
     bpy.types.WindowManager.reload_modal = \
         bpy.props.BoolProperty(name='Reload Images Timer', default=False)
     bpy.types.WindowManager.autoreload_index = \
-        bpy.props.IntProperty(name='AutoReload Index')
+        bpy.props.IntProperty(name='AutoReload Index', update=update_texture)
         
     for cls in classes:
         bpy.utils.register_class(cls)

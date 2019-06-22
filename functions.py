@@ -6,7 +6,7 @@ import platform
 import subprocess
 
 from bpy.app.handlers import persistent
-from .global_variables import handler
+from .global_variables import handler, image_texture
 from .addon_prefs import get_addon_preferences
 
 # absolute path
@@ -51,12 +51,22 @@ def update_viewers(context):
 # handler
 @persistent
 def reload_startup(scene):
+    #reload image
     for i in bpy.data.images:
         try:
             path=absolute_path(i.filepath)
             i.modification_time=str(os.path.getmtime(path))
         except FileNotFoundError:
             i.modification_time="missing"
+    #create texture
+    try:
+        txt=bpy.data.textures[image_texture]
+    except KeyError:
+        txt=bpy.data.textures.new("autoreload_preview", type='IMAGE')
+    #load it
+    wm = bpy.data.window_managers['WinMan']
+    txt.image = bpy.data.images[wm.autoreload_index]
+
     print(handler)
 
 # open folder in explorer
@@ -79,3 +89,9 @@ def open_image(path) :
     img_exe = prefs.image_executable
 
     subprocess.Popen([img_exe, path])
+
+# update texture
+def update_texture(self, context):
+    wm = bpy.data.window_managers['WinMan']
+    texture = bpy.data.textures[image_texture]
+    texture.image = bpy.data.images[wm.autoreload_index]
