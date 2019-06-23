@@ -50,6 +50,10 @@ class AUTORELOAD_PT_scenepanel_inspector_preview(bpy.types.Panel):
     bl_context = "scene"
     bl_options = {'DEFAULT_CLOSED'}
 
+    @classmethod
+    def poll(cls, context):
+        return bpy.data.images[bpy.data.window_managers['WinMan'].autoreload_index].name not in avoid_images
+
     def draw(self, context):
         layout = self.layout
         layout.template_preview(bpy.data.textures[image_texture], show_buttons=True)
