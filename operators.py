@@ -6,26 +6,42 @@ import blf
 
 from gpu_extras.batch import batch_for_shader
 
-from .functions import reload_images, update_viewers, get_my_dir
+from .functions import update_viewers, get_my_dir, reloadModifiedDatas
 from .addon_prefs import get_addon_preferences
-from .global_variables import timer_start, timer_end, sign, reloaded, no_modif
+from .global_variables import timer_start, timer_end, sign, reloaded, no_modif, missing
 
-class AUTORELOAD_OT_reload_images(bpy.types.Operator):
-    bl_idname = "autoreload.reload_images"
-    bl_label = "Reload Images"
-    bl_description = "Reload Images in the blend. if modified"
+class AUTORELOAD_OT_reload_datas(bpy.types.Operator):
+    bl_idname = "autoreload.reload_datas"
+    bl_label = "Reload Datas"
+    bl_description = "Reload Datas in the blend. if modified"
     bl_options = {"REGISTER", "UNDO"}
 
-    def execute(self, context):
-        modified=reload_images()
-        if len(modified)!=0:
-            update_viewers(context)
-            for m in modified :
-                print(sign + m + reloaded)
-        else:
-            print(no_modif)
-        return {"FINISHED"}
+    @classmethod
+    def poll(cls, context):
+        wm = context.window_manager
+        return wm.autoreloadImages or wm.autoreloadLibraries
 
+    def execute(self, context):
+        wm = bpy.context.window_manager
+        modified_list=[]
+        missing_list=[]
+        if wm.autoreloadImages:
+            mod, miss = reloadModifiedDatas(bpy.data.images)
+            modified_list += mod
+            missing_list += miss
+            if len(mod)!=0: update_viewers(context)
+            if len(miss) == 0: wm.autoreloadMissingImages = False
+            else: wm.autoreloadMissingImages = True
+        if wm.autoreloadLibraries:
+            mod, miss = reloadModifiedDatas(bpy.data.libraries)
+            modified_list += mod
+            missing_list += miss
+            if len(miss) == 0: wm.autoreloadMissingLibraries = False
+            else: wm.autoreloadMissingLibraries = True
+        for m in modified_list: print(sign + m + reloaded)
+        for m in missing_list: print(sign + m + missing)
+        if len(modified_list)==0 and len(missing_list)==0: print(no_modif)
+        return {"FINISHED"}
 
 ### UI ###
 
@@ -51,14 +67,13 @@ def draw_prepare(self):
 def draw_callback_px(self, context):
     # Text
     text = "T"
-
     blf.draw(self.font_id, text)
         
 
 class AUTORELOAD_OT_reload_timer(bpy.types.Operator):
     bl_idname = "autoreload.reload_timer"
-    bl_label = "Reload Images timer"
-    bl_description = "Look for modified Images every N seconds and reload them"
+    bl_label = "Reload Datas timer"
+    bl_description = "Look for modified Datas every N seconds and reload them"
 
     font_id = None
     font_path = os.path.join(get_my_dir(), os.path.join("misc", "heydings_icons.ttf"))
@@ -68,10 +83,14 @@ class AUTORELOAD_OT_reload_timer(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return not bpy.data.window_managers['WinMan'].reload_modal
+        chk = 0
+        wm = context.window_manager
+        if wm.autoreloadImages: chk = 1
+        elif wm.autoreloadLibraries: chk = 1
+        return not wm.reload_modal and chk == 1
     
     def __init__(self):     
-        bpy.data.window_managers['WinMan'].reload_modal=True
+        bpy.context.window_manager.reload_modal=True
         print(timer_start)
         self.prefs = get_addon_preferences()
         if self.prefs.icon_toggle :
@@ -79,27 +98,39 @@ class AUTORELOAD_OT_reload_timer(bpy.types.Operator):
             draw_prepare(self)
 
     def modal(self, context, event):
+        wm=context.window_manager
         # redraw area
         if self.prefs.icon_toggle :
             try:
                 for area in context.screen.areas:
-                    if area.type == 'PROPERTIES' :
-                        area.tag_redraw()
-            except AttributeError:
-                pass
+                    if area.type == 'PROPERTIES': area.tag_redraw()
+            except AttributeError: pass
 
-        if bpy.data.window_managers['WinMan'].reload_modal==False:
+        if wm.reload_modal==False:
             self.finish(context)
             return {'FINISHED'}
 
-        if event.type == 'TIMER':
+        elif not wm.autoreloadImages and not wm.autoreloadLibraries:
+            self.cancel(context)
+            return {'FINISHED'}
+
+        elif event.type == 'TIMER':
             if self.oldtimer!=self._timer.time_duration:
-                modified = reload_images()
-                if len(modified)!=0:
-                    update_viewers(context)
-                    for m in modified :
-                        print(sign + m + reloaded)
-                self.oldtimer=self._timer.time_duration
+                if wm.autoreloadImages:
+                    modified_list, missing_list = reloadModifiedDatas(bpy.data.images)
+                    if len(modified_list)!=0: update_viewers(context)
+                    if len(missing_list)==0: wm.autoreloadMissingImages=False
+                    else: wm.autoreloadMissingImages=True
+                    for m in modified_list: print(sign + m + reloaded)
+                    for m in missing_list: print(sign + m + missing)
+                    self.oldtimer=self._timer.time_duration
+                if wm.autoreloadLibraries:
+                    modified_list, missing_list = reloadModifiedDatas(bpy.data.libraries)
+                    if len(missing_list)==0: wm.autoreloadMissingLibraries=False
+                    else: wm.autoreloadMissingLibraries=True
+                    for m in modified_list: print(sign + m + reloaded)
+                    for m in missing_list: print(sign + m + missing)
+                    self.oldtimer=self._timer.time_duration
 
         return {'PASS_THROUGH'}
 
@@ -117,9 +148,18 @@ class AUTORELOAD_OT_reload_timer(bpy.types.Operator):
         return {'RUNNING_MODAL'}
 
     def finish(self, context):
-        if self.prefs.icon_toggle :
+        if self.prefs.icon_toggle:
             bpy.types.SpaceProperties.draw_handler_remove(self._handle, 'WINDOW')
             unload_font(self)
         wm = context.window_manager
         wm.event_timer_remove(self._timer)
+        print(timer_end)
+
+    def cancel(self, context):
+        if self.prefs.icon_toggle:
+            bpy.types.SpaceProperties.draw_handler_remove(self._handle, 'WINDOW')
+            unload_font(self)
+        wm = context.window_manager
+        wm.event_timer_remove(self._timer)
+        wm.reload_modal = False
         print(timer_end)

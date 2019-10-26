@@ -19,15 +19,15 @@ Created by Samy Tichadou
 '''
 
 bl_info = {
-    "name": "Auto Reload Images",
-    "description": "Handy reload for Image Textures",
+    "name": "Auto Reload",
+    "description": "Handy reload for Image Textures and Linked Libraries",
     "author": "Samy TIchadou (tonton), RenFinkle",
-    "version": (1, 2, 0),
+    "version": (1, 3, 0),
     "blender": (2, 80, 0),
-    "location": "View3D > Material",
+    "location": "Properties > Scene",
     "wiki_url": "https://github.com/samytichadou/Auto_Reload_Images-Blender_addon",
     "tracker_url": "https://github.com/samytichadou/Auto_Reload_Images-Blender_addon/issues/new",
-    "category": "Material" }
+    "category": "Object" }
 
 import bpy
 
@@ -45,7 +45,7 @@ for module in modules:
         #print("registered --- " + name)
         if inspect.isclass(obj) and name != "persistent":
             classes.append(obj)
-from .functions import reload_startup, update_texture
+from .functions import reload_startup
 
 
 # register
@@ -56,10 +56,18 @@ import traceback
 def register():
     bpy.types.Image.modification_time = \
         bpy.props.StringProperty(name='File Modification Date', default='')
+    bpy.types.Library.modification_time = \
+        bpy.props.StringProperty(name='File Modification Date', default='')
     bpy.types.WindowManager.reload_modal = \
-        bpy.props.BoolProperty(name='Reload Images Timer', default=False)
-    bpy.types.WindowManager.autoreload_index = \
-        bpy.props.IntProperty(name='AutoReload Index', update=update_texture)
+        bpy.props.BoolProperty(name='AutoReload Timer')
+    bpy.types.WindowManager.autoreloadImages = \
+        bpy.props.BoolProperty(name='AutoReload Images', default=True)
+    bpy.types.WindowManager.autoreloadLibraries = \
+        bpy.props.BoolProperty(name='AutoReload Libraries', default=True)
+    bpy.types.WindowManager.autoreloadMissingImages = \
+        bpy.props.BoolProperty(name='AutoReload Missing Images')
+    bpy.types.WindowManager.autoreloadMissingLibraries = \
+        bpy.props.BoolProperty(name='AutoReload Missing Libraries')
         
     for cls in classes:
         bpy.utils.register_class(cls)
@@ -69,8 +77,12 @@ def register():
 
 def unregister():
     del bpy.types.Image.modification_time
+    del bpy.types.Library.modification_time
     del bpy.types.WindowManager.reload_modal
-    del bpy.types.WindowManager.autoreload_index
+    del bpy.types.WindowManager.autoreloadImages
+    del bpy.types.WindowManager.autoreloadLibraries
+    del bpy.types.WindowManager.autoreloadMissingImages
+    del bpy.types.WindowManager.autoreloadMissingLibraries
 
     for cls in classes:
         bpy.utils.unregister_class(cls)

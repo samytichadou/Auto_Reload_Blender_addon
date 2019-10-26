@@ -1,59 +1,34 @@
 import bpy
 
-from .global_variables import avoid_images, image_texture
-
 class AUTORELOAD_PT_scenepanel(bpy.types.Panel):
     """Creates a Panel in the scene context of the scene editor"""
-    bl_label = "Auto Reload Image"
+    bl_label = "Auto Reload"
     bl_space_type = 'PROPERTIES'
     bl_region_type = 'WINDOW'
     bl_context = "scene"
 
     def draw(self, context):
+        wm = bpy.context.window_manager
         layout = self.layout
         layout.use_property_split = True # Active single-column layout
+
         flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=False)
-
         row = flow.row(align=True)
-        row.operator('autoreload.reload_images', icon='FILE_REFRESH', text='Reload Images')
-
+        row.operator('autoreload.reload_datas', icon='FILE_REFRESH', text='Reload Datas')
         row = flow.row(align=True)
         row.operator('autoreload.reload_timer', icon='TIME', text='Start Timer')
-        
         if bpy.data.window_managers['WinMan'].reload_modal :
-            row.prop(bpy.data.window_managers['WinMan'], 'reload_modal', text = "", icon='CANCEL')
-
-class AUTORELOAD_PT_scenepanel_inspector(bpy.types.Panel):
-    """Creates a Panel in the scene context of the scene editor"""
-    bl_label = "Inspector"
-    bl_parent_id = "AUTORELOAD_PT_scenepanel"
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "scene"
-    bl_options = {'DEFAULT_CLOSED'}
-
-    def draw(self, context):
-        wm = bpy.data.window_managers['WinMan']
-
-        layout = self.layout
-
-        layout.template_list("AUTORELOAD_UL_uilist", "", bpy.data, "images", wm, "autoreload_index", rows = 3)
-        if bpy.data.images[wm.autoreload_index].name not in avoid_images:
-            layout.prop(bpy.data.images[wm.autoreload_index], 'filepath', text='')
-
-class AUTORELOAD_PT_scenepanel_inspector_preview(bpy.types.Panel):
-    """Creates a Panel in the scene context of the scene editor"""
-    bl_label = "Image Preview"
-    bl_parent_id = "AUTORELOAD_PT_scenepanel_inspector"
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "scene"
-    bl_options = {'DEFAULT_CLOSED'}
-
-    @classmethod
-    def poll(cls, context):
-        return bpy.data.images[bpy.data.window_managers['WinMan'].autoreload_index].name not in avoid_images
-
-    def draw(self, context):
-        layout = self.layout
-        layout.template_preview(bpy.data.textures[image_texture], show_buttons=True)
+            row.prop(wm, 'reload_modal', text = "", icon='CANCEL')
+        box = layout.box()
+        flow = box.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=True)
+        row = flow.row(align=True)
+        row.prop(wm, 'autoreloadImages', text="Images")
+        row = flow.row(align=True)
+        row.prop(wm, 'autoreloadLibraries', text="Libraries")
+        flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=True)
+        if wm.autoreloadMissingImages:
+            row = flow.row()
+            row.label(text="Missing Images", icon='ERROR')
+        if wm.autoreloadMissingLibraries:
+            row = flow.row()
+            row.label(text="Missing Libraries", icon='ERROR')

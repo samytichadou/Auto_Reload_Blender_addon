@@ -1,12 +1,9 @@
 import bpy
 import os
 import time
-import sys
-import platform
-import subprocess
 
 from bpy.app.handlers import persistent
-from .global_variables import handler, image_texture
+from .global_variables import handler
 from .addon_prefs import get_addon_preferences
 
 # absolute path
@@ -19,22 +16,21 @@ def get_my_dir():
     script = os.path.realpath(__file__)
     return os.path.dirname(script)
 
-# reload image if needed
-def reload_images():
+# reload modified datas
+def reloadModifiedDatas(datas):
     modified = []
-    for image in bpy.data.images:
-        path = absolute_path(image.filepath)
+    missing = []
+    for item in datas:
+        path = absolute_path(item.filepath)
         try:
-            if image.modification_time!=str(os.path.getmtime(path)):
-                image.reload()
-                image.modification_time=str(os.path.getmtime(path))
-                modified.append(image.name)
+            if item.modification_time!=str(os.path.getmtime(path)):
+                item.reload()
+                item.modification_time=str(os.path.getmtime(path))
+                modified.append(item.name)
         except FileNotFoundError:
-            if image.modification_time != "missing":
-                image.reload()
-                image.modification_time="missing"
-                modified.append(image.name)
-    return modified
+            item.modification_time="missing"
+            missing.append(item.name)
+    return modified, missing
 
 # update 3d view if in rendered mode and not EEVEE or WORKBENCH
 def update_viewers(context):
@@ -48,50 +44,24 @@ def update_viewers(context):
                             space.shading.type = 'SOLID'
                             space.shading.type = 'RENDERED'
 
+# reload all datas
+def reloadDatas(datas):
+    is_missing = False
+    for item in datas:
+        try:
+            path=absolute_path(item.filepath)
+            item.modification_time=str(os.path.getmtime(path))
+        except FileNotFoundError:
+            item.modification_time="missing"
+            is_missing = True
+    return is_missing
+
 # handler
 @persistent
 def reload_startup(scene):
-    #reload image
-    for i in bpy.data.images:
-        try:
-            path=absolute_path(i.filepath)
-            i.modification_time=str(os.path.getmtime(path))
-        except FileNotFoundError:
-            i.modification_time="missing"
-    #create texture
-    try:
-        txt=bpy.data.textures[image_texture]
-    except KeyError:
-        txt=bpy.data.textures.new("autoreload_preview", type='IMAGE')
-    #load it
     wm = bpy.data.window_managers['WinMan']
-    txt.image = bpy.data.images[wm.autoreload_index]
-
+    if reloadDatas(bpy.data.images): wm.autoreloadMissingImages = True
+    else: wm.autoreloadMissingImages = False
+    if reloadDatas(bpy.data.libraries): wm.autoreloadMissingLibraries = True
+    else: wm.autoreloadMissingLibraries = False
     print(handler)
-
-# open folder in explorer
-def reveal_in_explorer(path) :
-    #windows
-    if platform.system() == "Windows":
-            #os.startfile(path)
-            subprocess.Popen(r'explorer /select,%s' % path)
-            #subprocess.Popen(['explorer', path])
-    #mac
-    elif platform.system() == "Darwin":
-            subprocess.Popen(["open", path])
-    #linux
-    else:
-            subprocess.Popen(["xdg-open", path])
-
-# open image
-def open_image(path) :
-    prefs = get_addon_preferences()
-    img_exe = prefs.image_executable
-
-    subprocess.Popen([img_exe, path])
-
-# update texture
-def update_texture(self, context):
-    wm = bpy.data.window_managers['WinMan']
-    texture = bpy.data.textures[image_texture]
-    texture.image = bpy.data.images[wm.autoreload_index]

@@ -1,9 +1,9 @@
 import bpy
 import os
 
-from .functions import absolute_path, reveal_in_explorer, open_image
-from .addon_prefs import get_addon_preferences
-from .global_variables import missing_image
+from functions import absolute_path, reveal_in_explorer, open_image
+from addon_prefs import get_addon_preferences
+from global_variables import missing_image
 
 class AUTORELOAD_reveal_explorer(bpy.types.Operator):
     bl_idname = "autorelad.reveal_explorer"
