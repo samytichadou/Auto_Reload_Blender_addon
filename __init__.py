@@ -58,12 +58,10 @@ def register():
         bpy.props.StringProperty(name='File Modification Date', default='')
     bpy.types.Library.modification_time = \
         bpy.props.StringProperty(name='File Modification Date', default='')
+    bpy.types.Library.to_reload = \
+        bpy.props.BoolProperty()
     bpy.types.WindowManager.reload_modal = \
         bpy.props.BoolProperty(name='AutoReload Timer')
-    bpy.types.WindowManager.autoreloadImages = \
-        bpy.props.BoolProperty(name='AutoReload Images', default=True)
-    bpy.types.WindowManager.autoreloadLibraries = \
-        bpy.props.BoolProperty(name='AutoReload Libraries', default=True)
     bpy.types.WindowManager.autoreloadMissingImages = \
         bpy.props.BoolProperty(name='AutoReload Missing Images')
     bpy.types.WindowManager.autoreloadMissingLibraries = \
@@ -78,6 +76,7 @@ def register():
 def unregister():
     del bpy.types.Image.modification_time
     del bpy.types.Library.modification_time
+    del bpy.types.Library.to_reload
     del bpy.types.WindowManager.reload_modal
     del bpy.types.WindowManager.autoreloadImages
     del bpy.types.WindowManager.autoreloadLibraries

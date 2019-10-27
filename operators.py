@@ -6,38 +6,22 @@ import blf
 
 from gpu_extras.batch import batch_for_shader
 
-from .functions import update_viewers, get_my_dir, reloadModifiedDatas
+from .functions import update_viewers, get_my_dir, reloadModifiedImages, checkLibraries, reloadLibrary
 from .addon_prefs import get_addon_preferences
 from .global_variables import timer_start, timer_end, sign, reloaded, no_modif, missing
 
-class AUTORELOAD_OT_reload_datas(bpy.types.Operator):
-    bl_idname = "autoreload.reload_datas"
-    bl_label = "Reload Datas"
-    bl_description = "Reload Datas in the blend. if modified"
+class AUTORELOAD_OT_reload_images(bpy.types.Operator):
+    bl_idname = "autoreload.reload_images"
+    bl_label = "Reload Images"
+    bl_description = "Reload Images in the blend. if modified"
     bl_options = {"REGISTER", "UNDO"}
 
-    @classmethod
-    def poll(cls, context):
-        wm = context.window_manager
-        return wm.autoreloadImages or wm.autoreloadLibraries
-
     def execute(self, context):
-        wm = bpy.context.window_manager
-        modified_list=[]
-        missing_list=[]
-        if wm.autoreloadImages:
-            mod, miss = reloadModifiedDatas(bpy.data.images)
-            modified_list += mod
-            missing_list += miss
-            if len(mod)!=0: update_viewers(context)
-            if len(miss) == 0: wm.autoreloadMissingImages = False
-            else: wm.autoreloadMissingImages = True
-        if wm.autoreloadLibraries:
-            mod, miss = reloadModifiedDatas(bpy.data.libraries)
-            modified_list += mod
-            missing_list += miss
-            if len(miss) == 0: wm.autoreloadMissingLibraries = False
-            else: wm.autoreloadMissingLibraries = True
+        wm = context.window_manager
+        modified_list, missing_list = reloadModifiedImages()
+        if len(modified_list)!=0: update_viewers(context)
+        if len(missing_list) == 0: wm.autoreloadMissingImages = False
+        else: wm.autoreloadMissingImages = True
         for m in modified_list: print(sign + m + reloaded)
         for m in missing_list: print(sign + m + missing)
         if len(modified_list)==0 and len(missing_list)==0: print(no_modif)
@@ -70,10 +54,10 @@ def draw_callback_px(self, context):
     blf.draw(self.font_id, text)
         
 
-class AUTORELOAD_OT_reload_timer(bpy.types.Operator):
-    bl_idname = "autoreload.reload_timer"
-    bl_label = "Reload Datas timer"
-    bl_description = "Look for modified Datas every N seconds and reload them"
+class AUTORELOAD_OT_reload_images_timer(bpy.types.Operator):
+    bl_idname = "autoreload.reload_images_timer"
+    bl_label = "Reload Images timer"
+    bl_description = "Look for modified Images every N seconds and reload them"
 
     font_id = None
     font_path = os.path.join(get_my_dir(), os.path.join("misc", "heydings_icons.ttf"))
@@ -83,11 +67,7 @@ class AUTORELOAD_OT_reload_timer(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        chk = 0
-        wm = context.window_manager
-        if wm.autoreloadImages: chk = 1
-        elif wm.autoreloadLibraries: chk = 1
-        return not wm.reload_modal and chk == 1
+        return not bpy.context.window_manager.reload_modal
     
     def __init__(self):     
         bpy.context.window_manager.reload_modal=True
@@ -110,27 +90,15 @@ class AUTORELOAD_OT_reload_timer(bpy.types.Operator):
             self.finish(context)
             return {'FINISHED'}
 
-        elif not wm.autoreloadImages and not wm.autoreloadLibraries:
-            self.cancel(context)
-            return {'FINISHED'}
-
         elif event.type == 'TIMER':
             if self.oldtimer!=self._timer.time_duration:
-                if wm.autoreloadImages:
-                    modified_list, missing_list = reloadModifiedDatas(bpy.data.images)
-                    if len(modified_list)!=0: update_viewers(context)
-                    if len(missing_list)==0: wm.autoreloadMissingImages=False
-                    else: wm.autoreloadMissingImages=True
-                    for m in modified_list: print(sign + m + reloaded)
-                    for m in missing_list: print(sign + m + missing)
-                    self.oldtimer=self._timer.time_duration
-                if wm.autoreloadLibraries:
-                    modified_list, missing_list = reloadModifiedDatas(bpy.data.libraries)
-                    if len(missing_list)==0: wm.autoreloadMissingLibraries=False
-                    else: wm.autoreloadMissingLibraries=True
-                    for m in modified_list: print(sign + m + reloaded)
-                    for m in missing_list: print(sign + m + missing)
-                    self.oldtimer=self._timer.time_duration
+                modified_list, missing_list = reloadModifiedImages()
+                if len(modified_list)!=0: update_viewers(context)
+                if len(missing_list)==0: wm.autoreloadMissingImages=False
+                else: wm.autoreloadMissingImages=True
+                for m in modified_list: print(sign + m + reloaded)
+                for m in missing_list: print(sign + m + missing)
+                self.oldtimer=self._timer.time_duration
 
         return {'PASS_THROUGH'}
 
@@ -163,3 +131,43 @@ class AUTORELOAD_OT_reload_timer(bpy.types.Operator):
         wm.event_timer_remove(self._timer)
         wm.reload_modal = False
         print(timer_end)
+
+class AUTORELOAD_OT_check_libraries(bpy.types.Operator):
+    bl_idname = "autoreload.check_libraries"
+    bl_label = "Check Libraries"
+    bl_description = "Check if external libraries has changed"
+    bl_options = {"REGISTER", "UNDO"}
+
+    def execute(self, context):
+        wm = context.window_manager
+        modified_list, missing_list = checkLibraries()
+        if len(missing_list) == 0: wm.autoreloadMissingLibraries = False
+        else: wm.autoreloadMissingLibraries = True
+        for m in modified_list: print(sign + m + reloaded)
+        for m in missing_list: print(sign + m + missing)
+        return {"FINISHED"}
+
+class AUTORELOAD_OT_reload_library(bpy.types.Operator):
+    bl_idname = "autoreload.reload_library"
+    bl_label = "Reload Library"
+    bl_description = "Reload this external library"
+    bl_options = {"INTERNAL", "UNDO"}
+
+    name : bpy.props.StringProperty()
+
+    def execute(self, context):
+        reloadLibrary(self.name)
+        return {"FINISHED"}
+
+class AUTORELOAD_OT_save_revert(bpy.types.Operator):
+    bl_idname = "autoreload.save_revert"
+    bl_label = "Save and Revert"
+    bl_description = "Save file and revert to reload all libraries"
+    bl_options = {"REGISTER", "UNDO"}
+
+    name : bpy.props.StringProperty()
+
+    def execute(self, context):
+        bpy.ops.wm.save_as_mainfile(filepath=bpy.data.filepath)
+        bpy.ops.wm.revert_mainfile()
+        return {"FINISHED"}
