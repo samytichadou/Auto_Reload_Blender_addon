@@ -78,8 +78,6 @@ def unregister():
     del bpy.types.Library.modification_time
     del bpy.types.Library.to_reload
     del bpy.types.WindowManager.reload_modal
-    del bpy.types.WindowManager.autoreloadImages
-    del bpy.types.WindowManager.autoreloadLibraries
     del bpy.types.WindowManager.autoreloadMissingImages
     del bpy.types.WindowManager.autoreloadMissingLibraries
 
