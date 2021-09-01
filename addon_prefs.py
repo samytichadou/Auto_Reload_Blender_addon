@@ -20,13 +20,13 @@ class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
         )
 
     icon_offset_x: bpy.props.IntProperty(
-        name = "Icon Horizontal offset",
+        name = "Icon Horizontal Offset",
         description = "Space between the icon and view edge",
         default = 10,
         )
 
     icon_offset_y: bpy.props.IntProperty(
-        name = "Icon Vertical offset",
+        name = "Icon Vertical Offset",
         description = "Space between the icon and view edge",
         default = 10,
         )
@@ -46,9 +46,17 @@ class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
             subtype = 'COLOR'
             )
 
+    startup_launch : bpy.props.BoolProperty(
+            name = "Launch on Startup", 
+            )
+
+
     def draw(self, context):
         layout = self.layout
         layout.prop(self, "check_frequency")
+
+        layout.prop(self, "startup_launch")
+
         box = layout.box()
         box.prop(self, "icon_toggle")
         if self.icon_toggle:

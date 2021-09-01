@@ -68,10 +68,10 @@ class AUTORELOAD_OT_reload_images_timer(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return not bpy.context.window_manager.reload_modal
+        return not bpy.context.window_manager.autoreload_reload_modal
     
     def __init__(self):     
-        bpy.context.window_manager.reload_modal=True
+        bpy.context.window_manager.autoreload_reload_modal=True
         print(global_variables.timer_start_statement)
         self.prefs = get_addon_preferences()
         if self.prefs.icon_toggle :
@@ -88,7 +88,7 @@ class AUTORELOAD_OT_reload_images_timer(bpy.types.Operator):
             except AttributeError: pass
 
         # stop
-        if wm.reload_modal==False:
+        if wm.autoreload_reload_modal==False:
             self.finish(context)
             return {'FINISHED'}
 
@@ -141,7 +141,7 @@ class AUTORELOAD_OT_reload_images_timer(bpy.types.Operator):
             unload_font(self)
         wm = context.window_manager
         wm.event_timer_remove(self._timer)
-        wm.reload_modal = False
+        wm.autoreload_reload_modal = False
         print(global_variables.timer_end_statement)
 
 
