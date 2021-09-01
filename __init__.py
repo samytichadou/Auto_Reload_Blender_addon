@@ -24,7 +24,7 @@ bl_info = {
     "author": "Samy Tichadou (tonton), RenFinkle",
     "version": (2, 0, 0),
     "blender": (2, 93, 3),
-    "location": "Properties > Scene",
+    "location": "Top Bar and Scene Properties",
     "wiki_url": "https://github.com/samytichadou/Auto_Reload_Blender_addon",
     "tracker_url": "https://github.com/samytichadou/Auto_Reload_Blender_addon/issues/new",
     "category": "Object" }
