@@ -1,6 +1,8 @@
 import bpy
 
 
+from .timer_function import update_timer_function
+
 ### REGISTER ---
 
 def register():
@@ -18,7 +20,10 @@ def register():
         bpy.props.BoolProperty(name='Auto Reload Missing Libraries')
 
     bpy.types.WindowManager.autoreload_is_timer = \
-        bpy.props.BoolProperty(name='Auto Reload Timer')
+        bpy.props.BoolProperty(
+            name='Auto Reload Timer',
+            update=update_timer_function,
+            )
 
 def unregister():
     del bpy.types.Image.autoreload_modification_time
@@ -29,4 +34,7 @@ def unregister():
     del bpy.types.WindowManager.autoreload_missing_images
     del bpy.types.WindowManager.autoreload_missing_libraries
 
+    if bpy.context.window_manager.autoreload_is_timer:
+        bpy.context.window_manager.autoreload_is_timer = False
+        
     del bpy.types.WindowManager.autoreload_is_timer
