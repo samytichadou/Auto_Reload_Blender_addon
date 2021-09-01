@@ -86,18 +86,29 @@ class AUTORELOAD_OT_reload_images_timer(bpy.types.Operator):
                     if area.type == 'PROPERTIES': area.tag_redraw()
             except AttributeError: pass
 
+        # stop
         if wm.reload_modal==False:
             self.finish(context)
             return {'FINISHED'}
 
+        # timer
         elif event.type == 'TIMER':
             if self.oldtimer!=self._timer.time_duration:
                 modified_list, missing_list = functions.reload_modified_images()
-                if len(modified_list)!=0: functions.update_viewers(context)
-                if len(missing_list)==0: wm.autoreload_missing_images=False
-                else: wm.autoreload_missing_images=True
-                for m in modified_list: print(global_variables.print_statement + m + global_variables.reloaded_msg)
-                for m in missing_list: print(global_variables.print_statement + m + global_variables.missing_msg)
+
+                if len(modified_list)!=0: 
+                    functions.update_viewers(context)
+
+                if len(missing_list)==0: 
+                    wm.autoreload_missing_images=False
+                else: 
+                    wm.autoreload_missing_images=True
+
+                for m in modified_list: 
+                    print(global_variables.print_statement + m + global_variables.reloaded_msg)
+                for m in missing_list:
+                    print(global_variables.print_statement + m + global_variables.missing_msg)
+
                 self.oldtimer=self._timer.time_duration
 
         return {'PASS_THROUGH'}

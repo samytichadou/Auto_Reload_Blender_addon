@@ -40,10 +40,13 @@ def reload_library(name):
     lib.autoreload_to_reload=False
     lib.autoreload_modification_time = str(os.path.getmtime(absolute_path(lib.filepath)))
 
+
 # reload modified datas
 def reload_modified_images():
     modified = []
     missing_msg = []
+
+    # reload images
     for item in bpy.data.images:
         if not item.library and not item.packed_file:
             path = absolute_path(item.filepath)
@@ -55,7 +58,14 @@ def reload_modified_images():
             except FileNotFoundError:
                 item.autoreload_modification_time="missing_msg"
                 missing_msg.append(item.name)
+
+    # update textures
+    for tex in bpy.data.textures:
+        if tex.type == "IMAGE" and tex.image.name in modified:
+            tex.image = bpy.data.images[tex.image.name]
+
     return modified, missing_msg
+
 
 # update 3d view if in rendered mode and not EEVEE or WORKBENCH
 def update_viewers(context):
