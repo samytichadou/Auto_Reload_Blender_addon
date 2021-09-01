@@ -27,6 +27,7 @@ class AUTORELOAD_OT_reload_images(bpy.types.Operator):
         if len(modified_list)==0 and len(missing_list)==0: print(global_variables.no_modif_statement)
         return {"FINISHED"}
 
+
 ### UI ###
 
 def load_font(self):
@@ -143,6 +144,7 @@ class AUTORELOAD_OT_reload_images_timer(bpy.types.Operator):
         wm.reload_modal = False
         print(global_variables.timer_end_statement)
 
+
 class AUTORELOAD_OT_check_libraries(bpy.types.Operator):
     bl_idname = "autoreload.check_libraries"
     bl_label = "Check Libraries"
@@ -158,6 +160,7 @@ class AUTORELOAD_OT_check_libraries(bpy.types.Operator):
         for m in missing_list: print(global_variables.print_statement + m + global_variables.missing_msg)
         return {"FINISHED"}
 
+
 class AUTORELOAD_OT_reload_library(bpy.types.Operator):
     bl_idname = "autoreload.reload_library"
     bl_label = "Reload Library"
@@ -169,6 +172,7 @@ class AUTORELOAD_OT_reload_library(bpy.types.Operator):
     def execute(self, context):
         functions.reload_library(self.name)
         return {"FINISHED"}
+
 
 class AUTORELOAD_OT_save_revert(bpy.types.Operator):
     bl_idname = "autoreload.save_revert"
