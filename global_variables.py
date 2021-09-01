@@ -1,6 +1,6 @@
 print_statement = "Auto Reload --- "
 
-reloaded_msg = " found modified, reloaded_msg"
+reloaded_msg = " found modified, reloaded"
 missing_msg = " found missing"
 timer_start_statement = print_statement + "Reload images timer started"
 timer_end_statement = print_statement + "Reload images timer ended"
