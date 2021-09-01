@@ -42,3 +42,12 @@ class AUTORELOAD_PT_scenepanel(bpy.types.Panel):
         if wm.autoreloadMissingLibraries:
             row = box.row()
             row.label(text="Missing Libraries", icon='ERROR')
+
+
+### REGISTER ---
+
+def register():
+    bpy.utils.register_class(AUTORELOAD_PT_scenepanel)
+
+def unregister():
+    bpy.utils.unregister_class(AUTORELOAD_PT_scenepanel)

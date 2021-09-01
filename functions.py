@@ -2,8 +2,6 @@ import bpy
 import os
 import time
 
-from bpy.app.handlers import persistent
-from .global_variables import handler
 from .addon_prefs import get_addon_preferences
 
 # absolute path
@@ -96,13 +94,3 @@ def checkLibrariesStartup():
             item.modification_time="missing"
             is_missing = True
     return is_missing
-
-# handler
-@persistent
-def reload_startup(scene):
-    wm = bpy.data.window_managers['WinMan']
-    if checkImagesStartup(): wm.autoreloadMissingImages = True
-    else: wm.autoreloadMissingImages = False
-    if checkLibrariesStartup(): wm.autoreloadMissingLibraries = True
-    else: wm.autoreloadMissingLibraries = False
-    print(handler)

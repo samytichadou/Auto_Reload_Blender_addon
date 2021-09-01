@@ -61,9 +61,16 @@ class Reload_AddonPrefs(bpy.types.AddonPreferences):
             row.prop(self, "icon_offset_y", text="Y Position")
 
         
-
-
 # get addon preferences
 def get_addon_preferences():
     addon = bpy.context.preferences.addons.get(addon_name)
     return getattr(addon, "preferences", None)
+
+
+### REGISTER ---
+
+def register():
+    bpy.utils.register_class(Reload_AddonPrefs)
+
+def unregister():
+    bpy.utils.unregister_class(Reload_AddonPrefs)
