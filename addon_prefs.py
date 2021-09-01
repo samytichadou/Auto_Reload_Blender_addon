@@ -3,7 +3,7 @@ import os
 
 addon_name = os.path.basename(os.path.dirname(__file__))
 
-class Reload_AddonPrefs(bpy.types.AddonPreferences):
+class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
     bl_idname = addon_name
     
     check_frequency : bpy.props.FloatProperty(name='Checking Frequency (s)', 
@@ -70,7 +70,7 @@ def get_addon_preferences():
 ### REGISTER ---
 
 def register():
-    bpy.utils.register_class(Reload_AddonPrefs)
+    bpy.utils.register_class(AUTORELOAD_PT_addon_prefs)
 
 def unregister():
-    bpy.utils.unregister_class(Reload_AddonPrefs)
+    bpy.utils.unregister_class(AUTORELOAD_PT_addon_prefs)

@@ -25,8 +25,8 @@ bl_info = {
     "version": (2, 0, 0),
     "blender": (2, 93, 3),
     "location": "Properties > Scene",
-    "wiki_url": "https://github.com/samytichadou/Auto_Reload_Images-Blender_addon",
-    "tracker_url": "https://github.com/samytichadou/Auto_Reload_Images-Blender_addon/issues/new",
+    "wiki_url": "https://github.com/samytichadou/Auto_Reload_Blender_addon",
+    "tracker_url": "https://github.com/samytichadou/Auto_Reload_Blender_addon/issues/new",
     "category": "Object" }
 
 import bpy

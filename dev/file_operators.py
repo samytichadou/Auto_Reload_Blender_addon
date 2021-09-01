@@ -18,7 +18,7 @@ class AUTORELOAD_reveal_explorer(bpy.types.Operator):
         if os.path.isfile(path):
             reveal_in_explorer(path)
         else:
-            print(missing_image)
+            print(missing_msg_image)
 
         return {'FINISHED'}
 
@@ -41,6 +41,6 @@ class AUTORELOAD_open_image(bpy.types.Operator):
         if os.path.isfile(path):
             open_image(path)
         else:
-            print(missing_image)
+            print(missing_msg_image)
 
         return {'FINISHED'}

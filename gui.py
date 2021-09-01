@@ -21,7 +21,7 @@ class AUTORELOAD_PT_scenepanel(bpy.types.Panel):
         row.operator('autoreload.reload_images_timer', icon='TIME', text='Timer')
         if bpy.data.window_managers['WinMan'].reload_modal :
             row.prop(wm, 'reload_modal', text = "", icon='CANCEL')
-        if wm.autoreloadMissingImages:
+        if wm.autoreload_missing_images:
             row = box.row(align=True)
             row.label(text="Missing Images", icon='ERROR')
 
@@ -35,11 +35,11 @@ class AUTORELOAD_PT_scenepanel(bpy.types.Panel):
         for l in bpy.data.libraries:
             row=box.row(align=True)
             row.label(text=l.name)
-            if l.to_reload and l.modification_time!="missing":
+            if l.autoreload_to_reload and l.autoreload_modification_time!="missing":
                 prop = row.operator('autoreload.reload_library', text="", icon="FILE_REFRESH")
                 prop.name = l.name
-            elif l.modification_time=="missing": row.label(text="", icon="ERROR")
-        if wm.autoreloadMissingLibraries:
+            elif l.autoreload_modification_time=="missing": row.label(text="", icon="ERROR")
+        if wm.autoreload_missing_libraries:
             row = box.row()
             row.label(text="Missing Libraries", icon='ERROR')
 
