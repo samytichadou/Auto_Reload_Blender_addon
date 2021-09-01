@@ -13,7 +13,7 @@ Setup the timer in the user prefs addon, it will compare modification time of ea
 Enjoy !
 
 Here's the release link :
-https://github.com/samytichadou/Auto_Reload_Images-Blender_addon/releases
+https://github.com/samytichadou/Auautoreload_to_reload_Images-Blender_addon/releases
 
 And a little demo video :
 https://www.youtube.com/watch?v=N3FvLNb_2w0
