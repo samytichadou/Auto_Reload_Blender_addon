@@ -1,6 +1,8 @@
 import bpy
 import os
 
+from .gui import draw_update_button
+
 addon_name = os.path.basename(os.path.dirname(__file__))
 
 class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
@@ -14,7 +16,14 @@ class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
         description='Frequency for checking for modified Images in seconds')
 
     startup_launch : bpy.props.BoolProperty(
-            name = "Launch on Startup", 
+            name = "Launch Image Reload Timer on Startup",
+            description = "Launch image reload timer on every Blender startup to fetch modified images",
+            )
+
+    update_check_launch : bpy.props.BoolProperty(
+            name = "Check for Updates on Startup",
+            default = True, 
+            description = "Check online for new version of the addon on every Blender startup",
             )
 
 
@@ -23,6 +32,11 @@ class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
         layout.prop(self, "check_frequency")
 
         layout.prop(self, "startup_launch")
+        layout.prop(self, "update_check_launch")
+
+        layout.operator("autoreload.check_addon_updates")
+
+        draw_update_button(context, layout)
 
         
 # get addon preferences

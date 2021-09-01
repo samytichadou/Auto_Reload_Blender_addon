@@ -37,8 +37,10 @@ import bpy
 from . import   (properties,
                 gui,
                 addon_prefs,
-                operators,
+                reload_operators,
                 startup_handler,
+                dialog_popup_operator,
+                update_module,
                 )
 
 
@@ -49,12 +51,16 @@ def register():
     properties.register()
     gui.register()
     addon_prefs.register()
-    operators.register()
+    reload_operators.register()
     startup_handler.register()
+    dialog_popup_operator.register()
+    update_module.register()
 
 def unregister():
     properties.unregister()
     gui.unregister()
     addon_prefs.unregister()
-    operators.unregister()
+    reload_operators.unregister()
     startup_handler.unregister()
+    dialog_popup_operator.unregister()
+    update_module.unregister()

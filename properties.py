@@ -3,6 +3,22 @@ import bpy
 
 from .timer_function import update_timer_function
 
+
+# update function for update_needed property
+def update_function_updateneeded(self, context):
+    if self.autoreload_update_needed:
+        wm = context.window_manager
+
+        bpy.ops.autoreload.dialog_popups(
+                            'INVOKE_DEFAULT',
+                            message = wm.autoreload_update_message,
+                            operator = "bpm.open_url",
+                            operator_text = "New addon version available",
+                            operator_icon = "URL",
+                            operator_url = wm.autoreload_update_download_url
+                            )
+
+
 ### REGISTER ---
 
 def register():
@@ -25,6 +41,15 @@ def register():
             update=update_timer_function,
             )
 
+    bpy.types.WindowManager.autoreload_update_needed = \
+        bpy.props.BoolProperty(
+            name='Update Needed',
+            update=update_function_updateneeded)
+    bpy.types.WindowManager.autoreload_update_message = \
+        bpy.props.StringProperty(name='Update Message')
+    bpy.types.WindowManager.autoreload_update_download_url = \
+        bpy.props.StringProperty(name='Update Download URL')
+
 def unregister():
     del bpy.types.Image.autoreload_modification_time
     del bpy.types.Library.autoreload_modification_time
@@ -36,5 +61,9 @@ def unregister():
 
     if bpy.context.window_manager.autoreload_is_timer:
         bpy.context.window_manager.autoreload_is_timer = False
-        
+
     del bpy.types.WindowManager.autoreload_is_timer
+
+    del bpy.types.WindowManager.autoreload_update_needed
+    del bpy.types.WindowManager.autoreload_update_message
+    del bpy.types.WindowManager.autoreload_update_download_url
