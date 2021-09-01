@@ -28,7 +28,7 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
                 prop = row.operator('autoreload.reload_library', text="", icon="FILE_REFRESH")
                 prop.name = l.name
             elif l.autoreload_modification_time=="missing": row.label(text="", icon="ERROR")
-            
+
         if wm.autoreload_missing_libraries:
             row = layout.row()
             row.label(text="Missing Libraries", icon='ERROR')
@@ -49,10 +49,14 @@ class AUTORELOAD_MT_file_menu(bpy.types.Menu):
 
 # file menu drawer
 def file_menu_drawer(self, context):
-    layout = self.layout
-    
-    self.layout.separator()
-    self.layout.menu('AUTORELOAD_MT_file_menu')
+    if context.region.alignment == 'RIGHT':
+        layout = self.layout
+        
+        self.layout.separator()
+        if context.window_manager.autoreload_is_timer:
+            self.layout.menu('AUTORELOAD_MT_file_menu', text=" Auto Reload", icon='TIME')
+        else:
+            self.layout.menu('AUTORELOAD_MT_file_menu')
 
 
 ### REGISTER ---
@@ -61,10 +65,10 @@ def register():
     bpy.utils.register_class(AUTORELOAD_PT_libraries_panel)
     bpy.utils.register_class(AUTORELOAD_MT_file_menu)
 
-    bpy.types.TOPBAR_MT_file.append(file_menu_drawer)
+    bpy.types.TOPBAR_HT_upper_bar.prepend(file_menu_drawer)
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_PT_libraries_panel)
     bpy.utils.unregister_class(AUTORELOAD_MT_file_menu)
 
-    bpy.types.TOPBAR_MT_file.remove(file_menu_drawer)
+    bpy.types.TOPBAR_HT_upper_bar.remove(file_menu_drawer)
