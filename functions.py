@@ -64,6 +64,13 @@ def reload_modified_images():
         if tex.type == "IMAGE" and tex.image.name in modified:
             tex.image = bpy.data.images[tex.image.name]
 
+    # update strips
+    for s in bpy.context.scene.sequence_editor.sequences_all:
+        if s.type == "IMAGE":
+            for e in s.elements:
+                if e.filename in modified:
+                    e.filename = e.filename
+
     return modified, missing_msg
 
 
