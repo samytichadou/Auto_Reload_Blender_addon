@@ -176,7 +176,9 @@ class AUTORELOAD_OT_save_revert(bpy.types.Operator):
     bl_description = "Save file and revert to reload all libraries"
     bl_options = {"REGISTER", "UNDO"}
 
-    name : bpy.props.StringProperty()
+    @classmethod
+    def poll(cls, context):
+        return bpy.data.is_saved
 
     def execute(self, context):
         bpy.ops.wm.save_as_mainfile(filepath=bpy.data.filepath)
