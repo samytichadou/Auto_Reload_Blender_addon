@@ -70,6 +70,11 @@ class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
 
         layout.template_list("AUTORELOAD_UL_images_uilist", "", bpy.data, "images", props, "autoreload_active_image_index")
 
+        # selected image path
+        active_image = bpy.data.images[props.autoreload_active_image_index]
+        if active_image.source not in {'VIEWER','GENERATED'}:
+            layout.prop(active_image, "filepath", text="")
+
 
 # file menu
 class AUTORELOAD_MT_file_menu(bpy.types.Menu):

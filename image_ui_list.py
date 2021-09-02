@@ -27,7 +27,6 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
                 row.label(text='', icon="ERROR")
 
 
-
 ### REGISTER ---
 
 def register():

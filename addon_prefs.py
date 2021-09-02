@@ -29,8 +29,8 @@ class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
             )
 
     image_executable : bpy.props.StringProperty(
-            name = "Image Editor Executable path",
-            description = "Path to the Executable of Image Editor used to modify images.",
+            name = "Image Editor",
+            description = "Path to the Executable of the Image Editor used to modify images.",
             subtype = "FILE_PATH",
             )
 
