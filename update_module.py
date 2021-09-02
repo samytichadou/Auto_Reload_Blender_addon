@@ -58,11 +58,13 @@ def check_addon_version(winman):
         print(no_internet_statement)
         return False
 
+    props = winman.autoreload_properties
+
     new_addon_infos = read_online_json(addon_version_url)
     if new_addon_infos["version"] != get_addon_version(addon_name):
-        winman.autoreload_update_message = new_addon_infos["message"]
-        winman.autoreload_update_download_url = new_addon_infos["download_url"]
-        winman.autoreload_update_needed = True
+        props.autoreload_update_message = new_addon_infos["message"]
+        props.autoreload_update_download_url = new_addon_infos["download_url"]
+        props.autoreload_update_needed = True
     
         print(addon_new_version_statement)
 

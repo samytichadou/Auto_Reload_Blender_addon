@@ -3,15 +3,15 @@ import bpy
 
 # draw update button
 def draw_update_button(context, container):
-    wm = context.window_manager
+    props = context.window_manager.autoreload_properties
 
-    if wm.autoreload_update_needed:
+    if props.autoreload_update_needed:
         op = container.operator('autoreload.dialog_popups', text="New Version Available", icon='ERROR')
-        op.message = wm.autoreload_update_message
+        op.message = props.autoreload_update_message
         op.operator = "bpm.open_url"
         op.operator_text = "New addon version available"
         op.operator_icon = "URL"
-        op.operator_url = wm.autoreload_update_download_url
+        op.operator_url = props.autoreload_update_download_url
         
 
 # libraries panel
@@ -22,11 +22,15 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
     bl_context = "scene"
 
     def draw(self, context):
+        props = context.window_manager.autoreload_properties
         wm = context.window_manager
 
         layout = self.layout
 
         draw_update_button(context, layout)
+
+        if props.autoreload_missing_libraries:
+            layout.label(text="Missing Libraries", icon='ERROR')
 
         layout.use_property_split = True # Active single-column layout
         flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=False)
@@ -43,12 +47,9 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
             if l.autoreload_to_reload and l.autoreload_modification_time!="missing":
                 prop = row.operator('autoreload.reload_library', text="", icon="FILE_REFRESH")
                 prop.name = l.name
-            elif l.autoreload_modification_time=="missing": row.label(text="", icon="ERROR")
-
-        if wm.autoreload_missing_libraries:
-            row = layout.row()
-            row.label(text="Missing Libraries", icon='ERROR')
-
+            elif l.autoreload_modification_time=="missing":
+                row.label(text="", icon="ERROR")
+        
 
 # image inspector panel
 class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
@@ -58,13 +59,16 @@ class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
     bl_context = "scene"
 
     def draw(self, context):
-        wm = context.window_manager
+        props = context.window_manager.autoreload_properties
 
         layout = self.layout
 
         draw_update_button(context, layout)
 
-        layout.template_list("AUTORELOAD_UL_images_uilist", "", bpy.data, "images", wm, "autoreload_active_image_index")
+        if props.autoreload_missing_images:
+            layout.label(text="Missing Images", icon='ERROR')
+
+        layout.template_list("AUTORELOAD_UL_images_uilist", "", bpy.data, "images", props, "autoreload_active_image_index")
 
 
 # file menu
@@ -72,16 +76,26 @@ class AUTORELOAD_MT_file_menu(bpy.types.Menu):
     bl_label = "Auto Reload"
 
     def draw(self, context):
-        wm = context.window_manager
+        props = context.window_manager.autoreload_properties
 
         layout = self.layout
         
-        layout.prop(wm, 'autoreload_is_timer', text = "Timer", icon='TIME')
+        layout.prop(props, 'autoreload_is_timer', text = "Timer", icon='TIME')
         layout.operator('autoreload.reload_images', icon='FILE_REFRESH')
         
-        if wm.autoreload_update_needed:
+        if props.autoreload_update_needed \
+        or props.autoreload_missing_images \
+        or props.autoreload_missing_libraries:
             layout.separator()
+
+        # update
         draw_update_button(context, layout)
+
+        # missing images and libs
+        if props.autoreload_missing_images:
+            layout.label(text="Missing Images", icon='ERROR')
+        if props.autoreload_missing_libraries:
+            layout.label(text="Missing Libraries", icon='ERROR')
 
 
 # file menu drawer
@@ -90,7 +104,7 @@ def file_menu_drawer(self, context):
         layout = self.layout
         
         self.layout.separator()
-        if context.window_manager.autoreload_is_timer:
+        if context.window_manager.autoreload_properties.autoreload_is_timer:
             self.layout.menu('AUTORELOAD_MT_file_menu', text=" Auto Reload", icon='TIME')
         else:
             self.layout.menu('AUTORELOAD_MT_file_menu')

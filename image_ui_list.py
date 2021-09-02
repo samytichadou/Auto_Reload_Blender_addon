@@ -18,7 +18,7 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
             
             row.prop(item, "name", text="", emboss=False)
 
-            if os.path.isfile(absolute_path(item.filepath)):
+            if item.autoreload_modification_time != "missing":
                 op=row.operator("autorelad.reveal_explorer", text="", icon='ZOOM_ALL')
                 op.path = item.filepath
                 op2=row.operator("autorelad.modify_image", text="", icon='GREASEPENCIL')

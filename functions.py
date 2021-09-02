@@ -17,7 +17,7 @@ def get_current_dir():
 # check libraries
 def check_libraries():
     modified = []
-    missing_msg = []
+    missing = []
     for item in bpy.data.libraries:
         path = absolute_path(item.filepath)
         try:
@@ -28,10 +28,10 @@ def check_libraries():
             else:
                 item.autoreload_to_reload=False
         except FileNotFoundError:
-            item.autoreload_modification_time = "missing_msg"
+            item.autoreload_modification_time = "missing"
             item.autoreload_to_reload = True
-            missing_msg.append(item.name)
-    return modified, missing_msg
+            missing.append(item.name)
+    return modified, missing
 
 # reload library
 def reload_library(name):
@@ -41,10 +41,10 @@ def reload_library(name):
     lib.autoreload_modification_time = str(os.path.getmtime(absolute_path(lib.filepath)))
 
 
-# reload modified datas
+# reload modified images
 def reload_modified_images():
     modified = []
-    missing_msg = []
+    missing = []
 
     # reload images
     for item in bpy.data.images:
@@ -56,8 +56,8 @@ def reload_modified_images():
                     item.autoreload_modification_time=str(os.path.getmtime(path))
                     modified.append(item.name)
             except FileNotFoundError:
-                item.autoreload_modification_time="missing_msg"
-                missing_msg.append(item.name)
+                item.autoreload_modification_time="missing"
+                missing.append(item.name)
 
     # update textures
     for tex in bpy.data.textures:
@@ -71,7 +71,7 @@ def reload_modified_images():
                 if e.filename in modified:
                     e.filename = e.filename
 
-    return modified, missing_msg
+    return modified, missing
 
 
 # update 3d view if in rendered mode and not EEVEE or WORKBENCH
@@ -88,26 +88,26 @@ def update_viewers(context):
 
 # check all images at startup
 def check_images_startup():
-    is_missing_msg = False
+    is_missing = False
     for item in bpy.data.images:
         if not item.library and not item.packed_file:
             try:
                 path=absolute_path(item.filepath)
                 item.autoreload_modification_time=str(os.path.getmtime(path))
             except FileNotFoundError:
-                item.autoreload_modification_time="missing_msg"
-                is_missing_msg = True
-    return is_missing_msg
+                item.autoreload_modification_time="missing"
+                is_missing = True
+    return is_missing
 
 # check all libraries at startup
 def check_libraries_startup():
-    is_missing_msg = False
+    is_missing = False
     for item in bpy.data.libraries:
         try:
             path=absolute_path(item.filepath)
             item.autoreload_modification_time=str(os.path.getmtime(path))
             item.autoreload_to_reload = False
         except FileNotFoundError:
-            item.autoreload_modification_time="missing_msg"
-            is_missing_msg = True
-    return is_missing_msg
+            item.autoreload_modification_time="missing"
+            is_missing = True
+    return is_missing

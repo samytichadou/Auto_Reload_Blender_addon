@@ -20,19 +20,19 @@ def reload_startup(scene):
 
     # images
     if functions.check_images_startup():
-        wm.autoreload_missing_images = True
+        wm.autoreload_properties.autoreload_missing_images = True
     else:
-        wm.autoreload_missing_images = False
+        wm.autoreload_properties.autoreload_missing_images = False
 
     # libraries
     if functions.check_libraries_startup():
-        wm.autoreload_missing_libraries = True
+        wm.autoreload_properties.autoreload_missing_libraries = True
     else:
-        wm.autoreload_missing_libraries = False
+        wm.autoreload_properties.autoreload_missing_libraries = False
 
     # launch timer on startup
     if prefs.startup_launch:
-        wm.autoreload_is_timer = True
+        wm.autoreload_properties.autoreload_is_timer = True
 
     print(handler_statement)
 

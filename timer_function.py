@@ -9,21 +9,35 @@ def autoreload_timer_function():
 
     interval = get_addon_preferences().check_frequency
     context = bpy.context
-    wm = context.window_manager
+    props = context.window_manager.autoreload_properties
 
-    modified_list, missing_list = functions.reload_modified_images()
+    # IMAGES
+    modified_imgs, missing_imgs = functions.reload_modified_images()
 
-    if len(modified_list)!=0: 
+    if len(modified_imgs)!=0: 
         functions.update_viewers(context)
 
-    if len(missing_list)==0: 
-        wm.autoreload_missing_images=False
+    if len(missing_imgs)==0: 
+        props.autoreload_properties.autoreload_missing_images=False
     else: 
-        wm.autoreload_missing_images=True
+        props.autoreload_properties.autoreload_missing_images=True
 
-    for m in modified_list: 
+    for m in modified_imgs: 
         print(global_variables.print_statement + m + global_variables.reloaded_msg)
-    for m in missing_list:
+    for m in missing_imgs:
+        print(global_variables.print_statement + m + global_variables.missing_msg)
+
+    # LIBRARIES
+    modified_libs, missing_libs = functions.check_libraries()
+
+    if len(missing_libs)==0: 
+        props.autoreload_properties.autoreload_missing_images=False
+    else: 
+        props.autoreload_properties.autoreload_missing_images=True
+
+    for m in modified_libs: 
+        print(global_variables.print_statement + m + global_variables.reloaded_msg)
+    for m in missing_libs:
         print(global_variables.print_statement + m + global_variables.missing_msg)
 
     return interval
