@@ -5,7 +5,7 @@ import subprocess
 
 from . import functions
 from .addon_prefs import get_addon_preferences
-from .global_variables import missing_msg
+from . import global_variables
 
 
 # reveal in explorer
@@ -38,7 +38,7 @@ class AUTORELOAD_OT_reveal_explorer(bpy.types.Operator):
         if os.path.isfile(path):
             reveal_in_explorer(path)
         else:
-            print(path + missing_msg)
+            print(global_variables.print_statement + path + global_variables.missing_msg)
 
         return {'FINISHED'}
 
@@ -61,7 +61,7 @@ class AUTORELOAD_OT_open_library(bpy.types.Operator):
         if os.path.isfile(path):
             open_library(path)
         else:
-            print(path + missing_msg)
+            print(global_variables.print_statement + path + global_variables.missing_msg)
 
         return {'FINISHED'}
 
@@ -76,7 +76,7 @@ def modify_image(path) :
 class AUTORELOAD_OT_modify_image(bpy.types.Operator):
     bl_idname = "autorelad.modify_image"
     bl_label = "Modify"
-    bl_description = "Modify image with specified Program"
+    bl_description = "Modify image with specified Program."
     bl_options = {'REGISTER', 'INTERNAL'}
 
     path : bpy.props.StringProperty()
@@ -90,8 +90,23 @@ class AUTORELOAD_OT_modify_image(bpy.types.Operator):
         if os.path.isfile(path):
             modify_image(path)
         else:
-            print(path + missing_msg)
+            print(global_variables.print_statement + path + global_variables.missing_msg)
 
+        return {'FINISHED'}
+
+
+class AUTORELOAD_OT_remove_image(bpy.types.Operator):
+    bl_idname = "autorelad.remove_image"
+    bl_label = "Remove"
+    bl_description = "Remove this Image from the Blend file."
+    bl_options = {'REGISTER', 'INTERNAL'}
+
+    name : bpy.props.StringProperty()
+    
+    def execute(self, context):
+        bpy.data.images.remove(bpy.data.images[self.name])
+        functions.update_textures(None) #TODO
+        print(global_variables.print_statement + self.name + global_variables.remove__msg)
         return {'FINISHED'}
 
 
@@ -101,8 +116,10 @@ def register():
     bpy.utils.register_class(AUTORELOAD_OT_reveal_explorer)
     bpy.utils.register_class(AUTORELOAD_OT_open_library)
     bpy.utils.register_class(AUTORELOAD_OT_modify_image)
+    bpy.utils.register_class(AUTORELOAD_OT_remove_image)
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_OT_reveal_explorer)
     bpy.utils.unregister_class(AUTORELOAD_OT_open_library)
     bpy.utils.unregister_class(AUTORELOAD_OT_modify_image)
+    bpy.utils.unregister_class(AUTORELOAD_OT_remove_image)

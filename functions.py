@@ -49,28 +49,16 @@ def reload_modified_images():
 
     # reload images
     for item in bpy.data.images:
-        if not item.library and not item.packed_file:
+        if not item.library and not item.packed_file and item.source not in {'VIEWER','GENERATED'}:
             path = absolute_path(item.filepath)
-            try:
+            if os.path.isfile(path):
                 if item.autoreload_modification_time!=str(os.path.getmtime(path)):
                     item.reload()
                     item.autoreload_modification_time=str(os.path.getmtime(path))
                     modified.append(item.name)
-            except FileNotFoundError:
+            else:
                 item.autoreload_modification_time="missing"
                 missing.append(item.name)
-
-    # update textures
-    for tex in bpy.data.textures:
-        if tex.type == "IMAGE" and tex.image.name in modified:
-            tex.image = bpy.data.images[tex.image.name]
-
-    # update strips
-    for s in bpy.context.scene.sequence_editor.sequences_all:
-        if s.type == "IMAGE":
-            for e in s.elements:
-                if e.filename in modified:
-                    e.filename = e.filename
 
     return modified, missing
 
@@ -86,6 +74,29 @@ def update_viewers(context):
                         if space.type == 'VIEW_3D' and space.shading.type == 'RENDERED' :
                             space.shading.type = 'SOLID'
                             space.shading.type = 'RENDERED'
+
+
+# update textures
+def update_textures(modified_image_list):
+    for tex in bpy.data.textures:
+        if tex.type == "IMAGE" and tex.image:
+            if modified_image_list:
+                if tex.image.name in modified_image_list:
+                    tex.image = bpy.data.images[tex.image.name]
+            else:
+                tex.image = bpy.data.images[tex.image.name]
+
+
+# update strips
+def update_strips(modified_image_list):
+    for s in bpy.context.scene.sequence_editor.sequences_all:
+        if s.type == "IMAGE":
+            for e in s.elements:
+                if modified_image_list:
+                    if e.filename in modified_image_list:
+                        e.filename = e.filename
+                else:
+                    e.filename = e.filename
 
 
 # check all images at startup

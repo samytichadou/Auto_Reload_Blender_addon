@@ -15,13 +15,15 @@ def autoreload_timer_function():
     # IMAGES
     modified_imgs, missing_imgs = functions.reload_modified_images()
 
-    if len(modified_imgs)!=0: 
-        functions.update_viewers(context)
-
     if len(missing_imgs)==0: 
         props.autoreload_missing_images=False
     else: 
         props.autoreload_missing_images=True
+
+    if len(modified_imgs)!=0: 
+        functions.update_viewers(context)
+        functions.update_textures(modified_imgs)
+        functions.update_strips(modified_imgs)
 
     for m in modified_imgs: 
         print(global_variables.print_statement + m + global_variables.reloaded_msg)
@@ -33,18 +35,19 @@ def autoreload_timer_function():
         modified_libs, missing_libs = functions.check_libraries()
 
         if len(missing_libs)==0: 
-            props.autoreload_missing_images=False
+            props.autoreload_missing_libraries=False
         else: 
-            props.autoreload_missing_images=True
+            props.autoreload_missing_libraries=True
+
+        if len(modified_libs)!=0:
+            for area in context.screen.areas:
+                area.tag_redraw()
 
         for m in modified_libs: 
             print(global_variables.print_statement + m + global_variables.modified_msg)
         for m in missing_libs:
             print(global_variables.print_statement + m + global_variables.missing_msg)
 
-        if modified_libs:
-            for area in context.screen.areas:
-                area.tag_redraw()
 
 
     return interval

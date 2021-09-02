@@ -19,13 +19,16 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
             
             row.prop(item, "name", text="", emboss=False)
 
+            op=row.operator("autorelad.remove_image", text="", icon="X")
+            op.name = item.name
+
             if item.autoreload_modification_time != "missing":
 
                 op=row.operator("autorelad.reveal_explorer", text="", icon='ZOOM_ALL')
                 op.path = item.filepath
 
-                op2=row.operator("autorelad.modify_image", text="", icon='GREASEPENCIL')
-                op2.path = item.filepath
+                op=row.operator("autorelad.modify_image", text="", icon='GREASEPENCIL')
+                op.path = item.filepath
 
             else:
                 row.label(text='', icon="ERROR")
@@ -41,12 +44,17 @@ class AUTORELOAD_UL_libraries_uilist(bpy.types.UIList):
 
         if item.autoreload_modification_time != "missing":
 
+            op=row.operator("autorelad.reveal_explorer", text="", icon='ZOOM_ALL')
+            op.path = item.filepath
+
             op = row.operator('autorelad.open_library', text="", icon="BLENDER")
             op.path = item.filepath
 
-            if item.autoreload_to_reload:
-                op2 = row.operator('autoreload.reload_library', text="", icon="FILE_REFRESH")
-                op2.name = item.name
+            subrow = row.row(align=True)
+            if not item.autoreload_to_reload:
+                subrow.enabled=False
+            op = subrow.operator('autoreload.reload_library', text="", icon="FILE_REFRESH")
+            op.name = item.name
 
         else:
             row.label(text='', icon="ERROR")

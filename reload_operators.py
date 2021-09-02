@@ -11,17 +11,19 @@ class AUTORELOAD_OT_reload_images(bpy.types.Operator):
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, context):
-        wm = context.window_manager
+        props = context.window_manager.autoreload_properties
 
         modified_list, missing_list = functions.reload_modified_images()
 
+        if len(missing_list) == 0:
+            props.autoreload_missing_images = False
+        else:
+            props.autoreload_missing_images = True
+
         if len(modified_list)!=0:
             functions.update_viewers(context)
-
-        if len(missing_list) == 0:
-            wm.autoreload_properties.autoreload_missing_images = False
-        else:
-            wm.autoreload_properties.autoreload_missing_images = True
+            functions.update_textures(modified_list)
+            functions.update_strips(modified_list)
 
         for m in modified_list:
             print(global_variables.print_statement + m + global_variables.reloaded_msg)
