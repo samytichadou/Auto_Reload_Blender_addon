@@ -7,7 +7,7 @@ from . import functions
 class AUTORELOAD_OT_reload_images(bpy.types.Operator):
     bl_idname = "autoreload.reload_images"
     bl_label = "Reload Images"
-    bl_description = "Reload Images in the blend. if modified"
+    bl_description = "Reload Images in the blend if modified."
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, context):
@@ -25,7 +25,7 @@ class AUTORELOAD_OT_reload_images(bpy.types.Operator):
 class AUTORELOAD_OT_check_libraries(bpy.types.Operator):
     bl_idname = "autoreload.check_libraries"
     bl_label = "Check Libraries"
-    bl_description = "Check if external libraries has changed"
+    bl_description = "Check if external libraries has changed."
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, context):
@@ -41,7 +41,7 @@ class AUTORELOAD_OT_check_libraries(bpy.types.Operator):
 class AUTORELOAD_OT_reload_library(bpy.types.Operator):
     bl_idname = "autoreload.reload_library"
     bl_label = "Reload Library"
-    bl_description = "Reload this external library"
+    bl_description = "Reload this external library."
     bl_options = {"INTERNAL", "UNDO"}
 
     name : bpy.props.StringProperty()
@@ -54,7 +54,7 @@ class AUTORELOAD_OT_reload_library(bpy.types.Operator):
 class AUTORELOAD_OT_save_revert(bpy.types.Operator):
     bl_idname = "autoreload.save_revert"
     bl_label = "Save and Revert"
-    bl_description = "Save file and revert to reload all libraries"
+    bl_description = "Save file and revert to reload all libraries."
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod

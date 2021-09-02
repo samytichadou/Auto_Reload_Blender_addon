@@ -27,20 +27,20 @@ def register():
     bpy.types.Library.autoreload_modification_time = \
         bpy.props.StringProperty(name='File Modification Date', default='')
 
-    bpy.types.WindowManager.autoreload_reload_modal = \
-        bpy.props.BoolProperty(name='Auto Reload Timer')
-
     bpy.types.WindowManager.autoreload_missing_images = \
-        bpy.props.BoolProperty(name='Auto Reload Missing Images')
+        bpy.props.BoolProperty(name='Missing Images')
     bpy.types.WindowManager.autoreload_missing_libraries = \
-        bpy.props.BoolProperty(name='Auto Reload Missing Libraries')
+        bpy.props.BoolProperty(name='Missing Libraries')
 
+    # timer
     bpy.types.WindowManager.autoreload_is_timer = \
         bpy.props.BoolProperty(
-            name='Auto Reload Timer',
+            name='Image Timer',
+            description="Start Timer to fetch modified Images every n seconds.",
             update=update_timer_function,
             )
-
+    
+    # update
     bpy.types.WindowManager.autoreload_update_needed = \
         bpy.props.BoolProperty(
             name='Update Needed',
@@ -53,17 +53,16 @@ def register():
 def unregister():
     del bpy.types.Image.autoreload_modification_time
     del bpy.types.Library.autoreload_modification_time
-   
-    del bpy.types.WindowManager.autoreload_reload_modal
 
     del bpy.types.WindowManager.autoreload_missing_images
     del bpy.types.WindowManager.autoreload_missing_libraries
 
+    # timer
     if bpy.context.window_manager.autoreload_is_timer:
         bpy.context.window_manager.autoreload_is_timer = False
-
     del bpy.types.WindowManager.autoreload_is_timer
 
+    # update
     del bpy.types.WindowManager.autoreload_update_needed
     del bpy.types.WindowManager.autoreload_update_message
     del bpy.types.WindowManager.autoreload_update_download_url
