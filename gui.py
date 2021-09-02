@@ -41,7 +41,11 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
         row = flow.row(align=True)
         row.operator('autoreload.save_revert', icon='FILE_TICK')
 
-        layout.template_list("AUTORELOAD_UL_libraries_uilist", "", bpy.data, "libraries", props, "autoreload_active_library_index")
+        layout.template_list("AUTORELOAD_UL_libraries_uilist", "", bpy.data, "libraries", props, "autoreload_active_library_index", rows=3)
+
+        # selected library path
+        active_lib = bpy.data.libraries[props.autoreload_active_library_index]
+        layout.prop(active_lib, "filepath", text="")
         
 
 # image inspector panel
@@ -61,7 +65,16 @@ class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
         if props.autoreload_missing_images:
             layout.label(text="Missing Images", icon='ERROR')
 
-        layout.template_list("AUTORELOAD_UL_images_uilist", "", bpy.data, "images", props, "autoreload_active_image_index")
+        layout.use_property_split = True # Active single-column layout
+        flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=False)
+
+        row = flow.row(align=True)
+        row.operator('autoreload.reload_images', icon='FILE_REFRESH')
+
+        row = flow.row(align=True)
+        row.operator('autoreload.save_revert', icon='FILE_TICK')
+
+        layout.template_list("AUTORELOAD_UL_images_uilist", "", bpy.data, "images", props, "autoreload_active_image_index", rows=3)
 
         # selected image path
         active_image = bpy.data.images[props.autoreload_active_image_index]
@@ -79,7 +92,16 @@ class AUTORELOAD_MT_file_menu(bpy.types.Menu):
         layout = self.layout
         
         layout.prop(props, 'autoreload_is_timer', text = "Timer", icon='TIME')
+
+        layout.separator()
+
         layout.operator('autoreload.reload_images', icon='FILE_REFRESH')
+
+        layout.operator('autoreload.check_libraries', icon='BLENDER')
+
+        layout.separator()
+
+        layout.operator('autoreload.save_revert', icon='FILE_TICK')
         
         if props.autoreload_update_needed \
         or props.autoreload_missing_images \

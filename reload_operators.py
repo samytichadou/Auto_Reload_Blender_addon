@@ -12,13 +12,26 @@ class AUTORELOAD_OT_reload_images(bpy.types.Operator):
 
     def execute(self, context):
         wm = context.window_manager
+
         modified_list, missing_list = functions.reload_modified_images()
-        if len(modified_list)!=0: functions.update_viewers(context)
-        if len(missing_list) == 0: wm.autoreload_properties.autoreload_missing_images = False
-        else: wm.autoreload_properties.autoreload_missing_images = True
-        for m in modified_list: print(global_variables.print_statement + m + global_variables.reloaded_msg)
-        for m in missing_list: print(global_variables.print_statement + m + global_variables.missing_msg)
-        if len(modified_list)==0 and len(missing_list)==0: print(global_variables.no_modif_statement)
+
+        if len(modified_list)!=0:
+            functions.update_viewers(context)
+
+        if len(missing_list) == 0:
+            wm.autoreload_properties.autoreload_missing_images = False
+        else:
+            wm.autoreload_properties.autoreload_missing_images = True
+
+        for m in modified_list:
+            print(global_variables.print_statement + m + global_variables.reloaded_msg)
+            
+        for m in missing_list:
+            print(global_variables.print_statement + m + global_variables.missing_msg)
+
+        if len(modified_list)==0 and len(missing_list)==0:
+            print(global_variables.no_modif_statement)
+
         return {"FINISHED"}
 
 
@@ -30,11 +43,19 @@ class AUTORELOAD_OT_check_libraries(bpy.types.Operator):
 
     def execute(self, context):
         wm = context.window_manager
+
         modified_list, missing_list = functions.check_libraries()
-        if len(missing_list) == 0: wm.autoreload_properties.autoreload_missing_libraries = False
-        else: wm.autoreload_properties.autoreload_missing_libraries = True
-        for m in modified_list: print(global_variables.print_statement + m + global_variables.reloaded_msg)
-        for m in missing_list: print(global_variables.print_statement + m + global_variables.missing_msg)
+
+        if len(missing_list) == 0:
+            wm.autoreload_properties.autoreload_missing_libraries = False
+        else:
+            wm.autoreload_properties.autoreload_missing_libraries = True
+
+        for m in modified_list:
+            print(global_variables.print_statement + m + global_variables.modified_msg)
+        for m in missing_list:
+            print(global_variables.print_statement + m + global_variables.missing_msg)
+
         return {"FINISHED"}
 
 
@@ -54,7 +75,7 @@ class AUTORELOAD_OT_reload_library(bpy.types.Operator):
 class AUTORELOAD_OT_save_revert(bpy.types.Operator):
     bl_idname = "autoreload.save_revert"
     bl_label = "Save and Revert"
-    bl_description = "Save file and revert to reload all libraries."
+    bl_description = "Save file and revert to reload all Libraries and Images."
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod

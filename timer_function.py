@@ -42,6 +42,11 @@ def autoreload_timer_function():
         for m in missing_libs:
             print(global_variables.print_statement + m + global_variables.missing_msg)
 
+        if modified_libs:
+            for area in context.screen.areas:
+                area.tag_redraw()
+
+
     return interval
 
 
