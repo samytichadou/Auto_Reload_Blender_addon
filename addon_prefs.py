@@ -22,10 +22,16 @@ class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
             description = "Launch Image Timer on every Blender startup to fetch modified images.",
             )
 
+    timer_libraries : bpy.props.BoolProperty(
+            name = "Include Libraries Check in the Reload Timer",
+            description = "Also check for modified Libraries through the Reload Timer, then update them manually.",
+            default = True
+            )
+
     update_check_launch : bpy.props.BoolProperty(
             name = "Check for Updates on Startup",
-            default = True, 
             description = "Check online for new version of the Addon on every Blender startup.",
+            default = True, 
             )
 
     image_executable : bpy.props.StringProperty(
@@ -45,6 +51,7 @@ class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
         # startup
         col = layout.column(align=True)
         col.prop(self, "startup_launch")
+        col.prop(self, "timer_libraries")
         col.prop(self, "update_check_launch")
 
         # updates

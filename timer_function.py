@@ -7,7 +7,8 @@ from . import functions
 # timer function
 def autoreload_timer_function():
 
-    interval = get_addon_preferences().check_frequency
+    prefs = get_addon_preferences()
+    interval = prefs.check_frequency
     context = bpy.context
     props = context.window_manager.autoreload_properties
 
@@ -28,17 +29,18 @@ def autoreload_timer_function():
         print(global_variables.print_statement + m + global_variables.missing_msg)
 
     # LIBRARIES
-    modified_libs, missing_libs = functions.check_libraries()
+    if prefs.timer_libraries:
+        modified_libs, missing_libs = functions.check_libraries()
 
-    if len(missing_libs)==0: 
-        props.autoreload_missing_images=False
-    else: 
-        props.autoreload_missing_images=True
+        if len(missing_libs)==0: 
+            props.autoreload_missing_images=False
+        else: 
+            props.autoreload_missing_images=True
 
-    for m in modified_libs: 
-        print(global_variables.print_statement + m + global_variables.modified_msg)
-    for m in missing_libs:
-        print(global_variables.print_statement + m + global_variables.missing_msg)
+        for m in modified_libs: 
+            print(global_variables.print_statement + m + global_variables.modified_msg)
+        for m in missing_libs:
+            print(global_variables.print_statement + m + global_variables.missing_msg)
 
     return interval
 
