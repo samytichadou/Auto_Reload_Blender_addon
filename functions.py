@@ -22,11 +22,12 @@ def check_libraries():
     missing = []
     for item in bpy.data.libraries:
         path = absolute_path(item.filepath)
-        try:
-            if item.autoreload_modification_time != str(os.path.getmtime(path)):
+        if os.path.isfile(path):
+            if item.autoreload_modification_time != str(os.path.getmtime(path)) \
+            and not item.autoreload_to_reload:
                 item.autoreload_to_reload=True
                 modified.append(item.name)
-        except FileNotFoundError:
+        else:
             item.autoreload_modification_time = "missing"
             item.autoreload_to_reload = True
             missing.append(item.name)

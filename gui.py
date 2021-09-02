@@ -46,11 +46,14 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
         row = flow.row(align=True)
         row.operator('autoreload.save_revert', icon='FILE_TICK')
 
-        layout.template_list("AUTORELOAD_UL_libraries_uilist", "", bpy.data, "libraries", props, "autoreload_active_library_index", rows=3)
+        if props.autoreload_active_library_index in range(0,len(bpy.data.libraries)):
+            layout.template_list("AUTORELOAD_UL_libraries_uilist", "", bpy.data, "libraries", props, "autoreload_active_library_index", rows=3)
+            # selected library path
+            active_lib = bpy.data.libraries[props.autoreload_active_library_index]
+            layout.prop(active_lib, "filepath", text="")
+        else:
+            props.autoreload_active_library_index = len(bpy.data.libraries)-1
 
-        # selected library path
-        active_lib = bpy.data.libraries[props.autoreload_active_library_index]
-        layout.prop(active_lib, "filepath", text="")
         
 
 # image inspector panel
@@ -84,12 +87,14 @@ class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
         row = flow.row(align=True)
         row.operator('autoreload.save_revert', icon='FILE_TICK')
 
-        layout.template_list("AUTORELOAD_UL_images_uilist", "", bpy.data, "images", props, "autoreload_active_image_index", rows=3)
-
-        # selected image path
-        active_image = bpy.data.images[props.autoreload_active_image_index]
-        if active_image.source not in {'VIEWER','GENERATED'}:
-            layout.prop(active_image, "filepath", text="")
+        if props.autoreload_active_image_index in range(0,len(bpy.data.images)):
+            layout.template_list("AUTORELOAD_UL_images_uilist", "", bpy.data, "images", props, "autoreload_active_image_index", rows=3)
+            # selected image path
+            active_image = bpy.data.images[props.autoreload_active_image_index]
+            if active_image.source not in {'VIEWER','GENERATED'}:
+                layout.prop(active_image, "filepath", text="")
+        else:
+            props.autoreload_active_image_index = len(bpy.data.images)-1
 
 
 # file menu
