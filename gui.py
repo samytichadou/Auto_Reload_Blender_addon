@@ -16,7 +16,7 @@ def draw_update_button(context, container):
 
 # libraries panel
 class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
-    bl_label = "Reload Libraries"
+    bl_label = "Libraries Inspector"
     bl_space_type = 'PROPERTIES'
     bl_region_type = 'WINDOW'
     bl_context = "scene"
@@ -41,19 +41,12 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
         row = flow.row(align=True)
         row.operator('autoreload.save_revert', icon='FILE_TICK')
 
-        for l in bpy.data.libraries:
-            row=layout.row(align=True)
-            row.label(text=l.name)
-            if l.autoreload_to_reload and l.autoreload_modification_time!="missing":
-                prop = row.operator('autoreload.reload_library', text="", icon="FILE_REFRESH")
-                prop.name = l.name
-            elif l.autoreload_modification_time=="missing":
-                row.label(text="", icon="ERROR")
+        layout.template_list("AUTORELOAD_UL_libraries_uilist", "", bpy.data, "libraries", props, "autoreload_active_library_index")
         
 
 # image inspector panel
 class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
-    bl_label = "Image Inspector"
+    bl_label = "Images Inspector"
     bl_space_type = 'PROPERTIES'
     bl_region_type = 'WINDOW'
     bl_context = "scene"

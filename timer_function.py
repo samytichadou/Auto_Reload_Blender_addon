@@ -18,9 +18,9 @@ def autoreload_timer_function():
         functions.update_viewers(context)
 
     if len(missing_imgs)==0: 
-        props.autoreload_properties.autoreload_missing_images=False
+        props.autoreload_missing_images=False
     else: 
-        props.autoreload_properties.autoreload_missing_images=True
+        props.autoreload_missing_images=True
 
     for m in modified_imgs: 
         print(global_variables.print_statement + m + global_variables.reloaded_msg)
@@ -31,12 +31,12 @@ def autoreload_timer_function():
     modified_libs, missing_libs = functions.check_libraries()
 
     if len(missing_libs)==0: 
-        props.autoreload_properties.autoreload_missing_images=False
+        props.autoreload_missing_images=False
     else: 
-        props.autoreload_properties.autoreload_missing_images=True
+        props.autoreload_missing_images=True
 
     for m in modified_libs: 
-        print(global_variables.print_statement + m + global_variables.reloaded_msg)
+        print(global_variables.print_statement + m + global_variables.modified_msg)
     for m in missing_libs:
         print(global_variables.print_statement + m + global_variables.missing_msg)
 

@@ -42,7 +42,7 @@ from . import   (properties,
                 dialog_popup_operator,
                 update_module,
                 file_operators,
-                image_ui_list,
+                ui_lists,
                 )
 
 
@@ -58,7 +58,7 @@ def register():
     dialog_popup_operator.register()
     update_module.register()
     file_operators.register()
-    image_ui_list.register()
+    ui_lists.register()
 
 def unregister():
     properties.unregister()
@@ -69,4 +69,4 @@ def unregister():
     dialog_popup_operator.unregister()
     update_module.unregister()
     file_operators.unregister()
-    image_ui_list.unregister()
+    ui_lists.unregister()

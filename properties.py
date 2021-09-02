@@ -23,8 +23,9 @@ class AUTORELOAD_PR_properties(bpy.types.PropertyGroup) :
     autoreload_missing_images : bpy.props.BoolProperty(name='Missing Images')
     autoreload_missing_libraries : bpy.props.BoolProperty(name='Missing Libraries')
 
-    # image inspector
-    autoreload_active_image_index : bpy.props.IntProperty(name='Inspector Index')
+    # inspectors
+    autoreload_active_image_index : bpy.props.IntProperty(name='Image Index')
+    autoreload_active_library_index : bpy.props.IntProperty(name='Library Index')
     
     # timer
     autoreload_is_timer : bpy.props.BoolProperty(

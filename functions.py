@@ -8,11 +8,13 @@ from .addon_prefs import get_addon_preferences
 def absolute_path(relpath):
     return os.path.abspath(bpy.path.abspath(relpath))
 
+
 # get addon path
 def get_current_dir():
     """ get current file parent directory absolute path """
     script = os.path.realpath(__file__)
     return os.path.dirname(script)
+
 
 # check libraries
 def check_libraries():
@@ -22,16 +24,14 @@ def check_libraries():
         path = absolute_path(item.filepath)
         try:
             if item.autoreload_modification_time != str(os.path.getmtime(path)):
-                item.autoreload_modification_time = str(os.path.getmtime(path))
                 item.autoreload_to_reload=True
                 modified.append(item.name)
-            else:
-                item.autoreload_to_reload=False
         except FileNotFoundError:
             item.autoreload_modification_time = "missing"
             item.autoreload_to_reload = True
             missing.append(item.name)
     return modified, missing
+
 
 # reload library
 def reload_library(name):
@@ -86,6 +86,7 @@ def update_viewers(context):
                             space.shading.type = 'SOLID'
                             space.shading.type = 'RENDERED'
 
+
 # check all images at startup
 def check_images_startup():
     is_missing = False
@@ -98,6 +99,7 @@ def check_images_startup():
                 item.autoreload_modification_time="missing"
                 is_missing = True
     return is_missing
+
 
 # check all libraries at startup
 def check_libraries_startup():
