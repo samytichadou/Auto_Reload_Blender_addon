@@ -21,6 +21,11 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
     bl_region_type = 'WINDOW'
     bl_context = "scene"
 
+    @classmethod
+    def poll(cls, context):
+        if bpy.data.libraries:
+            return True
+
     def draw(self, context):
         props = context.window_manager.autoreload_properties
         wm = context.window_manager
@@ -36,7 +41,7 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
         flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=False)
 
         row = flow.row(align=True)
-        row.operator('autoreload.check_libraries', icon='BLENDER')
+        row.operator('autoreload.check_libraries', icon='LIBRARY_DATA_DIRECT')
 
         row = flow.row(align=True)
         row.operator('autoreload.save_revert', icon='FILE_TICK')
@@ -54,6 +59,11 @@ class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
     bl_space_type = 'PROPERTIES'
     bl_region_type = 'WINDOW'
     bl_context = "scene"
+
+    @classmethod
+    def poll(cls, context):
+        if bpy.data.images:
+            return True
 
     def draw(self, context):
         props = context.window_manager.autoreload_properties
@@ -97,7 +107,7 @@ class AUTORELOAD_MT_file_menu(bpy.types.Menu):
 
         layout.operator('autoreload.reload_images', icon='FILE_REFRESH')
 
-        layout.operator('autoreload.check_libraries', icon='BLENDER')
+        layout.operator('autoreload.check_libraries', icon='LIBRARY_DATA_DIRECT')
 
         layout.separator()
 

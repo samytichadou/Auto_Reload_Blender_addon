@@ -25,7 +25,7 @@ class AUTORELOAD_OT_reload_images(bpy.types.Operator):
 
         for m in modified_list:
             print(global_variables.print_statement + m + global_variables.reloaded_msg)
-            
+
         for m in missing_list:
             print(global_variables.print_statement + m + global_variables.missing_msg)
 
@@ -40,6 +40,11 @@ class AUTORELOAD_OT_check_libraries(bpy.types.Operator):
     bl_label = "Check Libraries"
     bl_description = "Check if external libraries has changed."
     bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context):
+        if bpy.data.libraries:
+            return True
 
     def execute(self, context):
         wm = context.window_manager

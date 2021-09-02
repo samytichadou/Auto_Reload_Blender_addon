@@ -28,7 +28,7 @@ def reveal_in_explorer(path) :
 class AUTORELOAD_OT_reveal_explorer(bpy.types.Operator):
     bl_idname = "autorelad.reveal_explorer"
     bl_label = "Reveal"
-    bl_description = "Reveal in Explorer"
+    bl_description = "Reveal in Explorer."
     bl_options = {'REGISTER', 'INTERNAL'}
 
     path : bpy.props.StringProperty()
@@ -43,7 +43,30 @@ class AUTORELOAD_OT_reveal_explorer(bpy.types.Operator):
         return {'FINISHED'}
 
 
-# open image
+# open library
+def open_library(path) :
+    subprocess.Popen([bpy.app.binary_path, path])
+
+
+class AUTORELOAD_OT_open_library(bpy.types.Operator):
+    bl_idname = "autorelad.open_library"
+    bl_label = "Open"
+    bl_description = "Open Library in Blender instance."
+    bl_options = {'REGISTER', 'INTERNAL'}
+
+    path : bpy.props.StringProperty()
+    
+    def execute(self, context):
+        path = functions.absolute_path(self.path)
+        if os.path.isfile(path):
+            open_library(path)
+        else:
+            print(path + missing_msg)
+
+        return {'FINISHED'}
+
+
+# modify image
 def modify_image(path) :
     img_exe = get_addon_preferences().image_executable
 
@@ -76,8 +99,10 @@ class AUTORELOAD_OT_modify_image(bpy.types.Operator):
 
 def register():
     bpy.utils.register_class(AUTORELOAD_OT_reveal_explorer)
+    bpy.utils.register_class(AUTORELOAD_OT_open_library)
     bpy.utils.register_class(AUTORELOAD_OT_modify_image)
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_OT_reveal_explorer)
+    bpy.utils.unregister_class(AUTORELOAD_OT_open_library)
     bpy.utils.unregister_class(AUTORELOAD_OT_modify_image)
