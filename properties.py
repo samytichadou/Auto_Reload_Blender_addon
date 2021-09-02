@@ -32,6 +32,10 @@ def register():
     bpy.types.WindowManager.autoreload_missing_libraries = \
         bpy.props.BoolProperty(name='Missing Libraries')
 
+    # image inspector
+    bpy.types.WindowManager.autoreload_active_image_index = \
+        bpy.props.IntProperty(name='Inspector Index')
+
     # timer
     bpy.types.WindowManager.autoreload_is_timer = \
         bpy.props.BoolProperty(
@@ -56,6 +60,9 @@ def unregister():
 
     del bpy.types.WindowManager.autoreload_missing_images
     del bpy.types.WindowManager.autoreload_missing_libraries
+
+    # image inspector
+    del bpy.types.WindowManager.autoreload_active_image_index
 
     # timer
     if bpy.context.window_manager.autoreload_is_timer:

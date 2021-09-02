@@ -28,11 +28,19 @@ class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
             description = "Check online for new version of the Addon on every Blender startup.",
             )
 
+    image_executable : bpy.props.StringProperty(
+            name = "Image Editor Executable path",
+            description = "Path to the Executable of Image Editor used to modify images.",
+            subtype = "FILE_PATH",
+            )
+
 
     def draw(self, context):
         layout = self.layout
 
         layout.prop(self, "check_frequency")
+
+        layout.prop(self, "image_executable")
 
         # startup
         col = layout.column(align=True)

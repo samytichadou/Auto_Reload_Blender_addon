@@ -14,8 +14,8 @@ def draw_update_button(context, container):
         op.operator_url = wm.autoreload_update_download_url
         
 
+# libraries panel
 class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
-    """Creates a Panel in the scene context of the scene editor"""
     bl_label = "Reload Libraries"
     bl_space_type = 'PROPERTIES'
     bl_region_type = 'WINDOW'
@@ -48,6 +48,23 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
         if wm.autoreload_missing_libraries:
             row = layout.row()
             row.label(text="Missing Libraries", icon='ERROR')
+
+
+# image inspector panel
+class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
+    bl_label = "Image Inspector"
+    bl_space_type = 'PROPERTIES'
+    bl_region_type = 'WINDOW'
+    bl_context = "scene"
+
+    def draw(self, context):
+        wm = context.window_manager
+
+        layout = self.layout
+
+        draw_update_button(context, layout)
+
+        layout.template_list("AUTORELOAD_UL_images_uilist", "", bpy.data, "images", wm, "autoreload_active_image_index")
 
 
 # file menu
@@ -83,12 +100,14 @@ def file_menu_drawer(self, context):
 
 def register():
     bpy.utils.register_class(AUTORELOAD_PT_libraries_panel)
+    bpy.utils.register_class(AUTORELOAD_PT_image_inspector_panel)
     bpy.utils.register_class(AUTORELOAD_MT_file_menu)
 
     bpy.types.TOPBAR_HT_upper_bar.prepend(file_menu_drawer)
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_PT_libraries_panel)
+    bpy.utils.unregister_class(AUTORELOAD_PT_image_inspector_panel)
     bpy.utils.unregister_class(AUTORELOAD_MT_file_menu)
 
     bpy.types.TOPBAR_HT_upper_bar.remove(file_menu_drawer)
