@@ -34,9 +34,6 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
 
         draw_update_button(context, layout)
 
-        if props.autoreload_missing_libraries:
-            layout.label(text="Missing Libraries", icon='ERROR')
-
         layout.use_property_split = True # Active single-column layout
         flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=False)
 
@@ -74,9 +71,6 @@ class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
         layout = self.layout
 
         draw_update_button(context, layout)
-
-        if props.autoreload_missing_images:
-            layout.label(text="Missing Images", icon='ERROR')
 
         layout.use_property_split = True # Active single-column layout
         flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=False)
@@ -118,19 +112,11 @@ class AUTORELOAD_MT_file_menu(bpy.types.Menu):
 
         layout.operator('autoreload.save_revert', icon='FILE_TICK')
         
-        if props.autoreload_update_needed \
-        or props.autoreload_missing_images \
-        or props.autoreload_missing_libraries:
+        if props.autoreload_update_needed :
             layout.separator()
 
         # update
         draw_update_button(context, layout)
-
-        # missing images and libs
-        if props.autoreload_missing_images:
-            layout.label(text="Missing Images", icon='ERROR')
-        if props.autoreload_missing_libraries:
-            layout.label(text="Missing Libraries", icon='ERROR')
 
 
 # file menu drawer

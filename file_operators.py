@@ -31,13 +31,23 @@ class AUTORELOAD_OT_reveal_explorer(bpy.types.Operator):
     bl_description = "Reveal in Explorer."
     bl_options = {'REGISTER', 'INTERNAL'}
 
-    path : bpy.props.StringProperty()
+    name : bpy.props.StringProperty()
+    library : bpy.props.BoolProperty()
     
     def execute(self, context):
-        path = functions.absolute_path(self.path)
+
+        if self.library:
+            item = bpy.data.libraries[self.name]
+        else:
+            item = bpy.data.images[self.name]
+
+        path = functions.absolute_path(item.filepath)
+
         if os.path.isfile(path):
             reveal_in_explorer(path)
+            print(global_variables.print_statement + path + global_variables.opening_msg)
         else:
+            item.autoreload_modification_time = "missing"
             print(global_variables.print_statement + path + global_variables.missing_msg)
 
         return {'FINISHED'}
@@ -54,13 +64,16 @@ class AUTORELOAD_OT_open_library(bpy.types.Operator):
     bl_description = "Open Library in Blender instance."
     bl_options = {'REGISTER', 'INTERNAL'}
 
-    path : bpy.props.StringProperty()
+    name : bpy.props.StringProperty()
     
     def execute(self, context):
-        path = functions.absolute_path(self.path)
+        lib = bpy.data.libraries[self.name]
+        path = functions.absolute_path(lib.filepath)
         if os.path.isfile(path):
             open_library(path)
+            print(global_variables.print_statement + path + global_variables.opening_msg)
         else:
+            lib.autoreload_modification_time = "missing"
             print(global_variables.print_statement + path + global_variables.missing_msg)
 
         return {'FINISHED'}
@@ -79,17 +92,20 @@ class AUTORELOAD_OT_modify_image(bpy.types.Operator):
     bl_description = "Modify image with specified Program."
     bl_options = {'REGISTER', 'INTERNAL'}
 
-    path : bpy.props.StringProperty()
+    name : bpy.props.StringProperty()
 
     @classmethod
     def poll(cls, context):
         return os.path.isfile(get_addon_preferences().image_executable)
     
     def execute(self, context):
-        path = functions.absolute_path(self.path)
+        image = bpy.data.images[self.name]
+        path = functions.absolute_path(image.filepath)
         if os.path.isfile(path):
             modify_image(path)
+            print(global_variables.print_statement + path + global_variables.opening_msg)
         else:
+            image.autoreload_modification_time = "missing"
             print(global_variables.print_statement + path + global_variables.missing_msg)
 
         return {'FINISHED'}

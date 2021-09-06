@@ -19,16 +19,10 @@ def reload_startup(scene):
         check_addon_version(wm)
 
     # images
-    if functions.check_images_startup():
-        wm.autoreload_properties.autoreload_missing_images = True
-    else:
-        wm.autoreload_properties.autoreload_missing_images = False
+    functions.check_images_startup()
 
     # libraries
-    if functions.check_libraries_startup():
-        wm.autoreload_properties.autoreload_missing_libraries = True
-    else:
-        wm.autoreload_properties.autoreload_missing_libraries = False
+    functions.check_libraries_startup()
 
     # launch timer on startup
     if prefs.startup_launch:

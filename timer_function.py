@@ -15,11 +15,6 @@ def autoreload_timer_function():
     # IMAGES
     modified_imgs, missing_imgs = functions.reload_modified_images()
 
-    if len(missing_imgs)==0: 
-        props.autoreload_missing_images=False
-    else: 
-        props.autoreload_missing_images=True
-
     if len(modified_imgs)!=0: 
         functions.update_viewers(context)
         functions.update_textures(modified_imgs)
@@ -33,11 +28,6 @@ def autoreload_timer_function():
     # LIBRARIES
     if prefs.timer_libraries:
         modified_libs, missing_libs = functions.check_libraries()
-
-        if len(missing_libs)==0: 
-            props.autoreload_missing_libraries=False
-        else: 
-            props.autoreload_missing_libraries=True
 
         if len(modified_libs)!=0:
             for area in context.screen.areas:

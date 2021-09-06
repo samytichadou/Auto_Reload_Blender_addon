@@ -1,12 +1,16 @@
 TODO
+
+major
 - [ ] readme
 - [ ] better executable check (startup ?)
-- [ ] catch unfound file when opening and modifying
+- [x] catch unfound file when opening and modifying
 - [ ] preview images
 - [x] open library
-- [ ] important reports
-- [ ] debug lib to reload when linking
 - [x] ui list lib keep reload button grayed out
-- [ ] reload udim tiles images
 - [x] bug when removing images used in displace texture
 - [x] remove libraries
+
+minor
+- [ ] debug lib to reload when linking
+- [ ] reload udim tiles images
+- [ ] important reports
