@@ -99,7 +99,7 @@ class AUTORELOAD_OT_remove_image(bpy.types.Operator):
     bl_idname = "autorelad.remove_image"
     bl_label = "Remove"
     bl_description = "Remove this Image from the Blend file."
-    bl_options = {'REGISTER', 'INTERNAL'}
+    bl_options = {'REGISTER', 'INTERNAL', 'UNDO'}
 
     name : bpy.props.StringProperty()
     
