@@ -102,10 +102,38 @@ class AUTORELOAD_OT_remove_image(bpy.types.Operator):
     bl_options = {'REGISTER', 'INTERNAL', 'UNDO'}
 
     name : bpy.props.StringProperty()
+
+    def invoke(self, context, event):
+        wm = context.window_manager
+        return wm.invoke_props_dialog(self)
+
+    def draw(self, context):
+        self.layout.label(text="Delete %s ?" % self.name, icon='ERROR')
     
     def execute(self, context):
         bpy.data.images.remove(bpy.data.images[self.name])
         functions.update_textures_no_images()
+        print(global_variables.print_statement + self.name + global_variables.remove__msg)
+        return {'FINISHED'}
+
+
+class AUTORELOAD_OT_remove_library(bpy.types.Operator):
+    bl_idname = "autorelad.remove_library"
+    bl_label = "Remove"
+    bl_description = "Remove this Library from the Blend file."
+    bl_options = {'REGISTER', 'INTERNAL', 'UNDO'}
+
+    name : bpy.props.StringProperty()
+
+    def invoke(self, context, event):
+        wm = context.window_manager
+        return wm.invoke_props_dialog(self)
+
+    def draw(self, context):
+        self.layout.label(text="Delete %s ?" % self.name, icon='ERROR')
+            
+    def execute(self, context):
+        bpy.data.libraries.remove(bpy.data.libraries[self.name])
         print(global_variables.print_statement + self.name + global_variables.remove__msg)
         return {'FINISHED'}
 
@@ -117,9 +145,11 @@ def register():
     bpy.utils.register_class(AUTORELOAD_OT_open_library)
     bpy.utils.register_class(AUTORELOAD_OT_modify_image)
     bpy.utils.register_class(AUTORELOAD_OT_remove_image)
+    bpy.utils.register_class(AUTORELOAD_OT_remove_library)
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_OT_reveal_explorer)
     bpy.utils.unregister_class(AUTORELOAD_OT_open_library)
     bpy.utils.unregister_class(AUTORELOAD_OT_modify_image)
     bpy.utils.unregister_class(AUTORELOAD_OT_remove_image)
+    bpy.utils.unregister_class(AUTORELOAD_OT_remove_library)

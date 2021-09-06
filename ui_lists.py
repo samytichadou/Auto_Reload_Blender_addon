@@ -19,9 +19,6 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
             
             row.prop(item, "name", text="", emboss=False)
 
-            op=row.operator("autorelad.remove_image", text="", icon="X")
-            op.name = item.name
-
             if item.autoreload_modification_time != "missing":
 
                 op=row.operator("autorelad.reveal_explorer", text="", icon='ZOOM_ALL')
@@ -32,6 +29,9 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
 
             else:
                 row.label(text='', icon="ERROR")
+
+            op=row.operator("autorelad.remove_image", text="", icon="X")
+            op.name = item.name
 
 
 # Libraries
@@ -58,6 +58,9 @@ class AUTORELOAD_UL_libraries_uilist(bpy.types.UIList):
 
         else:
             row.label(text='', icon="ERROR")
+
+        op=row.operator("autorelad.remove_library", text="", icon="X")
+        op.name = item.name
 
 
 ### REGISTER ---

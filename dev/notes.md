@@ -9,3 +9,4 @@ TODO
 - [x] ui list lib keep reload button grayed out
 - [ ] reload udim tiles images
 - [x] bug when removing images used in displace texture
+- [x] remove libraries
