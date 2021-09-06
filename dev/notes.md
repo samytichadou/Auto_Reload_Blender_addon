@@ -1,5 +1,4 @@
 TODO
-
 - [ ] readme
 - [ ] better executable check (startup ?)
 - [ ] catch unfound file when opening and modifying
