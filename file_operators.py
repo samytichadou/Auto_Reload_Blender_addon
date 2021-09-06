@@ -105,7 +105,7 @@ class AUTORELOAD_OT_remove_image(bpy.types.Operator):
     
     def execute(self, context):
         bpy.data.images.remove(bpy.data.images[self.name])
-        functions.update_textures(None) #TODO
+        functions.update_textures_no_images()
         print(global_variables.print_statement + self.name + global_variables.remove__msg)
         return {'FINISHED'}
 

@@ -79,12 +79,21 @@ def update_viewers(context):
 # update textures
 def update_textures(modified_image_list):
     for tex in bpy.data.textures:
-        if tex.type == "IMAGE" and tex.image:
-            if modified_image_list:
-                if tex.image.name in modified_image_list:
+        if tex.type == "IMAGE":
+            if tex.image:
+                if modified_image_list:
+                    if tex.image.name in modified_image_list:
+                        tex.image = bpy.data.images[tex.image.name]
+                else:
                     tex.image = bpy.data.images[tex.image.name]
-            else:
-                tex.image = bpy.data.images[tex.image.name]
+
+
+# update textures with no images
+def update_textures_no_images():
+    for tex in bpy.data.textures:
+        if tex.type == "IMAGE":
+            if not tex.image:
+                tex.use_alpha = tex.use_alpha
 
 
 # update strips
