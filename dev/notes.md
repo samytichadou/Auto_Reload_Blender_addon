@@ -1,10 +1,10 @@
 TODO
 
 major
-- [ ] readme
 - [ ] better executable check (startup ?)
-- [x] catch unfound file when opening and modifying
+- [ ] readme
 - [ ] preview images
+- [x] catch unfound file when opening and modifying
 - [x] open library
 - [x] ui list lib keep reload button grayed out
 - [x] bug when removing images used in displace texture
@@ -17,3 +17,4 @@ minor
 - [ ] reload udim tiles images
 - [ ] important reports
 - [ ] select file in linux explorer when revealing it 
+- [ ] check reveal in explorer on mac os
