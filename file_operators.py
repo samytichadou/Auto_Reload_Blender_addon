@@ -12,17 +12,18 @@ from . import global_variables
 def reveal_in_explorer(path) :
     #windows
     if platform.system() == "Windows":
-            #os.startfile(path)
-            #subprocess.Popen(['explorer', path])
-            # subprocess.Popen(r'explorer /select,%s' % path)
-            #subprocess.call("explorer %s" % path, shell=True)
-            subprocess.Popen(r'explorer /select, %s' % path)
+        #os.startfile(path)
+        #subprocess.Popen(['explorer', path])
+        # subprocess.Popen(r'explorer /select,%s' % path)
+        #subprocess.call("explorer %s" % path, shell=True)
+        subprocess.Popen(r'explorer /select, %s' % path)
     #mac
     elif platform.system() == "Darwin":
-            subprocess.Popen(["open", path])
+        #subprocess.Popen(["open", path])
+        subprocess.Popen(["open", "-a", "Finder", path])
     #linux
     else:
-            subprocess.Popen(["xdg-open", path])
+        subprocess.Popen(["xdg-open", os.path.dirname(path)])
 
 
 class AUTORELOAD_OT_reveal_explorer(bpy.types.Operator):
