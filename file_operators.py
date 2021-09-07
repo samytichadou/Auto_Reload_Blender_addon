@@ -164,6 +164,13 @@ class AUTORELOAD_OT_save_revert(bpy.types.Operator):
     def poll(cls, context):
         return bpy.data.is_saved
 
+    def invoke(self, context, event):
+        wm = context.window_manager
+        return wm.invoke_props_dialog(self)
+
+    def draw(self, context):
+        self.layout.label(text="Save this File and Reload ?", icon='ERROR')
+
     def execute(self, context):
         bpy.ops.wm.save_as_mainfile(filepath=bpy.data.filepath)
         bpy.ops.wm.revert_mainfile()
