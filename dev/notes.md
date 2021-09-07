@@ -1,9 +1,10 @@
 TODO
 
 major
-- [ ] better executable check (startup ?)
 - [ ] readme
 - [ ] preview images
+- [ ] proper indentation in addon_prefs.py
+- [x] better executable check (startup ?)
 - [x] catch unfound file when opening and modifying
 - [x] open library
 - [x] ui list lib keep reload button grayed out

@@ -5,6 +5,16 @@ from .gui import draw_update_button
 
 addon_name = os.path.basename(os.path.dirname(__file__))
 
+
+# update function for external image editor prop
+def update_image_executable(self, context):
+        props = context.window_manager.autoreload_properties
+        if os.path.isfile(self.image_executable):
+                props.autoreload_is_editor_executable = True
+        else:
+                props.autoreload_is_editor_executable = False
+
+
 class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
     bl_idname = addon_name
     
@@ -38,15 +48,21 @@ class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
             name = "Image Editor",
             description = "Path to the Executable of the Image Editor used to modify images.",
             subtype = "FILE_PATH",
+            update = update_image_executable,
             )
 
 
     def draw(self, context):
+        props = context.window_manager.autoreload_properties
+        
         layout = self.layout
 
         layout.prop(self, "check_frequency")
-
-        layout.prop(self, "image_executable")
+        
+        row = layout.row(align=True)
+        if not props.autoreload_is_editor_executable:
+                row.label(text="", icon="ERROR")
+        row.prop(self, "image_executable")
 
         # startup
         col = layout.column(align=True)
