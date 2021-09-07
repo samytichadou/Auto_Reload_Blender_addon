@@ -154,6 +154,22 @@ class AUTORELOAD_OT_remove_library(bpy.types.Operator):
         return {'FINISHED'}
 
 
+class AUTORELOAD_OT_save_revert(bpy.types.Operator):
+    bl_idname = "autoreload.save_revert"
+    bl_label = "Save and Revert"
+    bl_description = "Save file and revert to reload all Libraries and Images."
+    bl_options = {"REGISTER", "UNDO"}
+
+    @classmethod
+    def poll(cls, context):
+        return bpy.data.is_saved
+
+    def execute(self, context):
+        bpy.ops.wm.save_as_mainfile(filepath=bpy.data.filepath)
+        bpy.ops.wm.revert_mainfile()
+        return {"FINISHED"}
+
+
 ### REGISTER ---
 
 def register():
@@ -162,6 +178,7 @@ def register():
     bpy.utils.register_class(AUTORELOAD_OT_modify_image)
     bpy.utils.register_class(AUTORELOAD_OT_remove_image)
     bpy.utils.register_class(AUTORELOAD_OT_remove_library)
+    bpy.utils.register_class(AUTORELOAD_OT_save_revert)
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_OT_reveal_explorer)
@@ -169,3 +186,4 @@ def unregister():
     bpy.utils.unregister_class(AUTORELOAD_OT_modify_image)
     bpy.utils.unregister_class(AUTORELOAD_OT_remove_image)
     bpy.utils.unregister_class(AUTORELOAD_OT_remove_library)
+    bpy.utils.unregister_class(AUTORELOAD_OT_save_revert)
