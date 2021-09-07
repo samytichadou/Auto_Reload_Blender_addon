@@ -13,6 +13,7 @@ major
 - [x] validation on save and revert operator
 
 minor
+- [ ] reload vse strips logic
 - [ ] debug lib to reload when linking
 - [ ] reload udim tiles images
 - [ ] important reports

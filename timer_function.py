@@ -18,7 +18,7 @@ def autoreload_timer_function():
     if len(modified_imgs)!=0: 
         functions.update_viewers(context)
         functions.update_textures(modified_imgs)
-        functions.update_strips(modified_imgs)
+        #functions.update_strips(modified_imgs)
 
     for m in modified_imgs: 
         print(global_variables.print_statement + m + global_variables.reloaded_msg)

@@ -18,7 +18,7 @@ class AUTORELOAD_OT_reload_images(bpy.types.Operator):
         if len(modified_list)!=0:
             functions.update_viewers(context)
             functions.update_textures(modified_list)
-            functions.update_strips(modified_list)
+            #functions.update_strips(modified_list)
 
         for m in modified_list:
             print(global_variables.print_statement + m + global_variables.reloaded_msg)

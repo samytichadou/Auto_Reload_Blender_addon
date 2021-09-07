@@ -63,6 +63,18 @@ def reload_modified_images():
     return modified, missing
 
 
+# reload modified images from strip
+# def reload_modified_strips_images():
+#     modified = []
+#     missing = []
+
+#     for scn in bpy.data.scenes: 
+#         for s in scn.sequence_editor.sequences_all:
+#             if s.type == "IMAGE":
+#                 for e in s.elements:
+                
+
+
 # update 3d view if in rendered mode and not EEVEE or WORKBENCH
 def update_viewers(context):
     if context.scene.render.engine not in ['BLENDER_EEVEE','BLENDER_WORKBENCH']:
@@ -97,15 +109,15 @@ def update_textures_no_images():
 
 
 # update strips
-def update_strips(modified_image_list):
-    for s in bpy.context.scene.sequence_editor.sequences_all:
-        if s.type == "IMAGE":
-            for e in s.elements:
-                if modified_image_list:
-                    if e.filename in modified_image_list:
-                        e.filename = e.filename
-                else:
-                    e.filename = e.filename
+# def update_strips(modified_image_list):
+#     for s in bpy.context.scene.sequence_editor.sequences_all:
+#         if s.type == "IMAGE":
+#             for e in s.elements:
+#                 if modified_image_list:
+#                     if e.filename in modified_image_list:
+#                         e.filename = e.filename
+#                 else:
+#                     e.filename = e.filename
 
 
 # check all images at startup
