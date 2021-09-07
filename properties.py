@@ -38,6 +38,9 @@ class AUTORELOAD_PR_properties(bpy.types.PropertyGroup) :
     autoreload_update_message : bpy.props.StringProperty(name='Update Message')
     autoreload_update_download_url : bpy.props.StringProperty(name='Update Download URL')
 
+    # image editor
+    autoreload_is_editor_executable : bpy.props.BoolProperty(name='Is Image Editor available')
+
 
 ### REGISTER ---
 

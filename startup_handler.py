@@ -1,4 +1,5 @@
 import bpy
+import os
 
 from bpy.app.handlers import persistent
 
@@ -12,11 +13,16 @@ from .update_module import check_addon_version
 def reload_startup(scene):
 
     wm = bpy.data.window_managers['WinMan']
+    props = wm.autoreload_properties
     prefs = get_addon_preferences()
 
     # check for addon new version
     if prefs.update_check_launch:
         check_addon_version(wm)
+
+    # check for image editor executable
+    if os.path.isfile(prefs.image_executable):
+        props.autoreload_is_editor_executable = True
 
     # images
     functions.check_images_startup()
@@ -26,7 +32,7 @@ def reload_startup(scene):
 
     # launch timer on startup
     if prefs.startup_launch:
-        wm.autoreload_properties.autoreload_is_timer = True
+        props.autoreload_is_timer = True
 
     print(handler_statement)
 

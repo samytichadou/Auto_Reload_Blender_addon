@@ -97,7 +97,7 @@ class AUTORELOAD_OT_modify_image(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return os.path.isfile(get_addon_preferences().image_executable)
+        return context.window_manager.autoreload_properties.autoreload_is_editor_executable
     
     def execute(self, context):
         image = bpy.data.images[self.name]
