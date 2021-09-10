@@ -3,6 +3,8 @@ import os
 import time
 
 from .addon_prefs import get_addon_preferences
+from .global_variables import preview_texture
+
 
 # absolute path
 def absolute_path(relpath):

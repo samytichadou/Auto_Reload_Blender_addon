@@ -2,7 +2,7 @@ TODO
 
 major
 - [ ] readme
-- [ ] preview images
+- [x] preview images
 - [x] proper indentation in addon_prefs.py
 - [x] better executable check (startup ?)
 - [x] catch unfound file when opening and modifying
@@ -14,6 +14,7 @@ major
 - [x] validation on save and revert operator
 
 minor
+- [ ] better readbility in ui list (when something has to be reload or missing)
 - [ ] reload vse strips logic
 - [ ] debug lib to reload when linking
 - [ ] reload udim tiles images

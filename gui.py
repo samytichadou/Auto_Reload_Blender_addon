@@ -1,5 +1,7 @@
 import bpy
 
+from .global_variables import preview_texture
+
 
 # draw update button
 def draw_update_button(context, container):
@@ -100,7 +102,7 @@ class AUTORELOAD_PT_image_preview_subpanel(bpy.types.Panel):
     bl_options = {"DEFAULT_CLOSED"}
 
     def draw(self, context):
-        self.layout.template_preview(bpy.data.textures[0])
+        self.layout.template_preview(bpy.data.textures[preview_texture])
 
 
 # file menu
