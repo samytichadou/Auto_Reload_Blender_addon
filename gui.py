@@ -91,6 +91,18 @@ class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
             props.autoreload_active_image_index = len(bpy.data.images)-1
 
 
+# image inspector panel
+class AUTORELOAD_PT_image_preview_subpanel(bpy.types.Panel):
+    bl_label = "Preview"
+    bl_space_type = 'PROPERTIES'
+    bl_region_type = 'WINDOW'
+    bl_parent_id = "AUTORELOAD_PT_image_inspector_panel"
+    bl_options = {"DEFAULT_CLOSED"}
+
+    def draw(self, context):
+        self.layout.template_preview(bpy.data.textures[0])
+
+
 # file menu
 class AUTORELOAD_MT_file_menu(bpy.types.Menu):
     bl_label = "Auto Reload"
@@ -136,6 +148,7 @@ def file_menu_drawer(self, context):
 def register():
     bpy.utils.register_class(AUTORELOAD_PT_libraries_panel)
     bpy.utils.register_class(AUTORELOAD_PT_image_inspector_panel)
+    bpy.utils.register_class(AUTORELOAD_PT_image_preview_subpanel)
     bpy.utils.register_class(AUTORELOAD_MT_file_menu)
 
     bpy.types.TOPBAR_HT_upper_bar.prepend(file_menu_drawer)
@@ -143,6 +156,7 @@ def register():
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_PT_libraries_panel)
     bpy.utils.unregister_class(AUTORELOAD_PT_image_inspector_panel)
+    bpy.utils.unregister_class(AUTORELOAD_PT_image_preview_subpanel)
     bpy.utils.unregister_class(AUTORELOAD_MT_file_menu)
 
     bpy.types.TOPBAR_HT_upper_bar.remove(file_menu_drawer)

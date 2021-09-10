@@ -3,7 +3,7 @@ TODO
 major
 - [ ] readme
 - [ ] preview images
-- [ ] proper indentation in addon_prefs.py
+- [x] proper indentation in addon_prefs.py
 - [x] better executable check (startup ?)
 - [x] catch unfound file when opening and modifying
 - [x] open library
