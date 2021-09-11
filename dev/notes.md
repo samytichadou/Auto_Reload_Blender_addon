@@ -1,8 +1,8 @@
 TODO
 
 major
-- [ ] readme
-- [ ] better readbility in ui list (when something has to be reload or missing)
+- [x] readme
+- [x] better readbility in ui list (when something has to be reload or missing)
 - [x] preview images
 - [x] proper indentation in addon_prefs.py
 - [x] better executable check (startup ?)
