@@ -30,9 +30,10 @@ def check_libraries():
                 item.autoreload_to_reload=True
                 modified.append(item.name)
         else:
-            item.autoreload_modification_time = "missing"
-            item.autoreload_to_reload = True
-            missing.append(item.name)
+            if item.autoreload_modification_time!="missing":
+                item.autoreload_modification_time = "missing"
+                item.autoreload_to_reload = True
+                missing.append(item.name)
     return modified, missing
 
 
@@ -59,8 +60,9 @@ def reload_modified_images():
                     item.autoreload_modification_time=str(os.path.getmtime(path))
                     modified.append(item.name)
             else:
-                item.autoreload_modification_time="missing"
-                missing.append(item.name)
+                if item.autoreload_modification_time!="missing":
+                    item.autoreload_modification_time="missing"
+                    missing.append(item.name)
 
     return modified, missing
 
