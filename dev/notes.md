@@ -2,6 +2,7 @@ TODO
 
 major
 - [ ] readme
+- [ ] better readbility in ui list (when something has to be reload or missing)
 - [x] preview images
 - [x] proper indentation in addon_prefs.py
 - [x] better executable check (startup ?)
@@ -15,7 +16,6 @@ major
 
 minor
 - [ ] direct link to donate
-- [ ] better readbility in ui list (when something has to be reload or missing)
 - [ ] reload vse strips logic
 - [ ] debug lib to reload when linking
 - [ ] reload udim tiles images
