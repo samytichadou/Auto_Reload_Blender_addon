@@ -136,3 +136,11 @@ set here the time interval for automatic Check/Reload for external Images and Li
 - **Include Libraries Check in the Reload Timer :**
 - **Check for Updates on Startup :**
 - **Check Addon Updates operator :** Check manually for Addon Updates (see above for details)
+
+___
+
+## **Known Issues**
+
+On *Linux* (possibly *Mac* too), the *Reveal File* operator will not select the File in opened explorer window.  
+
+The *Image Strips* in the *VSE* will not update using *Auto Reload*, Blender manage them as separate entities. Handling them is in the Roadmap, but not currently integrated.
