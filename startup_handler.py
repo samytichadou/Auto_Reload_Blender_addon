@@ -28,6 +28,7 @@ def reload_startup(scene):
     # images
     functions.check_images_startup()
     create_preview_texture()
+    props.autoreload_active_image_index = 0
 
     # libraries
     functions.check_libraries_startup()
