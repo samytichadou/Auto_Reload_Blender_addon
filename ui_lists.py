@@ -52,10 +52,10 @@ class AUTORELOAD_UL_libraries_uilist(bpy.types.UIList):
             op = row.operator('autorelad.open_library', text="", icon="BLENDER")
             op.name = item.name
 
-            subrow = row.row(align=True)
-            if not item.autoreload_to_reload:
-                subrow.enabled=False
-            op = subrow.operator('autoreload.reload_library', text="", icon="FILE_REFRESH")
+            # subrow = row.row(align=True)
+            # if not item.autoreload_to_reload:
+            #     subrow.enabled=False
+            op = row.operator('autoreload.reload_library', text="", icon="FILE_REFRESH")
             op.name = item.name
 
         else:
