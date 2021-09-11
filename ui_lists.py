@@ -17,9 +17,13 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
         # external files
         else:
             
-            row.prop(item, "name", text="", emboss=False)
+            if item.autoreload_modification_time == "missing":
+                row.label(text='', icon="ERROR")              
+                row.prop(item, "name", text="", emboss=False)
 
-            if item.autoreload_modification_time != "missing":
+            else:
+
+                row.prop(item, "name", text="", emboss=False)
 
                 op=row.operator("autorelad.reveal_explorer", text="", icon='ZOOM_ALL')
                 op.name = item.name
@@ -27,9 +31,6 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
 
                 op=row.operator("autorelad.modify_image", text="", icon='GREASEPENCIL')
                 op.name = item.name
-
-            else:
-                row.label(text='', icon="ERROR")
 
             op=row.operator("autorelad.remove_image", text="", icon="X")
             op.name = item.name
@@ -41,9 +42,16 @@ class AUTORELOAD_UL_libraries_uilist(bpy.types.UIList):
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, flt_flag) :
         row = layout.row(align = True)
             
-        row.prop(item, "name", text="", emboss=False)
+        if item.autoreload_modification_time == "missing":
+            row.label(text='', icon="ERROR")
+            row.prop(item, "name", text="", emboss=False)
 
-        if item.autoreload_modification_time != "missing":
+        else:
+
+            if item.autoreload_to_reload:
+                row.label(text="", icon="FILE_CACHE")
+            
+            row.prop(item, "name", text="", emboss=False)
 
             op=row.operator("autorelad.reveal_explorer", text="", icon='ZOOM_ALL')
             op.name = item.name
@@ -52,14 +60,8 @@ class AUTORELOAD_UL_libraries_uilist(bpy.types.UIList):
             op = row.operator('autorelad.open_library', text="", icon="BLENDER")
             op.name = item.name
 
-            # subrow = row.row(align=True)
-            # if not item.autoreload_to_reload:
-            #     subrow.enabled=False
             op = row.operator('autoreload.reload_library', text="", icon="FILE_REFRESH")
             op.name = item.name
-
-        else:
-            row.label(text='', icon="ERROR")
 
         op=row.operator("autorelad.remove_library", text="", icon="X")
         op.name = item.name
