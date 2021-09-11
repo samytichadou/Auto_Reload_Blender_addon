@@ -30,7 +30,8 @@ A File icon above the *Library name* shows User the *Library* has been modified.
 
 ![Images Inspector Panel](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/images_inspector_panel.png)
 
-Manage Images from here. *Name* and *Path* of external Images used in Blend file are accessible. A *Preview Subpanel* allows User to check selected Image.  
+Manage Images from here. *Name* and *Path* of external Images used in Blend file are accessible.  
+A *Preview Subpanel* allows User to check selected Image.  
 *Reveal*, *Modify in Image Editor* or *Remove*.
 ___
 
