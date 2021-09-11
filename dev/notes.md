@@ -14,6 +14,7 @@ major
 - [x] validation on save and revert operator
 
 minor
+- [ ] direct link to donate
 - [ ] better readbility in ui list (when something has to be reload or missing)
 - [ ] reload vse strips logic
 - [ ] debug lib to reload when linking
