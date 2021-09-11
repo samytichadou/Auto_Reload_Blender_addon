@@ -1,6 +1,7 @@
 print_statement = "Auto Reload --- "
 
 reloaded_msg = " found modified, reloaded"
+lib_reloaded_msg = "  library reloaded"
 modified_msg = " found modified"
 missing_msg = " found missing"
 remove__msg = " removed"

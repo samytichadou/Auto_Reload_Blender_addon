@@ -66,6 +66,7 @@ class AUTORELOAD_OT_reload_library(bpy.types.Operator):
 
     def execute(self, context):
         functions.reload_library(self.name)
+        print(global_variables.print_statement + self.name + global_variables.lib_reloaded_msg)
         return {"FINISHED"}
 
 
