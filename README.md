@@ -3,27 +3,36 @@
 [Auto Reload Releases](https://github.com/samytichadou/Auautoreload_to_reload_Images-Blender_addon/releases://www.example.com/my%20great%20page) 
 
 Auto Reload is a Blender addon design to help user refresh external files (*images* and *libraries*) from inside Blender.
-
+___
 
 ## **Panels**
 
-*Auto Reload* operators are located in several places in Blender :
-### Top Bar Menu
+*Auto Reload* operators are located in several places in Blender :  
+
+### - ***Top Bar Menu***
 
 ![Top Bar Menu](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/top_bar_menu_open.png)
 
-### Libraries Inspector Panel (in the *Scene Properties*)
+Handy accessible menu to quickly toggle *Timer* or *Reload* and *Check* Images/Libraries. You can also *Save and Revert* Blend file from here
+
+### - ***Libraries Inspector Panel* (in the *Scene Properties*)**
 
 ![Libraries Inspector Panel](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/libraries_inspector_panel.png)
 
-### Images Inspector Panel (in the *Scene Properties*)
+Manage Libraries from here. *Path* of external Libraries used in Blend file are accessible.  
+*Reveal*, *Open in Blender instance*, *Reload* or *Remove*.
+
+### - ***Images Inspector Panel* (in the *Scene Properties*)**
 
 ![Images Inspector Panel](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/images_inspector_panel.png)
 
+Manage Images from here. *Name* and *Path* of external Images used in Blend file are accessible. A *Preview Subpanel* allows User to check selected Image.  
+*Reveal*, *Modify in Image Editor* or *Remove*.
+___
 
 ## **Operators**
 
-### ***Reload Images* operator**
+### - ***Reload Images* operator**
 **Located in the *Top Bar Menu* and the *Images Inspector Panel***
 
 ![Top Bar Reload Images operator](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/topbar_reload_images.png)
@@ -31,7 +40,7 @@ Auto Reload is a Blender addon design to help user refresh external files (*imag
 
 This operator will reload all modified images.
 
-### ***Check Libraries* operator**
+### - ***Check Libraries* operator**
 **Located in the *Top Bar Menu* and the *Libraries Inspector Panel* UI List**
 
 ![Top Bar Check Libraries operator](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/topbar_check_libraries.png)
@@ -39,14 +48,14 @@ This operator will reload all modified images.
 
 This operator will check all used Libraries for modification **without** reloading them (reloading used libraries should be let to the user to prevent some unwanted modifications).
 
-### ***Reload Library* operator**
+### - ***Reload Library* operator**
 **Located in the *Libraries Inspector Panel* UI List**
 
 ![Reload Library operator](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/reload_library.png)
 
 This operator will reload selected Library.
 
-### ***Save and Revert* operator**
+### - ***Save and Revert* operator**
 **Located in the *Top Bar Menu*, *Images Inspector Panel* and *Libraries Inspector Panel***
 
 ![Top Bar Save and Revert operator](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/topbar_save_revert.png)
@@ -56,7 +65,7 @@ This operator will reload selected Library.
 This operator will save current Blend file and reload it, all external Images and Libraries will be reloaded.
 
 
-### ***Reveal in Explorer* operator**
+### - ***Reveal in Explorer* operator**
 **Located in the *Images Inspector Panel* and *Libraries Inspector Panel***
 
 ![Reveal Image in Explorer](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/reveal_image.png)
@@ -65,7 +74,7 @@ This operator will save current Blend file and reload it, all external Images an
 This operator will open an explorer at the location of the selected Image/Library.
 
 
-### ***Open Library* operator**
+### - ***Open Library* operator**
 **Located in the *Libraries Inspector Panel***
 
 ![Open Library* operator](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/open_library.png)
@@ -73,7 +82,7 @@ This operator will open an explorer at the location of the selected Image/Librar
 This operator will open selected Library in a Blender instance.
 
 
-### ***Modify Image* operator**
+### - ***Modify Image* operator**
 **Located in the *Images Inspector Panel***
 
 ![Modify Image operator](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/modify_image.png)
@@ -81,7 +90,7 @@ This operator will open selected Library in a Blender instance.
 This operator will open selected Image in an external Image Editor (specified in the *Addon Preferences*).
 
 
-### ***Remove Image/Library* operator**
+### - ***Remove Image/Library* operator**
 **Located in the *Images Inspector Panel* and *Libraries Inspector Panel***
 
 ![Remove Image operator](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/remove_image.png)
@@ -90,7 +99,7 @@ This operator will open selected Image in an external Image Editor (specified in
 This operator will remove selected Image/Library from the Blend file.
 
 
-### ***Check Addon Updates* operator**
+### - ***Check Addon Updates* operator**
 **Located in the *Addon Preferences***
 
 ![Check Addon Updates operator](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/check_addon_updates.png)
@@ -99,6 +108,7 @@ This operator will check for new version of the Addon online. If found, a popup 
 
 Nb : This operator is performed at Blender startup by default (specified in the *Addon Preferences*).
 
+___
 
 ## **Timer**
 **Located in the *Top Bar Menu***
@@ -109,6 +119,7 @@ The *Timer property* is a way to reload external images and check libraries for 
 
 User can deactivate the Check for modified Libraries from the *Addon Preferences*.
 
+___
 
 ## **Addon Preferences**
 
