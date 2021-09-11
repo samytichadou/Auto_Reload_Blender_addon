@@ -20,7 +20,11 @@ Handy accessible menu to quickly toggle *Timer* or *Reload* and *Check* Images/L
 ![Libraries Inspector Panel](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/libraries_inspector_panel.png)
 
 Manage Libraries from here. *Path* of external Libraries used in Blend file are accessible.  
-*Reveal*, *Open in Blender instance*, *Reload* or *Remove*.
+*Reveal*, *Open in Blender instance*, *Reload* or *Remove*.  
+
+A *File icon* above the *Library name* show User the Library has been modified.
+
+![Modified Library](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/modified_library.png)
 
 ### - ***Images Inspector Panel* (in the *Scene Properties*)**
 
