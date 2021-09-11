@@ -15,6 +15,7 @@ major
 - [x] validation on save and revert operator
 
 minor
+- [ ] size of image preview
 - [ ] direct link to donate
 - [ ] reload vse strips logic
 - [ ] debug lib to reload when linking
