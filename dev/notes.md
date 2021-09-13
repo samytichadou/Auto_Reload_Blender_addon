@@ -1,11 +1,13 @@
 TODO
 
 major
-- [ ] addon update warning top of the topbar menu
-- [ ] fix addon updater
+- [ ] when removing image, reload texture
+- [ ] fix linked images in inspector
 - [ ] reveal and modify image buttons in uv/image editor and image texture node
 - [ ] user number and fake user for inspectors
 - [ ] packed files bug (missing)
+- [x] addon update warning top of the topbar menu
+- [x] fix addon updater
 - [x] readme
 - [x] better readbility in ui list (when something has to be reload or missing)
 - [x] preview images
