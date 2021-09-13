@@ -1,6 +1,7 @@
 TODO
 
 major
+- [ ] user number and fake user for inspectors
 - [ ] packed files bug (missing)
 - [x] readme
 - [x] better readbility in ui list (when something has to be reload or missing)
