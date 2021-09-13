@@ -11,7 +11,7 @@ def update_function_updateneeded(self, context):
         bpy.ops.autoreload.dialog_popups(
             'INVOKE_DEFAULT',
             message = self.autoreload_update_message,
-            operator = "bpm.open_url",
+            operator = "wm.url_open",
             operator_text = "New addon version available",
             operator_icon = "URL",
             operator_url = self.autoreload_update_download_url

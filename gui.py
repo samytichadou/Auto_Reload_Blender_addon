@@ -10,7 +10,7 @@ def draw_update_button(context, container):
     if props.autoreload_update_needed:
         op = container.operator('autoreload.dialog_popups', text="New Version Available", icon='ERROR')
         op.message = props.autoreload_update_message
-        op.operator = "bpm.open_url"
+        op.operator = "wm.url_open"
         op.operator_text = "New addon version available"
         op.operator_icon = "URL"
         op.operator_url = props.autoreload_update_download_url
