@@ -1,6 +1,8 @@
 TODO
 
 major
+- [ ] addon update warning top of the topbar menu
+- [ ] fix addon updater
 - [ ] reveal and modify image buttons in uv/image editor and image texture node
 - [ ] user number and fake user for inspectors
 - [ ] packed files bug (missing)
