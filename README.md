@@ -13,13 +13,13 @@ ___
 
 ![Top Bar Menu](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/top_bar_menu_open.png)
 
-Handy accessible menu to quickly toggle *Timer* or *Reload* and *Check* Images/Libraries. You can also *Save and Revert* Blend file from here
+Handy accessible menu to quickly toggle *Timer* or *Reload* and *Check* Images/Libraries. You can also *Save and Revert* Blend file from here.
 
 ### - ***Libraries Inspector Panel* (in the *Scene Properties*)**
 
 ![Libraries Inspector Panel](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/libraries_inspector_panel.png)
 
-Manage Libraries from here. *Path* of external Libraries used in Blend file are accessible.  
+Manage Libraries from here. *Name* and *Path* of external Libraries used in Blend file are accessible.  
 *Reveal*, *Open in Blender instance*, *Reload* or *Remove*.  
 
 A File icon above the *Library name* shows User the *Library* has been modified.
@@ -30,7 +30,8 @@ A File icon above the *Library name* shows User the *Library* has been modified.
 
 ![Images Inspector Panel](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/images_inspector_panel.png)
 
-Manage Images from here. *Name* and *Path* of external Images used in Blend file are accessible. A *Preview Subpanel* allows User to check selected Image.  
+Manage Images from here. *Name* and *Path* of external Images used in Blend file are accessible.  
+A *Preview Subpanel* allows User to check selected Image.  
 *Reveal*, *Modify in Image Editor* or *Remove*.
 ___
 
