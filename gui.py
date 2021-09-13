@@ -14,6 +14,10 @@ def draw_update_button(context, container):
         op.operator_text = "New addon version available"
         op.operator_icon = "URL"
         op.operator_url = props.autoreload_update_download_url
+
+        return True
+    
+    return False
         
 
 # libraries panel
@@ -114,11 +118,11 @@ class AUTORELOAD_MT_file_menu(bpy.types.Menu):
 
         layout = self.layout
         
-        if props.autoreload_update_needed :
+        if draw_update_button(context, layout):
             layout.separator()
 
-        # update
-        draw_update_button(context, layout)
+        # # update
+        # draw_update_button(context, layout)
 
         layout.prop(props, 'autoreload_is_timer', text = "Timer", icon='TIME')
 
