@@ -1,6 +1,7 @@
 TODO
 
 major
+- [ ] reveal and modify image buttons in uv/image editor and image texture node
 - [ ] user number and fake user for inspectors
 - [ ] packed files bug (missing)
 - [x] readme
