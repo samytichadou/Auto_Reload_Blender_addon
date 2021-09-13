@@ -114,6 +114,12 @@ class AUTORELOAD_MT_file_menu(bpy.types.Menu):
 
         layout = self.layout
         
+        if props.autoreload_update_needed :
+            layout.separator()
+
+        # update
+        draw_update_button(context, layout)
+
         layout.prop(props, 'autoreload_is_timer', text = "Timer", icon='TIME')
 
         layout.separator()
@@ -126,12 +132,6 @@ class AUTORELOAD_MT_file_menu(bpy.types.Menu):
 
         layout.operator('autoreload.save_revert', icon='FILE_TICK')
         
-        if props.autoreload_update_needed :
-            layout.separator()
-
-        # update
-        draw_update_button(context, layout)
-
 
 # file menu drawer
 def file_menu_drawer(self, context):
