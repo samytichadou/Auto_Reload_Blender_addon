@@ -121,9 +121,6 @@ class AUTORELOAD_MT_file_menu(bpy.types.Menu):
         if draw_update_button(context, layout):
             layout.separator()
 
-        # # update
-        # draw_update_button(context, layout)
-
         layout.prop(props, 'autoreload_is_timer', text = "Timer", icon='TIME')
 
         layout.separator()
