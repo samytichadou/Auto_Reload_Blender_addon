@@ -148,4 +148,5 @@ ___
 On *Linux* (possibly *Mac* too), the *Reveal File* operator will not select the File in opened explorer window.  
 
 The *Image Strips* in the *VSE* will not update using *Auto Reload*, Blender manage them as separate entities. Handling them is in the Roadmap, but not currently integrated.  
+
 Renaming Image/Library from *Inspector Panels* will change the list order, *Preview Image subpanel* will not be refreshed until User change highlighted list entry
