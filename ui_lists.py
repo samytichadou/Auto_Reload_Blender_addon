@@ -9,31 +9,38 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, flt_flag) :
         row = layout.row(align = True)
 
-        # internal files
-        if item.source in {'VIEWER','GENERATED'} \
-        or not item.filepath:
-            row.label(text=item.name, icon="LOCKED")
-
-        # external files
-        else:
-            
-            if item.autoreload_modification_time == "missing":
-                row.label(text='', icon="ERROR")              
-                row.prop(item, "name", text="", emboss=False)
-
-            else:
-
-                row.prop(item, "name", text="", emboss=False)
-
-                op=row.operator("autorelad.reveal_explorer", text="", icon='ZOOM_ALL')
-                op.name = item.name
-                op.library = False
-
-                op=row.operator("autorelad.modify_image", text="", icon='GREASEPENCIL')
-                op.name = item.name
-
+        # packed file
+        if item.packed_file:
+            row.label(text=item.name, icon="PACKAGE")
             op=row.operator("autorelad.remove_image", text="", icon="X")
             op.name = item.name
+
+        else:
+            # internal files
+            if item.source in {'VIEWER','GENERATED'} \
+            or not item.filepath:
+                row.label(text=item.name, icon="LOCKED")
+
+            # external files
+            else:
+                
+                if item.autoreload_modification_time == "missing":
+                    row.label(text='', icon="ERROR")              
+                    row.prop(item, "name", text="", emboss=False)
+
+                else:
+
+                    row.prop(item, "name", text="", emboss=False)
+
+                    op=row.operator("autorelad.reveal_explorer", text="", icon='ZOOM_ALL')
+                    op.name = item.name
+                    op.library = False
+
+                    op=row.operator("autorelad.modify_image", text="", icon='GREASEPENCIL')
+                    op.name = item.name
+
+                op=row.operator("autorelad.remove_image", text="", icon="X")
+                op.name = item.name               
 
 
 # Libraries
