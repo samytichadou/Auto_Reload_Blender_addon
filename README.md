@@ -1,6 +1,6 @@
 # Auto Reload - Blender (2.9x) addon
 
-[Auto Reload Releases](https://github.com/samytichadou/Auautoreload_to_reload_Images-Blender_addon/releases://www.example.com/my%20great%20page) 
+[Auto Reload Releases](https://github.com/samytichadou/Auto_Reload_Blender_addon/releases)  
 
 Auto Reload is a Blender addon design to help user refresh external files (*images* and *libraries*) from inside Blender.
 
