@@ -3,8 +3,8 @@ import os
 import platform
 import subprocess
 
-from . import functions
 from .addon_prefs import get_addon_preferences
+from . import functions
 from . import global_variables
 
 
@@ -130,6 +130,11 @@ class AUTORELOAD_OT_remove_image(bpy.types.Operator):
     def execute(self, context):
         bpy.data.images.remove(bpy.data.images[self.name])
         functions.update_textures_no_images()
+
+        # reload texture
+        texture = bpy.data.textures[global_variables.preview_texture]
+        texture.image = bpy.data.images[context.window_manager.autoreload_properties.autoreload_active_image_index]
+
         print(global_variables.print_statement + self.name + global_variables.remove__msg)
         return {'FINISHED'}
 
