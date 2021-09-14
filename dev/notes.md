@@ -1,9 +1,11 @@
 TODO
 
 major
+- [ ] unpack button for images
 - [ ] rename images change ui list order and texture won't update
 
 minor
+- [ ] ko fi link
 - [ ] rename libs change ui list order
 - [ ] user number and fake user for inspectors
 - [ ] link images should not be able to be deleted (?)
