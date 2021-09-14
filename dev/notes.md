@@ -1,13 +1,29 @@
 TODO
 
 major
-- [ ] when removing image, reload texture
-- [ ] fix linked images in inspector
-- [ ] reveal and modify image buttons in uv/image editor and image texture node
+- [ ] rename images change ui list order and texture won't update
+
+minor
+- [ ] rename libs change ui list order
 - [ ] user number and fake user for inspectors
-- [ ] packed files bug (missing)
+- [ ] link images should not be able to be deleted (?)
+- [ ] reveal and modify image buttons in uv/image editor and image texture node
+- [ ] size of image preview
+- [ ] direct link to donate
+- [ ] reload vse strips logic
+- [ ] debug lib to reload when linking
+- [ ] reload udim tiles images
+- [ ] important reports
+- [ ] select file in linux explorer when revealing it 
+- [ ] check reveal in explorer on mac os
+
+v2.0.1
+- [x] packed files images (missing)
+- [x] when removing image, reload texture
 - [x] addon update warning top of the topbar menu
 - [x] fix addon updater
+
+v2.0.0
 - [x] readme
 - [x] better readbility in ui list (when something has to be reload or missing)
 - [x] preview images
@@ -20,13 +36,3 @@ major
 - [x] remove libraries
 - [x] reveal file in explorer bug in linux
 - [x] validation on save and revert operator
-
-minor
-- [ ] size of image preview
-- [ ] direct link to donate
-- [ ] reload vse strips logic
-- [ ] debug lib to reload when linking
-- [ ] reload udim tiles images
-- [ ] important reports
-- [ ] select file in linux explorer when revealing it 
-- [ ] check reveal in explorer on mac os
