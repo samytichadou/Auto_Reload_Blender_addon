@@ -6,6 +6,8 @@ Auto Reload is a Blender addon design to help user refresh external files (*imag
 
 Here is a showcase video of the addon 
 https://www.youtube.com/watch?v=EwUSCX48Lkw
+
+If you like this addon, you can help me [here through Donation](https://ko-fi.com/tonton_blender), to buy me a coffee and allow me to continue to develop free tools.
 ___
 
 ## **Panels**
