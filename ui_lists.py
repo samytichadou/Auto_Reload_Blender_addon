@@ -12,7 +12,7 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
         # packed file
         if item.packed_file:
             row.label(text=item.name, icon="PACKAGE")
-            op=row.operator("autorelad.remove_image", text="", icon="X")
+            op=row.operator("autorelad.remove_image", text="", icon="X", emboss=False)
             op.name = item.name
 
         else:
@@ -39,7 +39,7 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
                     op=row.operator("autorelad.modify_image", text="", icon='GREASEPENCIL')
                     op.name = item.name
 
-                op=row.operator("autorelad.remove_image", text="", icon="X")
+                op=row.operator("autorelad.remove_image", text="", icon="X", emboss=False)
                 op.name = item.name               
 
 
