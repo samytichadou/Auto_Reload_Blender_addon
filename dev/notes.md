@@ -3,7 +3,6 @@ TODO
 major
 - [ ] unpack button for images
 - [ ] rename images change ui list order and texture won't update
-- [ ] emboss false for remove images op when packed image
 
 minor
 - [ ] ko fi link
@@ -19,6 +18,9 @@ minor
 - [ ] important reports
 - [ ] select file in linux explorer when revealing it 
 - [ ] check reveal in explorer on mac os
+
+v2.0.2 (not released)
+- [x] emboss false for remove images op when packed image
 
 v2.0.1
 - [x] packed files images (missing)
