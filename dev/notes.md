@@ -3,6 +3,7 @@ TODO
 major
 - [ ] unpack button for images
 - [ ] rename images change ui list order and texture won't update
+- [ ] emboss false for remove images op when packed image
 
 minor
 - [ ] ko fi link
