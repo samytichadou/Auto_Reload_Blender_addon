@@ -22,7 +22,7 @@ bl_info = {
     "name": "Auto Reload",
     "description": "Handy reload for Image Textures and Linked Libraries",
     "author": "Samy Tichadou (tonton), RenFinkle",
-    "version": (2, 0, 1),
+    "version": (2, 0, 2),
     "blender": (2, 93, 3),
     "location": "Top Bar and Scene Properties",
     "wiki_url": "https://github.com/samytichadou/Auto_Reload_Blender_addon/blob/master/README.md",
