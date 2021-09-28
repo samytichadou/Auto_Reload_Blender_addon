@@ -11,7 +11,10 @@ class AUTORELOAD_UL_images_uilist(bpy.types.UIList):
 
         # packed file
         if item.packed_file:
-            row.label(text=item.name, icon="PACKAGE")
+            op=row.operator("autoreload.unpack_image", text="", icon="PACKAGE", emboss=False)
+            op.name = item.name
+            #row.label(text=item.name, icon="PACKAGE")
+            row.label(text=item.name)
             op=row.operator("autorelad.remove_image", text="", icon="X", emboss=False)
             op.name = item.name
 

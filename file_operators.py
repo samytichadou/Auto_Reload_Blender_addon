@@ -16,7 +16,7 @@ def reveal_in_explorer(path) :
         #subprocess.Popen(['explorer', path])
         # subprocess.Popen(r'explorer /select,%s' % path)
         #subprocess.call("explorer %s" % path, shell=True)
-        subprocess.Popen(r'explorer /select, %s' % path)
+        subprocess.Popen(r'explorer /select, "%s"' % path)
     #mac
     elif platform.system() == "Darwin":
         #subprocess.Popen(["open", path])
@@ -183,6 +183,29 @@ class AUTORELOAD_OT_save_revert(bpy.types.Operator):
         return {"FINISHED"}
 
 
+class AUTORELOAD_OT_unpack_image(bpy.types.Operator):
+    bl_idname = "autoreload.unpack_image"
+    bl_label = "Unpack"
+    bl_description = "Unpack selected Image."
+    bl_options = {"REGISTER", "UNDO"}
+
+    name : bpy.props.StringProperty()
+
+    def invoke(self, context, event):
+        wm = context.window_manager
+        return wm.invoke_props_dialog(self)
+
+    def draw(self, context):
+        self.layout.label(text="Unpack ?", icon='ERROR')
+
+    def execute(self, context):
+        image = bpy.data.images[self.name]
+
+        image.unpack()
+        print(global_variables.print_statement + self.name + global_variables.unpack_msg)
+        return {"FINISHED"}
+
+
 ### REGISTER ---
 
 def register():
@@ -192,6 +215,7 @@ def register():
     bpy.utils.register_class(AUTORELOAD_OT_remove_image)
     bpy.utils.register_class(AUTORELOAD_OT_remove_library)
     bpy.utils.register_class(AUTORELOAD_OT_save_revert)
+    bpy.utils.register_class(AUTORELOAD_OT_unpack_image)
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_OT_reveal_explorer)
@@ -200,3 +224,4 @@ def unregister():
     bpy.utils.unregister_class(AUTORELOAD_OT_remove_image)
     bpy.utils.unregister_class(AUTORELOAD_OT_remove_library)
     bpy.utils.unregister_class(AUTORELOAD_OT_save_revert)
+    bpy.utils.unregister_class(AUTORELOAD_OT_unpack_image)
