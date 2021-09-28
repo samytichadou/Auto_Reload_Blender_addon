@@ -2,6 +2,7 @@ TODO
 
 major  
 - [ ] rename images change ui list order and texture won't update  
+- [ ] reload warning update and reset it when last version installed during this blender session  
 
 minor  
 - [ ] update uninstaller disclaimer (rewrite dialog popup op)  
@@ -19,7 +20,7 @@ minor
 - [ ] check reveal in explorer on mac os  
 - [ ] unpacking options for images  
 
-v2.0.2 (not released)  
+v2.0.2  
 - [x] ko fi link  
 - [x] unpack button for images  
 - [x] fix special characters in reveal files windows  
