@@ -5,6 +5,7 @@ major
 - [ ] reload warning update and reset it when last version installed during this blender session  
 
 minor  
+- [ ] add unpack operator to Readme file  
 - [ ] more obvious timer warning  
 - [ ] update uninstaller disclaimer (rewrite dialog popup op)  
 - [ ] rename libs change ui list order  
