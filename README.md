@@ -125,7 +125,9 @@ ___
 
 ![Timer](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/help_images/timer.png)
 
-The *Timer property* is a way to reload external images and check libraries for modifications at regular intervals of time (specified in the *Addon Preferences*). Every *n* seconds, Blender will look for modified Images and Libraries, and if found, will reload Images.
+The *Timer property* is a way to reload external images and check libraries for modifications at regular intervals of time (specified in the *Addon Preferences*). Every *n* seconds, Blender will look for modified Images and Libraries, and if found, will reload Images.  
+
+If the *Timer* is on, User will see a *Stopwatch Icon* next to the *Top Bar Menu* header.  
 
 User can deactivate the Check for modified Libraries from the *Addon Preferences*.
 
