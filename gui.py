@@ -40,7 +40,7 @@ class AUTORELOAD_PT_libraries_panel(bpy.types.Panel):
 
         draw_update_button(context, layout)
 
-        layout.use_property_split = True # Active single-column layout
+        layout.use_property_split = False # Active single-column layout
         flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=False)
 
         row = flow.row(align=True)
@@ -78,7 +78,7 @@ class AUTORELOAD_PT_image_inspector_panel(bpy.types.Panel):
 
         draw_update_button(context, layout)
 
-        layout.use_property_split = True # Active single-column layout
+        layout.use_property_split = False # Active single-column layout
         flow = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=True, align=False)
 
         row = flow.row(align=True)

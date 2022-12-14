@@ -29,14 +29,18 @@ def autoreload_timer_function():
     if prefs.timer_libraries:
         modified_libs, missing_libs = functions.check_libraries()
 
+        for m in modified_libs:
+            if m.autoreload_automatically_reload:
+                functions.reload_library(m)
+                print(global_variables.print_statement + m.name + global_variables.reloaded_msg)
+                continue
+            print(global_variables.print_statement + m.name + global_variables.modified_msg)
+        for m in missing_libs:
+            print(global_variables.print_statement + m.name + global_variables.missing_msg)
+
         if len(modified_libs)!=0:
             for area in context.screen.areas:
                 area.tag_redraw()
-
-        for m in modified_libs: 
-            print(global_variables.print_statement + m + global_variables.modified_msg)
-        for m in missing_libs:
-            print(global_variables.print_statement + m + global_variables.missing_msg)
 
 
 

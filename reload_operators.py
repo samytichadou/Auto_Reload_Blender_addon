@@ -49,9 +49,9 @@ class AUTORELOAD_OT_check_libraries(bpy.types.Operator):
         modified_list, missing_list = functions.check_libraries()
 
         for m in modified_list:
-            print(global_variables.print_statement + m + global_variables.modified_msg)
+            print(global_variables.print_statement + m.name + global_variables.modified_msg)
         for m in missing_list:
-            print(global_variables.print_statement + m + global_variables.missing_msg)
+            print(global_variables.print_statement + m.name + global_variables.missing_msg)
 
         return {"FINISHED"}
 
@@ -65,7 +65,7 @@ class AUTORELOAD_OT_reload_library(bpy.types.Operator):
     name : bpy.props.StringProperty()
 
     def execute(self, context):
-        functions.reload_library(self.name)
+        functions.reload_library(bpy.data.libraries[self.name])
         print(global_variables.print_statement + self.name + global_variables.lib_reloaded_msg)
         return {"FINISHED"}
 

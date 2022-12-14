@@ -81,8 +81,10 @@ def register():
         bpy.props.StringProperty(name='File Modification Date', default='')
     bpy.types.Library.autoreload_modification_time = \
         bpy.props.StringProperty(name='File Modification Date', default='')
-    bpy.types.Library.autoreload_to_reload = \
-        bpy.props.BoolProperty(name='Library to reload')
+    bpy.types.Library.autoreload_modified = \
+        bpy.props.BoolProperty(name='Library modified')
+    bpy.types.Library.autoreload_automatically_reload = \
+        bpy.props.BoolProperty(name='Automatically reload')
 
 def unregister():
     if bpy.context.window_manager.autoreload_properties.autoreload_is_timer:
@@ -94,6 +96,7 @@ def unregister():
 
     del bpy.types.Image.autoreload_modification_time
     del bpy.types.Library.autoreload_modification_time
-    del bpy.types.Library.autoreload_to_reload
+    del bpy.types.Library.autoreload_modified
+    del bpy.types.Library.autoreload_automatically_reload
 
     remove_preview_texture()

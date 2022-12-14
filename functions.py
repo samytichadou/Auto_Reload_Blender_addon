@@ -26,22 +26,21 @@ def check_libraries():
         path = absolute_path(item.filepath)
         if os.path.isfile(path):
             if item.autoreload_modification_time != str(os.path.getmtime(path)) \
-            and not item.autoreload_to_reload:
-                item.autoreload_to_reload=True
-                modified.append(item.name)
+            and not item.autoreload_modified:
+                item.autoreload_modified=True
+                modified.append(item)
         else:
             if item.autoreload_modification_time!="missing":
                 item.autoreload_modification_time = "missing"
-                item.autoreload_to_reload = True
-                missing.append(item.name)
+                item.autoreload_modified = True
+                missing.append(item)
     return modified, missing
 
 
 # reload library
-def reload_library(name):
-    lib = bpy.data.libraries[name]
+def reload_library(lib):
     lib.reload()
-    lib.autoreload_to_reload=False
+    lib.autoreload_modified=False
     lib.autoreload_modification_time = str(os.path.getmtime(absolute_path(lib.filepath)))
 
 
@@ -145,7 +144,7 @@ def check_libraries_startup():
         try:
             path=absolute_path(item.filepath)
             item.autoreload_modification_time=str(os.path.getmtime(path))
-            item.autoreload_to_reload = False
+            item.autoreload_modified = False
         except FileNotFoundError:
             item.autoreload_modification_time="missing"
             is_missing = True
