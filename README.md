@@ -1,3 +1,5 @@
+README 语言（Language）：[中文版](https://github.com/samytichadou/Auto_Reload_Blender_addon/blob/master/README-CN.md)、[英文版（English）](https://github.com/samytichadou/Auto_Reload_Blender_addon/blob/master/README.md)
+
 # Auto Reload - Blender (2.9x) addon
 
 [Auto Reload Releases](https://github.com/samytichadou/Auto_Reload_Blender_addon/releases)  
