@@ -26,6 +26,7 @@ from . import   (
     properties,
     addon_prefs,
     gui,
+    reload,
 )
 
 
@@ -35,8 +36,10 @@ def register():
     addon_prefs.register()
     properties.register()
     gui.register()
+    reload.register()
 
 def unregister():
     addon_prefs.unregister()
     properties.unregister()
     gui.unregister()
+    reload.unregister()

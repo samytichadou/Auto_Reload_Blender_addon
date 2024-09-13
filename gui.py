@@ -10,13 +10,13 @@ class AUTORELOAD_MT_file_menu(bpy.types.Menu):
 
         layout = self.layout
         
-        layout.label(text = "Images")
-        layout.label(text = "Texts")
-        layout.label(text = "Movie Clips")
-        layout.label(text = "Sounds")
-        layout.label(text = "Sequencer Strips")
-        layout.label(text = "Fonts")
-        
+        layout.prop(props, "autoreload_images", text="Images")
+        layout.prop(props, "autoreload_movieclips", text="Movie Clips")
+        layout.prop(props, "autoreload_sounds", text="Sounds")
+        layout.prop(props, "autoreload_libraries", text="Libraries")
+        layout.prop(props, "autoreload_sequencerstrips", text="Sequencer Strips")
+        layout.prop(props, "autoreload_texts", text="Texts")
+        layout.prop(props, "autoreload_fonts", text="Fonts")
 
 # File menu drawer
 def file_menu_drawer(self, context):
