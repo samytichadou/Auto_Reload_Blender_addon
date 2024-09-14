@@ -4,6 +4,8 @@ from bpy.app.handlers import persistent
 
 from .addon_prefs import get_addon_preferences
 
+# TODO Cache files
+# TODO Sequencer strips
 object_types = [
     "images",
     "movieclips",
@@ -82,7 +84,24 @@ def update_3d_viewers():
                     and space.shading.type == 'RENDERED' :
                         space.shading.type = 'SOLID'
                         space.shading.type = 'RENDERED'
+
+
+def reload_images(image_list):
     
+    for img in image_list:
+        img.reload()
+    
+    if image_list:
+        update_3d_viewers()
+        
+        
+def reload_movieclips(movieclip_list):
+    
+    for mov in movieclip_list:
+        pass
+    # TODO Reload properly
+        # mov.reload()
+        
     
 def reload_modified_objects():
     
@@ -98,6 +117,9 @@ def reload_modified_objects():
         if getattr(props, f"autoreload_{obj_type}"):
             obj_to_reload[obj_type] = get_files_size(obj_type)
             
+    reload_images(obj_to_reload["images"])
+    reload_movieclips(obj_to_reload["movieclips"])
+
     # Reload objects
     print("AUTORELOAD --- Objects to reload :")
     print(obj_to_reload)
