@@ -5,26 +5,24 @@ class AUTORELOAD_PR_properties(bpy.types.PropertyGroup) :
     
     # Timers type
     autoreload_images : bpy.props.BoolProperty(
-        name='Autoreload Images',
-        )
+        name = 'Autoreload Images',
+    )
     autoreload_movieclips : bpy.props.BoolProperty(
-        name='Autoreload Movie Clips',
-        )
+        name = 'Autoreload Movie Clips',
+    )
     autoreload_sounds : bpy.props.BoolProperty(
-        name='Autoreload Sounds',
-        )
+        name = 'Autoreload Sounds',
+    )
     autoreload_libraries : bpy.props.BoolProperty(
-        name='Autoreload Libraries',
-        )
-    autoreload_sequencerstrips : bpy.props.BoolProperty(
-        name='Autoreload Sequencer Strips',
-        )
+        name = 'Autoreload Libraries',
+    )
     autoreload_texts : bpy.props.BoolProperty(
-        name='Autoreload Texts',
-        )
-    autoreload_fonts : bpy.props.BoolProperty(
-        name='Autoreload Fonts',
-        )
+        name = 'Autoreload Texts',
+    )
+    
+    autoreload_run : bpy.props.BoolProperty(
+        name = "Autoreload Run",
+    )
 
 
 ### REGISTER ---
@@ -44,8 +42,6 @@ def register():
         bpy.props.IntProperty(name="File size")
     bpy.types.Text.file_size = \
         bpy.props.IntProperty(name="File size")
-    bpy.types.VectorFont.file_size = \
-        bpy.props.IntProperty(name="File size")
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_PR_properties)
@@ -56,4 +52,3 @@ def unregister():
     del bpy.types.Sound.file_size
     del bpy.types.Library.file_size
     del bpy.types.Text.file_size
-    del bpy.types.VectorFont.file_size

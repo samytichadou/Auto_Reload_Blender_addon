@@ -13,10 +13,42 @@ class AUTORELOAD_PF_addon_prefs(bpy.types.AddonPreferences):
         default = 5.0, 
         description = "Frequency for fetching for modified Images in seconds.",
         )
+    
+    startup_images : bpy.props.BoolProperty(
+        name='Autoreload Images',
+        default = True,
+        )
+    startup_movieclips : bpy.props.BoolProperty(
+        name='Autoreload Movie Clips',
+        )
+    startup_sounds : bpy.props.BoolProperty(
+        name='Autoreload Sounds',
+        )
+    startup_libraries : bpy.props.BoolProperty(
+        name='Autoreload Libraries',
+        )
+    startup_texts : bpy.props.BoolProperty(
+        name='Autoreload Texts',
+        )
+    startup_run : bpy.props.BoolProperty(
+        name='Autoreload Run',
+        )
 
     def draw(self, context):
         layout = self.layout
         layout.prop(self, "timer_frequency")
+        
+        col = layout.column(align=True)
+        
+        col.label(text="On startup :")
+        
+        col.prop(self, "startup_run")
+        col.prop(self, "startup_images")
+        col.prop(self, "startup_movieclips")
+        col.prop(self, "startup_sounds")
+        col.prop(self, "startup_libraries")
+        col.prop(self, "startup_texts")
+        
 
         
 # get addon preferences
