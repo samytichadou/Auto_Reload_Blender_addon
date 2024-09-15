@@ -14,7 +14,6 @@ object_types = [
     "movieclips",
     "sounds",
     "libraries",
-    "texts",
 ]
 
 
@@ -138,15 +137,7 @@ def reload_libraries(library_list):
     
     for lib in library_list:
         lib.reload()
-    
-        
-def reload_texts(text_list):
-    
-    for text in text_list:
-        text.filepath = text.filepath
-    
-    # TODO Reload text through operator bpy.ops.text.resolve_conflict(resolution='RELOAD')
-        
+
     
 def reload_modified_objects():
     

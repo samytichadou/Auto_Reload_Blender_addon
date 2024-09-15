@@ -27,9 +27,6 @@ class AUTORELOAD_PF_addon_prefs(bpy.types.AddonPreferences):
     startup_libraries : bpy.props.BoolProperty(
         name='Autoreload Libraries',
         )
-    startup_texts : bpy.props.BoolProperty(
-        name='Autoreload Texts',
-        )
     startup_run : bpy.props.BoolProperty(
         name='Autoreload Run',
         )
@@ -47,7 +44,6 @@ class AUTORELOAD_PF_addon_prefs(bpy.types.AddonPreferences):
         col.prop(self, "startup_movieclips")
         col.prop(self, "startup_sounds")
         col.prop(self, "startup_libraries")
-        col.prop(self, "startup_texts")
         
 
         
