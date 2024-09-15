@@ -2,10 +2,7 @@
 
 [Auto Reload Releases](https://github.com/samytichadou/Auto_Reload_Blender_addon/releases)  
 
-Auto Reload is a Blender addon design to automatically refresh external files when modified (*images, movie clips, libraries, sound and cache files*).
-
-Here is a showcase video of the addon 
-https://www.youtube.com/watch?v=EwUSCX48Lkw
+Auto Reload is a Blender addon design to automatically refresh external files when modified (*images, movie clips, libraries, sound and cache files*).  
 
 If you like this addon, you can help me [here](https://ko-fi.com/tonton_blender) through Donation, to buy me a coffee and allow me to continue to develop free tools.
 ___
