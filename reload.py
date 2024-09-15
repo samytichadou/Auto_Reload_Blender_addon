@@ -1,5 +1,6 @@
 import bpy
 import os
+import re
 from bpy.app.handlers import persistent
 
 from .addon_prefs import get_addon_preferences
@@ -7,7 +8,6 @@ from .addon_prefs import get_addon_preferences
 # TODO Cache files
 # TODO Sequencer strips
 # TODO Reload sounds waveform
-# TODO Reload texts
 
 object_types = [
     "images",
@@ -17,15 +17,37 @@ object_types = [
 ]
 
 
-def check_reload_file_size(object, filepath):
+def get_filesequence_from_file(filepath):
     
-    newsize = 0
+    seq_files = []
+    
+    folderpath, filename_ext = os.path.split(filepath)
+    filename, ext = os.path.splitext(filename_ext)
+    
+    str_nb = re.search(r'\d+$', filename)
+    
+    if str_nb is None:
+        return seq_files
+    
+    str_nb = str_nb.group()
+    pattern = filename.replace(str_nb, "")
+    
+    for file in os.listdir(folderpath):
+        if pattern in file and ext in file:
+            seq_files.append(os.path.join(folderpath, file))
+    
+    return seq_files
+
+
+def get_image_size(image, filepath):
+    
+    new_size = 0
     
     # UDIM
-    if "<UDIM>" in filepath:
+    if image.source == "TILED":
         tile_list = []
 
-        for tile in object.tiles:
+        for tile in image.tiles:
             tile_list.append(
                 filepath.replace(
                     "<UDIM>",
@@ -34,15 +56,39 @@ def check_reload_file_size(object, filepath):
             )
 
         new_size = get_file_list_size(tile_list)
-        
-    # Invalid filepath
-    elif not os.path.isfile(filepath):
-        return None
     
-    # Normal
+    # Sequence
+    if image.source == "SEQUENCE":
+        new_size = get_file_list_size(
+            get_filesequence_from_file(filepath)
+        )
+    
+    # Single file
     else:
+        
+        # Invalid filepath
+        if not os.path.isfile(filepath):
+            return new_size
+        
         new_size = os.path.getsize(filepath)
+        
+    return new_size
+        
+        
+def get_file_size(object, filepath):
     
+    # Invalid filepath
+    if not os.path.isfile(filepath):
+        return 0
+    
+    # Valid filepath
+    else:
+        return os.path.getsize(filepath)
+    
+    
+def reload_file_size(new_size, object):
+    
+    # Save new file_size
     if new_size != object.file_size:
 
         # Find if images previously been checked
@@ -79,11 +125,18 @@ def get_files_size(obj_type):
             continue
         
         path = bpy.path.abspath(obj.filepath)
+        
+        # Get new size
+        if obj_type == "images":
+            new_size = get_image_size(obj, path)
+            
+        else:
+            new_size = get_file_size(obj, path)
 
         # Reload file size
-        if check_reload_file_size(
+        if reload_file_size(
+            new_size,
             obj,
-            path,
         ):
             obj_to_reload.append(obj)
             
@@ -146,7 +199,15 @@ def update_sound_waveform(sound):
 def reload_images(image_list):
     
     for img in image_list:
-        img.reload()
+        
+        # Hack to prevent pink sequence
+        if img.source == "SEQUENCE":
+            img.source = "FILE"
+            img.reload()
+            img.source = "SEQUENCE"
+            
+        else:
+            img.reload()
     
     if image_list:
         update_3d_viewers()
@@ -197,8 +258,6 @@ def reload_modified_objects():
 
 def timer_reload_files():
     
-    print("AUTORELOAD --- Timer")
-
     interval = get_addon_preferences().timer_frequency
     
     props = bpy.context.window_manager.autoreload_properties
@@ -206,6 +265,8 @@ def timer_reload_files():
     # Pause
     if not props.autoreload_run:
         return interval
+    
+    print("AUTORELOAD --- Timer")
     
     reload_modified_objects()
 
