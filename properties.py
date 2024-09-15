@@ -16,6 +16,9 @@ class AUTORELOAD_PR_properties(bpy.types.PropertyGroup) :
     autoreload_libraries : bpy.props.BoolProperty(
         name = 'Autoreload Libraries',
     )
+    autoreload_cache_files : bpy.props.BoolProperty(
+        name='Autoreload Cache Files',
+        )
     
     autoreload_run : bpy.props.BoolProperty(
         name = "Autoreload Run",
@@ -37,6 +40,8 @@ def register():
         bpy.props.IntProperty(name="File size")
     bpy.types.Library.file_size = \
         bpy.props.IntProperty(name="File size")
+    bpy.types.CacheFile.file_size = \
+        bpy.props.IntProperty(name="File size")
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_PR_properties)
@@ -46,3 +51,4 @@ def unregister():
     del bpy.types.MovieClip.file_size
     del bpy.types.Sound.file_size
     del bpy.types.Library.file_size
+    del bpy.types.CacheFile.file_size

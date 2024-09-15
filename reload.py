@@ -5,15 +5,15 @@ from bpy.app.handlers import persistent
 
 from .addon_prefs import get_addon_preferences
 
-# TODO Cache files
-# TODO Sequencer strips
 # TODO Reload sounds waveform
+# TODO Cache files sequence ?
 
 object_types = [
     "images",
     "movieclips",
     "sounds",
     "libraries",
+    "cache_files",
 ]
 
 
@@ -35,6 +35,12 @@ def get_filesequence_from_file(filepath):
     for file in os.listdir(folderpath):
         if pattern in file and ext in file:
             seq_files.append(os.path.join(folderpath, file))
+            
+    if get_addon_preferences().debug:
+        print(
+            "AUTORELOAD --- File sequence found for "
+            f"{filepath} : {len(seq_files)} files"
+        )
     
     return seq_files
 
@@ -98,6 +104,12 @@ def reload_file_size(new_size, object):
         
         object.file_size = new_size
         
+        if get_addon_preferences().debug:
+            print(
+                f"AUTORELOAD --- {object.name} size - "
+                f"Old:{object.file_size}, New:{new_size}"
+            )
+        
         return checked
     
     return False
@@ -132,17 +144,13 @@ def get_files_size(obj_type):
             
         else:
             new_size = get_file_size(obj, path)
-
+        
         # Reload file size
         if reload_file_size(
             new_size,
             obj,
         ):
             obj_to_reload.append(obj)
-            
-            
-                
-    # TODO Deal with sequencer strips
                 
     return obj_to_reload
 
@@ -168,6 +176,9 @@ def startup_refresh_file_size(scene):
             
 
 def update_3d_viewers():
+    
+    if get_addon_preferences().debug:
+        print("AUTORELOAD --- Updating 3D Viewports")
     
     # Check if render is compatible with live refresh
     engine = bpy.context.scene.render.engine
@@ -223,13 +234,19 @@ def reload_sounds(sound_list):
     
     for sound in sound_list:
         sound.filepath = sound.filepath
-        update_sound_waveform(sound)
+        # TODO update_sound_waveform(sound)
         
         
 def reload_libraries(library_list):
     
     for lib in library_list:
         lib.reload()
+        
+        
+def reload_cache_files(cache_list):
+    
+    for cache in cache_list:
+        cache.filepath = cache.filepath
 
     
 def reload_modified_objects():
@@ -251,9 +268,9 @@ def reload_modified_objects():
         exec(function)
 
     # Reload objects
-    print("AUTORELOAD --- Objects to reload :")
-    print(obj_to_reload)
-    print()
+    if get_addon_preferences().debug:
+        print("AUTORELOAD --- Objects to reload :")
+        print(obj_to_reload)
 
 
 def timer_reload_files():
@@ -266,7 +283,8 @@ def timer_reload_files():
     if not props.autoreload_run:
         return interval
     
-    print("AUTORELOAD --- Timer")
+    if get_addon_preferences().debug:
+        print("AUTORELOAD --- Timer")
     
     reload_modified_objects()
 

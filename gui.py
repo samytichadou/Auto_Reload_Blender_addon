@@ -17,7 +17,7 @@ class AUTORELOAD_MT_file_popover(bpy.types.Panel):
         layout.prop(props, "autoreload_movieclips", text="Movie Clips")
         layout.prop(props, "autoreload_sounds", text="Sounds")
         layout.prop(props, "autoreload_libraries", text="Libraries")
-        layout.prop(props, "autoreload_texts", text="Texts")
+        layout.prop(props, "autoreload_cache_files", text="Cache Files")
 
 # File menu drawer
 def file_menu_drawer(self, context):
@@ -25,16 +25,12 @@ def file_menu_drawer(self, context):
         row= self.layout.row(align=True)
         
         props = context.window_manager.autoreload_properties
-        if props.autoreload_run:
-            icon = "TIME"
-        else:
-            icon = "PAUSE"
             
         row.prop(
             props,
             "autoreload_run",
             text="",
-            icon=icon,
+            icon="TIME",
         )
         row.popover(
             panel="AUTORELOAD_MT_file_popover",

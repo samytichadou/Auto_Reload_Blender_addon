@@ -23,8 +23,8 @@ Created by Samy Tichadou
 ##################################
 
 from . import   (
-    properties,
     addon_prefs,
+    properties,
     gui,
     reload,
 )
