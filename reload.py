@@ -19,10 +19,29 @@ object_types = [
 
 def check_reload_file_size(object, filepath):
     
-    if not os.path.isfile(filepath):
+    newsize = 0
+    
+    # UDIM
+    if "<UDIM>" in filepath:
+        tile_list = []
+
+        for tile in object.tiles:
+            tile_list.append(
+                filepath.replace(
+                    "<UDIM>",
+                    str(tile.number),
+                )
+            )
+
+        new_size = get_file_list_size(tile_list)
+        
+    # Invalid filepath
+    elif not os.path.isfile(filepath):
         return None
     
-    new_size = os.path.getsize(filepath)
+    # Normal
+    else:
+        new_size = os.path.getsize(filepath)
     
     if new_size != object.file_size:
 
@@ -38,6 +57,17 @@ def check_reload_file_size(object, filepath):
     return False
 
 
+def get_file_list_size(file_list):
+    
+    size = 0
+    
+    for filepath in file_list:
+        if os.path.isfile:
+            size += os.path.getsize(filepath)
+            
+    return size
+        
+
 def get_files_size(obj_type):
     
     obj_to_reload = []
@@ -48,10 +78,12 @@ def get_files_size(obj_type):
         if obj.filepath in ["<builtin>", ""]:
             continue
         
+        path = bpy.path.abspath(obj.filepath)
+
         # Reload file size
         if check_reload_file_size(
             obj,
-            bpy.path.abspath(obj.filepath),
+            path,
         ):
             obj_to_reload.append(obj)
             
