@@ -13,13 +13,13 @@ ___
 
 ### - ***Popover***
 
-![Popover](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/blender_4_2_x_extension/resources/graphics/autoreload_img01_popover.jpg)
+![Popover](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/resources/graphics/autoreload_img01_popover.jpg)
 
 Handy accessible menu located in the right part of the topbar to quickly activate/deactivate *Timer* through the *stopwatch button*, and select what to reload from the popover.
 
 ### - ***Preferences***
 
-![Addon Preferences](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/blender_4_2_x_extension/resources/graphics/autoreload_img02_prefs.jpg)
+![Addon Preferences](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/resources/graphics/autoreload_img02_prefs.jpg)
 
 - **Image Timer Frequency :** 
 set here the time interval for automatic Check/Reload for external files
