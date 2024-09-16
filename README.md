@@ -1,4 +1,4 @@
-# Auto Reload - Blender (2.9x) addon
+# Auto Reload - Blender addon
 
 [Auto Reload Releases](https://github.com/samytichadou/Auto_Reload_Blender_addon/releases)  
 
