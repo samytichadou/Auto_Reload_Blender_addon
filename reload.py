@@ -7,6 +7,7 @@ from .addon_prefs import get_addon_preferences
 
 # TODO Reload sounds waveform
 # TODO Cache files sequence ?
+# TODO Add reload for images in sequence strip
 
 object_types = [
     "images",
