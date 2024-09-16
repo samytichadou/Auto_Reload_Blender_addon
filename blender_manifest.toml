@@ -23,7 +23,7 @@ license = [
   "SPDX:GPL-3.0-or-later",
 ]
 
-[permissions]
+# [permissions]
 # files = "Reading and writing json preset files in a user-defined location"
 # network = "Need to sync motion-capture data to server"
 # files = "Import/export FBX from/to disk"
