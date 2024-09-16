@@ -1,95 +1,76 @@
 import bpy
-import os
 
-from .gui import draw_update_button
+# TODO Update timer function if timer_frequency modified
 
-addon_name = os.path.basename(os.path.dirname(__file__))
-
-
-# update function for external image editor prop
-def update_image_executable(self, context):
-    props = context.window_manager.autoreload_properties
-    if os.path.isfile(self.image_executable):
-        props.autoreload_is_editor_executable = True
-    else:
-        props.autoreload_is_editor_executable = False
-
-
-class AUTORELOAD_PT_addon_prefs(bpy.types.AddonPreferences):
-    bl_idname = addon_name
+class AUTORELOAD_PF_addon_prefs(bpy.types.AddonPreferences):
+    bl_idname = __package__
     
-    check_frequency : bpy.props.FloatProperty(
+    timer_frequency: bpy.props.FloatProperty(
         name = 'Image Timer Frequency (s)', 
         precision = 1, 
         min = 0.1, 
         max = 3600.0, 
-        default = 3.0, 
+        default = 5.0, 
         description = "Frequency for fetching for modified Images in seconds.",
         )
-
-    startup_launch : bpy.props.BoolProperty(
-        name = "Launch Image Reload Timer on Startup",
-        description = "Launch Image Timer on every Blender startup to fetch modified images.",
+    
+    startup_images : bpy.props.BoolProperty(
+        name='Autoreload Images',
+        default = True,
         )
-
-    timer_libraries : bpy.props.BoolProperty(
-        name = "Include Libraries Check in the Reload Timer",
-        description = "Also check for modified Libraries through the Reload Timer, then update them manually.",
-        default = True
+    startup_movieclips : bpy.props.BoolProperty(
+        name='Autoreload Movie Clips',
         )
-
-    update_check_launch : bpy.props.BoolProperty(
-        name = "Check for Updates on Startup",
-        description = "Check online for new version of the Addon on every Blender startup.",
-        default = True, 
+    startup_sounds : bpy.props.BoolProperty(
+        name='Autoreload Sounds',
         )
-
-    image_executable : bpy.props.StringProperty(
-        name = "Image Editor",
-        description = "Path to the Executable of the Image Editor used to modify images.",
-        subtype = "FILE_PATH",
-        update = update_image_executable,
+    startup_libraries : bpy.props.BoolProperty(
+        name='Autoreload Libraries',
         )
-
+    startup_cache_files : bpy.props.BoolProperty(
+        name='Autoreload Cache Files',
+        )
+    startup_run : bpy.props.BoolProperty(
+        name='Autoreload Run',
+        )
+    debug : bpy.props.BoolProperty(
+        name='Debug',
+        )
 
     def draw(self, context):
-        props = context.window_manager.autoreload_properties
-        
         layout = self.layout
-
-        layout.prop(self, "check_frequency")
         
-        row = layout.row(align=True)
-        if not props.autoreload_is_editor_executable:
-            row.label(text="", icon="ERROR")
-        row.prop(self, "image_executable")
-
-        # startup
+        row = layout.row()
+        sub = row.row()
+        sub.alignment = "LEFT"
+        sub.prop(self, "timer_frequency")
+        sub = row.row()
+        sub.alignment = "RIGHT"
+        sub.prop(self, "debug")
+        
         col = layout.column(align=True)
-        col.prop(self, "startup_launch")
-        col.prop(self, "timer_libraries")
-        col.prop(self, "update_check_launch")
-
-        # updates
+        
+        col.label(text="On startup :")
+        
+        col.prop(self, "startup_run")
         col.separator()
-        col.operator("autoreload.check_addon_updates")
-        draw_update_button(context, col)
-
-        # donate
-        op=layout.operator("wm.url_open", text="Donate", icon="FUND")
-        op.url="https://ko-fi.com/tonton_blender"
+        col.prop(self, "startup_images")
+        col.prop(self, "startup_movieclips")
+        col.prop(self, "startup_sounds")
+        col.prop(self, "startup_libraries")
+        col.prop(self, "startup_cache_files")
+        
 
         
 # get addon preferences
 def get_addon_preferences():
-    addon = bpy.context.preferences.addons.get(addon_name)
+    addon = bpy.context.preferences.addons.get(__package__)
     return getattr(addon, "preferences", None)
 
 
 ### REGISTER ---
-
 def register():
-    bpy.utils.register_class(AUTORELOAD_PT_addon_prefs)
+    bpy.utils.register_class(AUTORELOAD_PF_addon_prefs)
 
 def unregister():
-    bpy.utils.unregister_class(AUTORELOAD_PT_addon_prefs)
+    bpy.utils.unregister_class(AUTORELOAD_PF_addon_prefs)

@@ -18,55 +18,31 @@ Created by Samy Tichadou
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-bl_info = {
-    "name": "Auto Reload",
-    "description": "Handy reload for Image Textures and Linked Libraries",
-    "author": "Samy Tichadou (tonton), RenFinkle",
-    "version": (2, 0, 3),
-    "blender": (2, 93, 3),
-    "location": "Top Bar and Scene Properties",
-    "wiki_url": "https://github.com/samytichadou/Auto_Reload_Blender_addon/blob/master/README.md",
-    "tracker_url": "https://github.com/samytichadou/Auto_Reload_Blender_addon/issues/new",
-    "category": "Object" }
 
-import bpy
-
-# IMPORT SPECIFICS
+# IMPORT
 ##################################
 
-from . import   (properties,
-                gui,
-                addon_prefs,
-                reload_operators,
-                startup_handler,
-                dialog_popup_operator,
-                update_module,
-                file_operators,
-                ui_lists,
-                )
+from . import   (
+    addon_prefs,
+    properties,
+    gui,
+    reload,
+    reload_operator,
+)
 
 
 # register
 ##################################
-
 def register():
+    addon_prefs.register()
     properties.register()
     gui.register()
-    addon_prefs.register()
-    reload_operators.register()
-    startup_handler.register()
-    dialog_popup_operator.register()
-    update_module.register()
-    file_operators.register()
-    ui_lists.register()
+    reload.register()
+    reload_operator.register()
 
 def unregister():
+    addon_prefs.unregister()
     properties.unregister()
     gui.unregister()
-    addon_prefs.unregister()
-    reload_operators.unregister()
-    startup_handler.unregister()
-    dialog_popup_operator.unregister()
-    update_module.unregister()
-    file_operators.unregister()
-    ui_lists.unregister()
+    reload.unregister()
+    reload_operator.unregister()
