@@ -10,6 +10,7 @@ file_pattern_exclude = [
     ".gitignore",
     ".ffs_db",
     ".build",
+    "addon_version.json",
 ]
 deploy_path = "/home/tonton/.config/blender/4.2/extensions/user_default/"
 
