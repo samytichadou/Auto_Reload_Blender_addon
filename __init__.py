@@ -27,6 +27,7 @@ from . import   (
     properties,
     gui,
     reload,
+    reload_operator,
 )
 
 
@@ -37,9 +38,11 @@ def register():
     properties.register()
     gui.register()
     reload.register()
+    reload_operator.register()
 
 def unregister():
     addon_prefs.unregister()
     properties.unregister()
     gui.unregister()
     reload.unregister()
+    reload_operator.unregister()

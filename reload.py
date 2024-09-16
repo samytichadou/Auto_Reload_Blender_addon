@@ -263,14 +263,14 @@ def reload_modified_objects():
         if getattr(props, f"autoreload_{obj_type}"):
             obj_to_reload[obj_type] = get_files_size(obj_type)
     
-    for obj_type in object_types:
-        function = f"reload_{obj_type}(obj_to_reload[obj_type])"
-        exec(function)
-
     # Reload objects
     if get_addon_preferences().debug:
         print("AUTORELOAD --- Objects to reload :")
         print(obj_to_reload)
+        
+    for obj_type in object_types:
+        function = f"reload_{obj_type}(obj_to_reload[obj_type])"
+        exec(function)
 
 
 def timer_reload_files():

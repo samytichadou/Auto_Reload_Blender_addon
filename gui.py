@@ -13,12 +13,41 @@ class AUTORELOAD_MT_file_popover(bpy.types.Panel):
 
         layout = self.layout
         
-        layout.prop(props, "autoreload_images", text="Images")
-        layout.prop(props, "autoreload_movieclips", text="Movie Clips")
-        layout.prop(props, "autoreload_sounds", text="Sounds")
-        layout.prop(props, "autoreload_libraries", text="Libraries")
-        layout.prop(props, "autoreload_cache_files", text="Cache Files")
-
+        col = layout.column(align = True)
+        
+        row = col.row()
+        row.prop(props, "autoreload_select_all", text="All")
+        op = row.operator("autoreload.reload", text="", icon="FILE_REFRESH", emboss=False)
+        op.behavior = "all"
+        
+        col.separator()
+        
+        row = col.row()
+        row.prop(props, "autoreload_images", text="Images")
+        op = row.operator("autoreload.reload", text="", icon="FILE_REFRESH", emboss=False)
+        op.behavior = "images"
+        
+        row = col.row()
+        row.prop(props, "autoreload_movieclips", text="Movie Clips")
+        op = row.operator("autoreload.reload", text="", icon="FILE_REFRESH", emboss=False)
+        op.behavior = "movieclips"
+        
+        row = col.row()
+        row.prop(props, "autoreload_sounds", text="Sounds")
+        op = row.operator("autoreload.reload", text="", icon="FILE_REFRESH", emboss=False)
+        op.behavior = "sounds"
+        
+        row = col.row()
+        row.prop(props, "autoreload_libraries", text="Libraries")
+        op = row.operator("autoreload.reload", text="", icon="FILE_REFRESH", emboss=False)
+        op.behavior = "libraries"
+        
+        row = col.row()
+        row.prop(props, "autoreload_cache_files", text="Cache Files")
+        op = row.operator("autoreload.reload", text="", icon="FILE_REFRESH", emboss=False)
+        op.behavior = "cache_files"
+        
+        
 # File menu drawer
 def file_menu_drawer(self, context):
     if context.region.alignment == 'RIGHT':
@@ -36,7 +65,6 @@ def file_menu_drawer(self, context):
             panel="AUTORELOAD_MT_file_popover",
             text="AR",
             )
-        # self.layout.menu('AUTORELOAD_MT_file_menu', text="AR")
 
 
 ### REGISTER ---

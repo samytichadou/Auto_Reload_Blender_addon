@@ -1,5 +1,12 @@
 import bpy
 
+from .reload import object_types
+
+
+def select_all_callback(self, context):
+    value = self.autoreload_select_all
+    for obj_type in object_types:
+        setattr(self, f"autoreload_{obj_type}", value)
 
 class AUTORELOAD_PR_properties(bpy.types.PropertyGroup) :
     
@@ -17,12 +24,17 @@ class AUTORELOAD_PR_properties(bpy.types.PropertyGroup) :
         name = 'Autoreload Libraries',
     )
     autoreload_cache_files : bpy.props.BoolProperty(
-        name='Autoreload Cache Files',
+        name = 'Autoreload Cache Files',
         )
     
     autoreload_run : bpy.props.BoolProperty(
         name = "Autoreload Run",
     )
+    
+    autoreload_select_all : bpy.props.BoolProperty(
+        name = 'Autoreload Select All',
+        update = select_all_callback,
+        )
 
 
 ### REGISTER ---

@@ -3,13 +3,13 @@ schema_version = "1.0.0"
 id = "auto_reload"
 version = "3.0.0"
 name = "Auto Reload"
-tagline = "Handy reload for external files"
+tagline = "Automatic reload for external files"
 maintainer = "tonton <samytichadou@gmail.com>"
 # Supported types: "add-on", "theme"
 type = "add-on"
 
 # Optional link to documentation, support, source files, etc
-website = "https://github.com/samytichadou/render_preset_blender"
+website = "https://github.com/samytichadou/Auto_Reload_Blender_addon"
 
 # Optional list defined by Blender and server, see:
 # https://docs.blender.org/manual/en/dev/advanced/extensions/tags.html
