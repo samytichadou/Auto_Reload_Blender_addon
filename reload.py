@@ -65,7 +65,7 @@ def get_image_size(image, filepath):
         new_size = get_file_list_size(tile_list)
     
     # Sequence
-    if image.source == "SEQUENCE":
+    elif image.source == "SEQUENCE":
         new_size = get_file_list_size(
             get_filesequence_from_file(filepath)
         )
@@ -159,10 +159,6 @@ def get_files_size(obj_type):
 @persistent
 def startup_refresh_file_size(scene):
     
-    print("AUTORELOAD --- Refreshing external files size")
-    for obj_type in object_types:
-        get_files_size(obj_type)
-        
     print("AUTORELOAD --- Setting autoreload categories")
     props = bpy.context.window_manager.autoreload_properties
     prefs = get_addon_preferences()
@@ -174,6 +170,9 @@ def startup_refresh_file_size(scene):
             getattr(prefs, f"startup_{obj_type}"),
         )
     props.autoreload_run = prefs.startup_run
+    
+    print("AUTORELOAD --- Reloading external files")
+    reload_modified_objects()
             
 
 def update_3d_viewers():
