@@ -2,7 +2,7 @@ import bpy
 
 
 # File menu
-class AUTORELOAD_MT_file_popover(bpy.types.Panel):
+class AUTORELOAD_PT_file_popover(bpy.types.Panel):
     bl_label = "Auto Reload"
     bl_space_type = 'TOPBAR'
     bl_region_type = 'HEADER'
@@ -69,9 +69,9 @@ def file_menu_drawer(self, context):
 
 ### REGISTER ---
 def register():
-    bpy.utils.register_class(AUTORELOAD_MT_file_popover)
+    bpy.utils.register_class(AUTORELOAD_PT_file_popover)
     bpy.types.TOPBAR_HT_upper_bar.prepend(file_menu_drawer)
 
 def unregister():
-    bpy.utils.unregister_class(AUTORELOAD_MT_file_popover)
+    bpy.utils.unregister_class(AUTORELOAD_PT_file_popover)
     bpy.types.TOPBAR_HT_upper_bar.remove(file_menu_drawer)
