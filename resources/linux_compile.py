@@ -99,8 +99,14 @@ print(file_list)
 if "r" in behavior and not dry:
     zipf = zipfile.ZipFile(release_path, "w")
 
-for filepath in file_list:
+# Clean old deploy
+if "d" in behavior and not dry:
+    addon_deploy_path = os.path.join(deploy_path, addon_id)
+    shutil.rmtree(addon_deploy_path)
 
+# Zip and deploy
+for filepath in file_list:
+    
     # Write to zip
     if "r" in behavior and not dry:
         zipf.write(
@@ -111,7 +117,6 @@ for filepath in file_list:
     # Deploy
     if "d" in behavior and not dry:
         addon_deploy_path = os.path.join(deploy_path, addon_id)
-        
         if not os.path.isdir(addon_deploy_path):
             os.makedirs(addon_deploy_path, exist_ok=True)
             print(f"Folder created : {addon_deploy_path}")
