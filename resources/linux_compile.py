@@ -105,18 +105,23 @@ for filepath in file_list:
     if "r" in behavior and not dry:
         zipf.write(
             filepath,
-            os.path.basename(filepath), # Remove dir structure in zip
+            filepath.replace(rootpath, "") # Remove dir structure in zip
             )
 
     # Deploy
     if "d" in behavior and not dry:
         addon_deploy_path = os.path.join(deploy_path, addon_id)
+        
         if not os.path.isdir(addon_deploy_path):
             os.makedirs(addon_deploy_path, exist_ok=True)
             print(f"Folder created : {addon_deploy_path}")
+        
+        dest = filepath.replace(rootpath, addon_deploy_path)
+
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
         shutil.copy(
             filepath,
-            addon_deploy_path,
+            dest,
         )
 
 # Recap

@@ -62,7 +62,7 @@ def file_menu_drawer(self, context):
             icon="TIME",
         )
         row.popover(
-            panel="AUTORELOAD_MT_file_popover",
+            panel="AUTORELOAD_PT_file_popover",
             text="AR",
             )
 
