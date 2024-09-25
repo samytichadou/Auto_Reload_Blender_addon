@@ -267,10 +267,12 @@ def reload_modified_objects():
     if get_addon_preferences().debug:
         print("AUTORELOAD --- Objects to reload :")
         print(obj_to_reload)
-        
-    for obj_type in object_types:
-        function = f"reload_{obj_type}(obj_to_reload[obj_type])"
-        exec(function)
+    
+    reload_images(obj_to_reload[images])
+    reload_movieclips(obj_to_reload[movieclips])
+    reload_sounds(obj_to_reload[sounds])
+    reload_libraries(obj_to_reload[libraries])
+    reload_cache_files(obj_to_reload[cache_files])
 
 
 def timer_reload_files():
