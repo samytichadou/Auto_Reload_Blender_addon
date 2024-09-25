@@ -6,12 +6,12 @@ class AUTORELOAD_PF_addon_prefs(bpy.types.AddonPreferences):
     bl_idname = __package__
     
     timer_frequency: bpy.props.FloatProperty(
-        name = 'Image Timer Frequency (s)', 
+        name = 'Check Timer Frequency (s)', 
         precision = 1, 
         min = 0.1, 
         max = 3600.0, 
         default = 5.0, 
-        description = "Frequency for fetching for modified Images in seconds.",
+        description = "Frequency for checking modified files in seconds.",
         )
     
     startup_images : bpy.props.BoolProperty(
