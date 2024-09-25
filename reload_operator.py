@@ -26,15 +26,15 @@ class AUTORELOAD_OT_reload(bpy.types.Operator):
                 print(obj_to_reload)
             
             if self.behavior == "images":
-                reload_images(obj_to_reload)
+                reload.reload_images(obj_to_reload)
             elif self.behavior == "movieclips":
-                reload_movieclips(obj_to_reload)
+                reload.reload_movieclips(obj_to_reload)
             elif self.behavior == "sounds":
-                reload_sounds(obj_to_reload)
+                reload.reload_sounds(obj_to_reload)
             elif self.behavior == "libraries":
-                reload_libraries(obj_to_reload)
+                reload.reload_libraries(obj_to_reload)
             elif self.behavior == "cache_files":
-                reload_cache_files(obj_to_reload)
+                reload.reload_cache_files(obj_to_reload)
                 
         self.report({'INFO'}, f"{self.behavior} modified datas reloaded")
         

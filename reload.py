@@ -268,11 +268,11 @@ def reload_modified_objects():
         print("AUTORELOAD --- Objects to reload :")
         print(obj_to_reload)
     
-    reload_images(obj_to_reload[images])
-    reload_movieclips(obj_to_reload[movieclips])
-    reload_sounds(obj_to_reload[sounds])
-    reload_libraries(obj_to_reload[libraries])
-    reload_cache_files(obj_to_reload[cache_files])
+    reload_images(obj_to_reload["images"])
+    reload_movieclips(obj_to_reload["movieclips"])
+    reload_sounds(obj_to_reload["sounds"])
+    reload_libraries(obj_to_reload["libraries"])
+    reload_cache_files(obj_to_reload["cache_files"])
 
 
 def timer_reload_files():
