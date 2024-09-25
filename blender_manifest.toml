@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 
 id = "auto_reload"
-version = "3.0.2"
+version = "3.0.3"
 name = "Auto Reload"
 tagline = "Automatic reload for external files"
 maintainer = "tonton <samytichadou@gmail.com>"
