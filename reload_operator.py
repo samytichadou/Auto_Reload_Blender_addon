@@ -36,7 +36,7 @@ class AUTORELOAD_OT_reload(bpy.types.Operator):
             elif self.behavior == "cache_files":
                 reload.reload_cache_files(obj_to_reload)
                 
-        self.report({'INFO'}, f"{self.behavior} modified datas reloaded")
+        self.report({'INFO'}, f"{self.behavior.capitalize()} modified datas reloaded")
         
         return {"FINISHED"}
 
