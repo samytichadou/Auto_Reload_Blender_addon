@@ -24,10 +24,18 @@ class AUTORELOAD_OT_reload(bpy.types.Operator):
             if get_addon_preferences().debug:
                 print("AUTORELOAD --- Objects to reload :")
                 print(obj_to_reload)
+            
+            if self.behavior == "images":
+                reload_images(obj_to_reload)
+            elif self.behavior == "movieclips":
+                reload_movieclips(obj_to_reload)
+            elif self.behavior == "sounds":
+                reload_sounds(obj_to_reload)
+            elif self.behavior == "libraries":
+                reload_libraries(obj_to_reload)
+            elif self.behavior == "cache_files":
+                reload_cache_files(obj_to_reload)
                 
-            function = f"reload.reload_{self.behavior}(obj_to_reload)"
-            exec(function)
-        
         self.report({'INFO'}, f"{self.behavior} modified datas reloaded")
         
         return {"FINISHED"}
