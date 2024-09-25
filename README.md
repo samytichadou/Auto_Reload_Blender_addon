@@ -4,6 +4,8 @@
 
 Auto Reload is a Blender addon design to automatically refresh external files when modified (*images, movie clips, libraries, sound and cache files*).  
 
+A timer will look every n seconds for modified external files, if there is some, they will be reloaded inside Blender  
+
 If you like this addon, you can help me [here](https://ko-fi.com/tonton_blender) through Donation, to buy me a coffee and allow me to continue to develop free tools.
 ___
 
@@ -21,7 +23,7 @@ Handy accessible menu located in the right part of the topbar to quickly activat
 
 ![Addon Preferences](https://raw.githubusercontent.com/samytichadou/Auto_Reload_Blender_addon/master/resources/graphics/autoreload_img02_prefs.jpg)
 
-- **Image Timer Frequency :** 
+- **Timer Frequency :** 
 set here the time interval for automatic Check/Reload for external files
 - **On Startup section :** Setup general behavior of the addon on Blender startup
 
