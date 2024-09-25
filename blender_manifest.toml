@@ -24,7 +24,7 @@ license = [
 ]
 
 [permissions]
-files = "Checking/Reloading external files size used in current blend file"
+files = "Checking/Reloading external files from current blend"
 # network = "Need to sync motion-capture data to server"
 # files = "Import/export FBX from/to disk"
 # clipboard = "Copy and paste bone transforms"
