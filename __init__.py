@@ -17,7 +17,12 @@ Created by Samy Tichadou
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-
+bl_info = {
+    "name": "Auto reload v3.0.3",
+    "blender": (4, 2, 0),
+    "category": "Object",
+    "location": "Topbar > AR"
+}
 
 # IMPORT
 ##################################
