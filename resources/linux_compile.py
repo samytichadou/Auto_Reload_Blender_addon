@@ -1,3 +1,15 @@
+### COMPILE SCRIPT ###
+    # Zip relevant files or deploy them into specified path
+
+    # Arguments :
+        # - r : Create release zip file
+        # - r : Deploy files in specified path
+        # - rd/dr : Create zip and deploy files
+
+        # - dry : (in second position) Dry run
+
+###
+
 addon_id = "auto_reload"
 dirs_exclude = [
     ".git",
@@ -12,7 +24,7 @@ file_pattern_exclude = [
     ".build",
     "addon_version.json",
 ]
-deploy_path = "/home/tonton/.config/blender/4.2/extensions/user_default/"
+deploy_path = "/home/tonton/.config/blender/4.3/extensions/blender_org/"
 
 import os, zipfile, shutil, sys
 
