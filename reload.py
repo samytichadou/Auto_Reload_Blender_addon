@@ -75,22 +75,22 @@ def get_image_moddate(image, filepath):
         
         # Invalid filepath
         if not os.path.isfile(filepath):
-            return new_moddate
+            return str(new_moddate)
         
         new_moddate = os.path.getmtime(filepath)
         
-    return new_moddate
+    return str(new_moddate)
         
         
 def get_file_moddate(object, filepath):
     
     # Invalid filepath
     if not os.path.isfile(filepath):
-        return 0
+        return str(0)
     
     # Valid filepath
     else:
-        return os.path.getmtime(filepath)
+        return str(os.path.getmtime(filepath))
     
     
 def reload_file_moddate(new_moddate, object):

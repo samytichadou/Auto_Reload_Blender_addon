@@ -45,15 +45,15 @@ def register():
         bpy.props.PointerProperty(type = AUTORELOAD_PR_properties, name="Auto Reload Properties")
     
     bpy.types.Image.file_modif_date = \
-        bpy.props.FloatProperty(name="File Modification Date")
+        bpy.props.StringProperty(name="File Modification Date")
     bpy.types.MovieClip.file_modif_date = \
-        bpy.props.FloatProperty(name="File Modification Date")
+        bpy.props.StringProperty(name="File Modification Date")
     bpy.types.Sound.file_modif_date = \
-        bpy.props.FloatProperty(name="File Modification Date")
+        bpy.props.StringProperty(name="File Modification Date")
     bpy.types.Library.file_modif_date = \
-        bpy.props.FloatProperty(name="File Modification Date")
+        bpy.props.StringProperty(name="File Modification Date")
     bpy.types.CacheFile.file_modif_date = \
-        bpy.props.FloatProperty(name="File Modification Date")
+        bpy.props.StringProperty(name="File Modification Date")
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_PR_properties)
