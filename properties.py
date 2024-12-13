@@ -44,23 +44,23 @@ def register():
     bpy.types.WindowManager.autoreload_properties = \
         bpy.props.PointerProperty(type = AUTORELOAD_PR_properties, name="Auto Reload Properties")
     
-    bpy.types.Image.file_size = \
-        bpy.props.IntProperty(name="File size")
-    bpy.types.MovieClip.file_size = \
-        bpy.props.IntProperty(name="File size")
-    bpy.types.Sound.file_size = \
-        bpy.props.IntProperty(name="File size")
-    bpy.types.Library.file_size = \
-        bpy.props.IntProperty(name="File size")
-    bpy.types.CacheFile.file_size = \
-        bpy.props.IntProperty(name="File size")
+    bpy.types.Image.file_modif_date = \
+        bpy.props.FloatProperty(name="File Modification Date")
+    bpy.types.MovieClip.file_modif_date = \
+        bpy.props.FloatProperty(name="File Modification Date")
+    bpy.types.Sound.file_modif_date = \
+        bpy.props.FloatProperty(name="File Modification Date")
+    bpy.types.Library.file_modif_date = \
+        bpy.props.FloatProperty(name="File Modification Date")
+    bpy.types.CacheFile.file_modif_date = \
+        bpy.props.FloatProperty(name="File Modification Date")
 
 def unregister():
     bpy.utils.unregister_class(AUTORELOAD_PR_properties)
     del bpy.types.WindowManager.autoreload_properties
     
-    del bpy.types.Image.file_size
-    del bpy.types.MovieClip.file_size
-    del bpy.types.Sound.file_size
-    del bpy.types.Library.file_size
-    del bpy.types.CacheFile.file_size
+    del bpy.types.Image.file_modif_date
+    del bpy.types.MovieClip.file_modif_date
+    del bpy.types.Sound.file_modif_date
+    del bpy.types.Library.file_modif_date
+    del bpy.types.CacheFile.file_modif_date

@@ -19,7 +19,7 @@ class AUTORELOAD_OT_reload(bpy.types.Operator):
             reload.reload_modified_objects()
             
         else:
-            obj_to_reload = reload.get_files_size(self.behavior)
+            obj_to_reload = reload.get_files_moddate(self.behavior)
             
             if get_addon_preferences().debug:
                 print("AUTORELOAD --- Objects to reload :")

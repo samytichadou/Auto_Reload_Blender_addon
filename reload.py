@@ -46,9 +46,9 @@ def get_filesequence_from_file(filepath):
     return seq_files
 
 
-def get_image_size(image, filepath):
+def get_image_moddate(image, filepath):
     
-    new_size = 0
+    new_moddate = 0
     
     # UDIM
     if image.source == "TILED":
@@ -62,11 +62,11 @@ def get_image_size(image, filepath):
                 )
             )
 
-        new_size = get_file_list_size(tile_list)
+        new_moddate = get_file_list_moddate(tile_list)
     
     # Sequence
     elif image.source == "SEQUENCE":
-        new_size = get_file_list_size(
+        new_moddate = get_file_list_moddate(
             get_filesequence_from_file(filepath)
         )
     
@@ -75,14 +75,14 @@ def get_image_size(image, filepath):
         
         # Invalid filepath
         if not os.path.isfile(filepath):
-            return new_size
+            return new_moddate
         
-        new_size = os.path.getsize(filepath)
+        new_moddate = os.path.getmtime(filepath)
         
-    return new_size
+    return new_moddate
         
         
-def get_file_size(object, filepath):
+def get_file_moddate(object, filepath):
     
     # Invalid filepath
     if not os.path.isfile(filepath):
@@ -90,25 +90,25 @@ def get_file_size(object, filepath):
     
     # Valid filepath
     else:
-        return os.path.getsize(filepath)
+        return os.path.getmtime(filepath)
     
     
-def reload_file_size(new_size, object):
+def reload_file_moddate(new_moddate, object):
     
-    # Save new file_size
-    if new_size != object.file_size:
+    # Save new file_modif_date
+    if new_moddate != object.file_modif_date:
 
         # Find if images previously been checked
         checked = True
-        if object.file_size == 0:
+        if object.file_modif_date == 0:
             checked = False
         
-        object.file_size = new_size
+        object.file_modif_date = new_moddate
         
         if get_addon_preferences().debug:
             print(
-                f"AUTORELOAD --- {object.name} size - "
-                f"Old:{object.file_size}, New:{new_size}"
+                f"AUTORELOAD --- {object.name} modification date - "
+                f"Old:{object.file_modif_date}, New:{new_moddate}"
             )
         
         return checked
@@ -116,18 +116,18 @@ def reload_file_size(new_size, object):
     return False
 
 
-def get_file_list_size(file_list):
+def get_file_list_moddate(file_list):
     
-    size = 0
+    moddate = 0
     
     for filepath in file_list:
         if os.path.isfile:
-            size += os.path.getsize(filepath)
+            moddate += os.path.getmtime(filepath)
             
-    return size
+    return moddate
         
 
-def get_files_size(obj_type):
+def get_files_moddate(obj_type):
     
     obj_to_reload = []
     
@@ -139,16 +139,16 @@ def get_files_size(obj_type):
         
         path = bpy.path.abspath(obj.filepath)
         
-        # Get new size
+        # Get new modification date
         if obj_type == "images":
-            new_size = get_image_size(obj, path)
+            new_moddate = get_image_moddate(obj, path)
             
         else:
-            new_size = get_file_size(obj, path)
+            new_moddate = get_file_moddate(obj, path)
         
-        # Reload file size
-        if reload_file_size(
-            new_size,
+        # Reload file modification date
+        if reload_file_moddate(
+            new_moddate,
             obj,
         ):
             obj_to_reload.append(obj)
@@ -157,7 +157,7 @@ def get_files_size(obj_type):
 
 
 @persistent
-def startup_refresh_file_size(scene):
+def startup_refresh_file_moddate(scene):
     
     print("AUTORELOAD --- Setting autoreload categories")
     props = bpy.context.window_manager.autoreload_properties
@@ -261,7 +261,7 @@ def reload_modified_objects():
         
         # Check if obj type autoreloaded from property
         if getattr(props, f"autoreload_{obj_type}"):
-            obj_to_reload[obj_type] = get_files_size(obj_type)
+            obj_to_reload[obj_type] = get_files_moddate(obj_type)
     
     # Reload objects
     if get_addon_preferences().debug:
@@ -295,11 +295,11 @@ def timer_reload_files():
     
 ### REGISTER ---
 def register():
-    bpy.app.handlers.load_post.append(startup_refresh_file_size)
+    bpy.app.handlers.load_post.append(startup_refresh_file_moddate)
     bpy.app.timers.register(timer_reload_files, persistent=True)
 
 def unregister():
-    bpy.app.handlers.load_post.remove(startup_refresh_file_size)
+    bpy.app.handlers.load_post.remove(startup_refresh_file_moddate)
     bpy.app.timers.unregister(timer_reload_files)
             
             
