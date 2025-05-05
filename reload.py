@@ -133,8 +133,12 @@ def get_files_moddate(obj_type):
     
     for obj in getattr(bpy.data, obj_type):
 
-        # Avoid builtin and generated images
-        if obj.filepath in ["<builtin>", ""] or (hasattr(obj, 'source') and obj.source == 'GENERATED'):
+        # Avoid builtin
+        if obj.filepath in ["<builtin>", ""]:
+            continue
+
+        # Handle generated unsaved object like baked ucupaint images
+        if (hasattr(obj, 'source') and obj.source == 'GENERATED') :
             continue
         
         path = bpy.path.abspath(obj.filepath)
