@@ -24,7 +24,8 @@ file_pattern_exclude = [
     ".build",
     "addon_version.json",
 ]
-deploy_path = "/home/tonton/.config/blender/4.3/extensions/blender_org/"
+# deploy_path = "/home/tonton/.config/blender/4.3/extensions/blender_org/"
+deploy_path = r"C:\Users\G513\AppData\Roaming\Blender Foundation\Blender\4.3\extensions\user_default"
 
 import os, zipfile, shutil, sys
 
